@@ -9,14 +9,14 @@
         private $connexion;
 
         public function __construct($nom_bdd,$serveur = "localhost",$Monlogin = "root",$Monpass = "101419"){//comme ca les 3 autres elements seront facultatives
-            $this->$nom_bdd=$nom_bdd;
-            $this->$serveur=$serveur;
-            $this->$Monlogin=$Monlogin;
-            $this->$Monpass=$Monpass;
+            $this->nom_bdd=$nom_bdd;
+            $this->serveur=$serveur;
+            $this->Monlogin=$Monlogin;
+            $this->Monpass=$Monpass;
         }
         
-        private function getPDO(){
-                $connexion = new PDO("mysql:host=localhost;dbname=Universite;charset=utf8", 'root', '101419'); //se connecte au serveur mysquel
+        public function getPDO(){
+                $connexion = new PDO("mysql:host={$this->serveur};dbname={$this->nom_bdd};charset=utf8", $this->Monlogin, $this->Monpass); //se connecte au serveur mysquel
                 $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //setAttribute — Configure l'attribut PDO $connexion
 
             return $connexion;
