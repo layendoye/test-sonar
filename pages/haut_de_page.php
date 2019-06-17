@@ -3,7 +3,7 @@ session_start();
 if(!isset($_GET['title'])) require("class/Autoloader.php"); else require("../class/Autoloader.php");
 \AN\Autoloader::register();
 
-$bdd=new \AN\Bdd('Universite');
+//$bdd=new \AN\Bdd('Universite');
 ?>
 <!DOCTYPE html>
 <html lang="en">

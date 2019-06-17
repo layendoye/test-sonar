@@ -10,12 +10,12 @@ class EtudiantService{
     public $id_Statut;
     public $les_etudiants;
     public function les_etudiants(){
-        require("../class/Autoloader.php");
-        Autoloader::register();
         $bdd=new Bdd('Universite');
         $codesql='SELECT * FROM Etudiants';
-        $this->$les_etudiants = $bdd->recuperation($codesql);
-        return $this->$les_etudiants;
+        $les_etudiants = $bdd->recuperation($codesql);
+        return $les_etudiants;
+        
     }
+
 
 }

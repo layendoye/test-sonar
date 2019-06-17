@@ -16,30 +16,25 @@
         }
         
         private function getPDO(){
-            if($this->$connexion==null){//pour ne pas se connecter a la base de donnee encore et encore
-                $serveur=$this->$serveur;
-                $nom_bdd=$this->$nom_bdd;
-                $connexion = new PDO("mysql:host=$serveur;dbname=$nom_bdd;charset=utf8", $this->$Monlogin, $this->$Monpass); //se connecte au serveur mysquel
+                $connexion = new PDO("mysql:host=localhost;dbname=Universite;charset=utf8", 'root', '101419'); //se connecte au serveur mysquel
                 $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //setAttribute — Configure l'attribut PDO $connexion
-                $this->$connexion=$connexion;
-            }
-            
-            return $this->$connexion;
+
+            return $connexion;
         }
         
         public function recuperation($le_codemysql){
-            $requete = $this->getPDO->prepare($le_codemysql); //Prépare la requête $codemysql à l'exécution
+            $requete = $this->getPDO()->prepare($le_codemysql); //Prépare la requête $codemysql à l'exécution
             $requete->execute();
-            $donnee=$requete->fetchAll();
+            $donnee=$requete->fetchAll(PDO::FETCH_OBJ);
             return $donnee;
         }
 
         public function securisation($donnees){
-                    $donnees = trim($donnees); //trim supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-                    $donnees = stripslashes($donnees); //Supprime les antislashs d'une chaîne
-                    $donnees = strip_tags($donnees); //neutralise le code html et php
-                    $donnees = addcslashes($donnees, '%_'); //pour gerer les injections sql qui visent notamment à surcharger notre serveur en alourdissant notre requête. Ce type d'injection utilise les caractères % et _.
-                    return $donnees;
+            $donnees = trim($donnees); //trim supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+            $donnees = stripslashes($donnees); //Supprime les antislashs d'une chaîne
+            $donnees = strip_tags($donnees); //neutralise le code html et php
+            $donnees = addcslashes($donnees, '%_'); //pour gerer les injections sql qui visent notamment à surcharger notre serveur en alourdissant notre requête. Ce type d'injection utilise les caractères % et _.
+            return $donnees;
         }
     }
     

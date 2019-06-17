@@ -3,10 +3,11 @@
     $_SESSION['page']='produits';
     try{
         $Abou=new \AN\EtudiantService();
-        $ab=$Abou->les_etudiants;
+        $ab=$Abou->les_etudiants();
         \AN\Presentation::afficher($ab);
+        var_dump($ab);
     }
-    catch(PDOException $e){
+    catch(\PDOException $e){
         echo "ECHEC : " . $e->getMessage();
     }
     
