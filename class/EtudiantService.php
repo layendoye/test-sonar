@@ -1,14 +1,9 @@
 <?php
 namespace AN;
 use \PDO;
-class EtudiantService extends Etudiants{
+class EtudiantService extends Boursiers{
     
-    
-    public function findAll(){
-        $codesql='SELECT * FROM Etudiants';
-        $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
-        return $donnees_des_etudiants;
-    }
+
     public function add($nom,$prenom, $naissance, $email, $telephone, $id_Statut='NBNL'){
         $donnee_etudiants=$this->findAll();
         $matricule=$donnee_etudiants[count($donnee_etudiants)-1]->Matricule;//recupere le dernier matricule
@@ -50,6 +45,14 @@ class EtudiantService extends Etudiants{
         $donnee_etudiants=$this->findAll();
         for($i=0;$i<count($donnee_etudiants);$i++){
             if($matricule==$donnee_etudiants[$i]->Matricule && $donnee_etudiants[$i]->id_Statut=='BL'|| $matricule==$donnee_etudiants[$i]->Matricule && $donnee_etudiants[$i]->id_Statut=='BNL'){
+                return $donnee_etudiants[$i];
+            }
+        }
+    }
+    public function findNonBousier($matricule){
+        $donnee_etudiants=$this->findAll();
+        for($i=0;$i<count($donnee_etudiants);$i++){
+            if($matricule==$donnee_etudiants[$i]->Matricule && $donnee_etudiants[$i]->id_Statut=='NBNL'){
                 return $donnee_etudiants[$i];
             }
         }

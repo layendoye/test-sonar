@@ -13,6 +13,15 @@
         //var_dump($Abou->find('ETD 3')->Nom);
         
         //var_dump($Abou->findBousier('ETD 1')->Nom);
+
+        //var_dump($Abou->findNonBousier('ETD 3'));
+
+        //var_dump($Abou->findAllBoursiers());
+
+        //var_dump($Abou->findAllLoges());
+
+        // var_dump($Abou->findAllBatiment());
+        var_dump($Abou->findAllLogement());
     }
     catch(\PDOException $e){
         echo "ECHEC : " . $e->getMessage();

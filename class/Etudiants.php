@@ -8,4 +8,9 @@ protected $connexion;
             $this->connexion=new Bdd($nom_bdd);
         }
     }
+    public function findAll(){
+        $codesql='SELECT * FROM Etudiants';
+        $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
+        return $donnees_des_etudiants;
+    }
 }
