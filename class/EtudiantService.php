@@ -90,6 +90,15 @@ class EtudiantService {
         $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
         return $donnees_des_etudiants;
     }
+    function findLoges($matricule){
+        $donnee_etudiants=$this->findAllLoges();
+        for($i=0;$i<count($donnee_etudiants);$i++){
+            if($matricule==$donnee_etudiants[$i]->Matricule){
+                return $donnee_etudiants[$i];
+            }
+        }
+        return null;
+    }
     public function findNonBousier($matricule){
         $donnee_etudiants=$this->findAll();
         for($i=0;$i<count($donnee_etudiants);$i++){
@@ -134,7 +143,14 @@ class EtudiantService {
         return $donnees_des_etudiants;
     }
     public function checkStatut($matricule){
-        $this->findBousier($matricule);
+        $boursier=false;
+        $loge=false;
+        if($this->findBousier($matricule)!=null)
+            $boursier=true;
+        if($this->findLoges($matricule)!=null)
+            $loge=true;        
+        
+        return array('Boursier'=>$boursier,'Loge'=>$loge);
     }
 
 }

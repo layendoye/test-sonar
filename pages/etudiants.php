@@ -33,6 +33,8 @@
         // echo'</form>';
 
         //var_dump($service->findCategorie_Bourse(1));
+
+        //var_dump($service->checkStatut('ETD 2'));
     }
     catch(\PDOException $e){
         echo "ECHEC : " . $e->getMessage();
