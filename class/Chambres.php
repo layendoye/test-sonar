@@ -1,6 +1,5 @@
 <?php
 namespace AN;
-use \PDO;
 class Chambres extends Batiment{
     public function findAllChambres(){
         $codesql='SELECT * FROM Chambres';

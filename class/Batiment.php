@@ -1,6 +1,5 @@
 <?php
 namespace AN;
-use \PDO;
 class Batiment extends Etudiants{
     public function findAllBatiment(){
         $codesql='SELECT * FROM Batiment';

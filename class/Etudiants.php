@@ -1,6 +1,5 @@
 <?php
 namespace AN;
-use \PDO;
 class Etudiants{
 protected $connexion;
     public function __construct($nom_bdd){

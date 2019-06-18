@@ -18,7 +18,6 @@
         public function getPDO(){
                 $connexion = new PDO("mysql:host={$this->serveur};dbname={$this->nom_bdd};charset=utf8", $this->Monlogin, $this->Monpass); //se connecte au serveur mysquel
                 $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //setAttribute — Configure l'attribut PDO $connexion
-
             return $connexion;
         }
         

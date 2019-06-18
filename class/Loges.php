@@ -1,6 +1,5 @@
 <?php
 namespace AN;
-use \PDO;
 class Loges extends Logement{
     public function findAllLoges(){
         $codesql='SELECT * FROM Loges';
