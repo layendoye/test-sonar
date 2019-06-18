@@ -50,6 +50,19 @@ class EtudiantService {
         $requete->bindParam(":id_Categ_Bourse", $categorie_Bourse);
         $requete->execute(); //excecute la requete qui a été preparé
     }
+    public function addLoge($matricule,$id_Logement){
+        $connexion=($this->connexion);
+        $matricule=$connexion->securisation($matricule);
+        $id_Logement=$connexion->securisation($id_Logement);
+       
+        $codemysql = "INSERT INTO `Loges` (Matricule,id_Logement)
+                           VALUES(:Matricule,:id_Logement)"; //le code mysql
+        
+        $requete = ($connexion->getPDO())->prepare($codemysql);//on recupere le PDO 
+        $requete->bindParam(":Matricule", $matricule);
+        $requete->bindParam(":id_Logement", $id_Logement);
+        $requete->execute(); //excecute la requete qui a été preparé
+    }
     public function findAll(){
         $codesql='SELECT * FROM Etudiants';
         $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
