@@ -2,27 +2,27 @@
     require("haut_de_page.php");
     $_SESSION['page']='produits';
     try{
-        $Abou=new \AN\EtudiantService('Universite');
-        //$ab=$Abou->findAll();
+        $service=new \AN\EtudiantService('Universite');
+        //var_dump($service->findAll());
         // \AN\Presentation::afficher($ab);
-        //var_dump($ab);
+        //var_dump($service->find_indice(0));
 
-        // $Abou->add('SS','uuu','2019-02-25','eeee@gmail.com','777');
-        // $Abou->addBoursier('ETD 4',1);
+        // $service->add('SS','uuu','2019-02-25','eeee@gmail.com','777');
+        // $service->addBoursier('ETD 4',1);
         //add($nom,$prenom, $naissance, $email, $telephone){
         
-        //var_dump($Abou->find('ETD 3')->Nom);
+        //var_dump($service->find('ETD 3')->Nom);
         
-        //var_dump($Abou->findBousier('ETD 1')->Nom);
+        //var_dump($service->findBousier('ETD 1')->Nom);
 
-        //var_dump($Abou->findNonBousier('ETD 3')->Naissance);
+        //var_dump($service->findNonBousier('ETD 3')->Naissance);
 
-        //var_dump($Abou->findAllBoursiers());
+        //var_dump($service->findAllBoursiers());
 
-        //var_dump($Abou->findAllLoges());
+        //var_dump($service->findAllLoges());
 
-        // var_dump($Abou->findAllBatiment());
-        //var_dump($Abou->findAllLogement());
+        // var_dump($service->findAllBatiment());
+        //var_dump($service->findAllLogement());
 
         // echo'<form action="" method="POST">';
         // $form=new \AN\Form($_POST);
@@ -32,7 +32,7 @@
         
         // echo'</form>';
 
-        var_dump($Abou->findCategorie_Bourse(1));
+        //var_dump($service->findCategorie_Bourse(1));
     }
     catch(\PDOException $e){
         echo "ECHEC : " . $e->getMessage();

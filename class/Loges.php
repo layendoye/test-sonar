@@ -1,9 +1,10 @@
 <?php
 namespace AN;
-class Loges extends Logement{
-    public function findAllLoges(){
-        $codesql='SELECT * FROM Loges';
-        $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
-        return $donnees_des_etudiants;
+class Loges extends Etudiants{
+    protected $id_Logement;
+
+    public function __construct($matricule='',$id_Logement=''){
+        parent::__construct($matricule);
+        $this->id_Logement=$id_Logement;
     }
 }
