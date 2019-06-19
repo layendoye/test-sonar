@@ -16,8 +16,8 @@ class EtudiantService {
         $matricule+=1;//on incremente
         $matricule='ETD '.$matricule;//on reaffecte le bon matricule
 
-        $codemysql = "INSERT INTO `Etudiants` (Matricule,Nom,Prenom,Naissance,Email,Telephone,id_Statut)
-                            VALUES(:Matricule,:Nom,:Prenom,:Naissance,:Email,:Telephone,:id_Statut)"; //le code mysql
+        $codemysql = "INSERT INTO `Etudiants` (Matricule,Nom,Prenom,Naissance,Email,Telephone)
+                            VALUES(:Matricule,:Nom,:Prenom,:Naissance,:Email,:Telephone)"; //le code mysql
         $connexion=($this->connexion);
         
         $nom=$connexion->securisation($nom);
@@ -34,7 +34,6 @@ class EtudiantService {
         $requete->bindParam(":Naissance", $naissance);
         $requete->bindParam(":Telephone", $telephone);
         $requete->bindParam(":Email", $email);
-        $requete->bindParam(":id_Statut", $id_Statut);
         $requete->execute(); //excecute la requete qui a été preparé
     }
     public function addBoursier($matricule,$categorie_Bourse){
