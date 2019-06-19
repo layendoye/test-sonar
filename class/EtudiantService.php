@@ -88,7 +88,6 @@ class EtudiantService {
         $requete->bindParam(":Adresse", $adress);
         $requete->execute(); //excecute la requete qui a été preparé
     }
-
     public function findAll($table){
         $codesql='SELECT * FROM '.$table;
         $donnees_des_etudiants = ($this->connexion)->recuperation($codesql);
@@ -110,7 +109,6 @@ class EtudiantService {
         }
         return null;
     }
-
     public function findCategorie_Bourse($id_Categ_Bourse){
         $les_categ_Bourse=$this->findAll('Categorie_Bourse');
         for($i=0;$i<count($les_categ_Bourse);$i++){
@@ -129,7 +127,6 @@ class EtudiantService {
         }
         return null;
     }
-
     public function checkStatut($matricule){
         $boursier=false;
         $loge=false;
