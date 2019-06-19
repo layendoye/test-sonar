@@ -10,10 +10,11 @@ class EtudiantService {
    
     public function add(Etudiants $etudiant){
         $donnee_etudiants=$this->findAll('Etudiants');
-        $matricule=$donnee_etudiants[count($donnee_etudiants)-1]->Matricule;//recupere le dernier matricule
-        $matricule=str_replace(' ETD','',$matricule);//on remplace le ETD par du vide
-        if(is_numeric ($matricule))
+        if(count($donnee_etudiants)>0){
+            $matricule=$donnee_etudiants[count($donnee_etudiants)-1]->Matricule;//recupere le dernier matricule
+            $matricule=str_replace(' ETD','',$matricule);//on remplace le ETD par du vide
             $matricule+=1;//on incremente
+        }
         else
             $matricule=1;//le 1er
         $matricule=$matricule.' ETD';//on reaffecte le bon matricule
@@ -22,11 +23,11 @@ class EtudiantService {
                             VALUES(:Matricule,:Nom,:Prenom,:Naissance,:Email,:Telephone)"; //le code mysql
         $connexion=($this->connexion);
         
-        $nom=$connexion->securisation($etudiant->getNom());
-        $prenom=$connexion->securisation($etudiant->getPrenom());
-        $naissance=$connexion->securisation($etudiant->getNaissance());
-        $telephone=$connexion->securisation($etudiant->getTelephone());
-        $email=$connexion->securisation($etudiant->getEmail());
+        $nom=Validation::securisation($etudiant->getNom());
+        $prenom=Validation::securisation($etudiant->getPrenom());
+        $naissance=Validation::securisation($etudiant->getNaissance());
+        $telephone=Validation::securisation($etudiant->getTelephone());
+        $email=Validation::securisation($etudiant->getEmail());
         
         $requete = ($connexion->getPDO())->prepare($codemysql);//on recupere le PDO 
         $requete->bindParam(":Matricule", $matricule);
@@ -50,8 +51,8 @@ class EtudiantService {
 
     private function addBoursier($matricule,$Libelle_categ_Bourse){
         $connexion=($this->connexion);
-        $matricule=$connexion->securisation($matricule);
-        $Libelle_categ_Bourse=$connexion->securisation($Libelle_categ_Bourse);
+        $matricule=Validation::securisation($matricule);
+        $Libelle_categ_Bourse=Validation::securisation($Libelle_categ_Bourse);
         $id_categorie=$this->findId_Categorie_Bourse($Libelle_categ_Bourse);//retourne l'id de la categorie
         $codemysql = "INSERT INTO `Boursiers` (Matricule,id_Categ_Bourse)
                            VALUES(:Matricule,:id_Categ_Bourse)"; //le code mysql
@@ -63,8 +64,8 @@ class EtudiantService {
     }
     private function addLoge($matricule,$id_Chambre){
         $connexion=($this->connexion);
-        $matricule=$connexion->securisation($matricule);
-        $id_Chambre=$connexion->securisation($id_Chambre);
+        $matricule=Validation::securisation($matricule);
+        $id_Chambre=Validation::securisation($id_Chambre);
        
         $codemysql = "INSERT INTO `Loges` (Matricule,id_Chambre)
                            VALUES(:Matricule,:id_Chambre)"; //le code mysql
@@ -76,8 +77,8 @@ class EtudiantService {
     }
     private function addNonLoge($matricule,$adress){
         $connexion=($this->connexion);
-        $matricule=$connexion->securisation($matricule);
-        $adress=$connexion->securisation($adress);
+        $matricule=Validation::securisation($matricule);
+        $adress=Validation::securisation($adress);
        
         $codemysql = "INSERT INTO `Non_Loges` (Matricule,Adresse)
                            VALUES(:Matricule,:Adresse)"; //le code mysql
