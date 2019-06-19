@@ -1,5 +1,4 @@
 <?php
-namespace AN;
 abstract class Etudiants{
     protected $matricule;
     protected $nom;
@@ -7,6 +6,7 @@ abstract class Etudiants{
     protected $naissance;
     protected $email;
     protected $telephone;
+
 
     public function __construct($matricule='',$nom='',$prenom='', $naissance='', $email='', $telephone=''){
         $this->matricule=$matricule;

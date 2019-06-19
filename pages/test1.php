@@ -10,8 +10,8 @@
 <body>
     <?php
         include("connexionBDD.php");
-        $form=new \AN\Form();//le \AN\ est le nom du namespace ou se trouve la classe
-        $Form_recup=new \AN\Form_recup($_POST);
+        $form=new Form();//le  est le nom du namespace ou se trouve la classe
+        $Form_recup=new Form_recup($_POST);
     ?>
     <form action="" method="POST">
     <?php
@@ -19,9 +19,9 @@
         $Form_recup->input('text','username','form-control');
         $form->input('password','password','form-control');
         $form->submit('valider','Envoyer','form-control');
-        print_r(\AN\Nombre::formatDz(5));//pout les methode static
-        \AN\Presentation::afficher($form);
-        \AN\Presentation::afficher($Form_recup);
+        print_r(Nombre::formatDz(5));//pout les methode static
+        Presentation::afficher($form);
+        Presentation::afficher($Form_recup);
     ?>
     </form>
 </body>

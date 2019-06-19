@@ -2,11 +2,18 @@
     require("haut_de_page.php");
     $_SESSION['page']='produits';
     try{
-        $service=new \AN\EtudiantService('Universite');
-        //var_dump($service->findAll());
-        // \AN\Presentation::afficher($ab);
-        //var_dump($service->find_indice(0));
+        $service=new EtudiantService();
+        
+        //$etudiant=new Boursiers('','Papy','Nd','2019-02-25','eeee@gmail.com','777','Demi-pension');
+        //$etudiant=new Loges('','Awa','Ciss','2019-02-25','ac@gmail.com','777','Demi-pension',1);
+        //$etudiant=new NonLoges('','tt','dd','2019-02-25','ac@gmail.com','777','pmmm');
+        //$service->add($etudiant);
 
+        //var_dump($service->findId_Categorie_Bourse('Bourse complète'));
+        //var_dump($service->findAll());
+        // Presentation::afficher($ab);
+        //var_dump($service->find_indice(0));
+        
         // $service->add('SS','uuu','2019-02-25','eeee@gmail.com','777');
         // $service->addBoursier('ETD 4',1);
         //add($nom,$prenom, $naissance, $email, $telephone){
@@ -25,7 +32,7 @@
         //var_dump($service->findAllLogement());
 
         // echo'<form action="" method="POST">';
-        // $form=new \AN\Form($_POST);
+        // $form=new Form($_POST);
         // $form->input('text','username','form-control',true);
         // $form->input('text','userna','form-control');
         // $form->submit('valider','Envoyer','form-control');

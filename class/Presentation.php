@@ -1,5 +1,5 @@
 <?php
-namespace AN;
+
 Class Presentation{
     public static function afficher($element){
         echo "<pre>";

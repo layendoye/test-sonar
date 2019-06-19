@@ -1,6 +1,5 @@
 <?php
-    namespace AN;
-    use \PDO; //car PDO n'est pas dans le namespace AN c est une classe de php
+    
     class Bdd{
         private $nom_bdd;
         private $serveur;

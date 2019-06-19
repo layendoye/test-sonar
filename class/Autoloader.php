@@ -1,5 +1,4 @@
 <?php
-namespace AN;
 Class Autoloader{
     static function register(){//pour ne pas avoir de probleme si on utilise à nouveau un autoloader
         spl_autoload_register(array(__CLASS__,'autoload'));//__CLASS__ renvoi le nom de la classe

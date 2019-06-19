@@ -1,5 +1,5 @@
 <?php
-namespace AN;
-class Categorie_Bourse{
 
+class Categorie_Bourse{
+    
 }

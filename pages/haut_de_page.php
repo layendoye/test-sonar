@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if(!isset($_GET['title'])) require("class/Autoloader.php"); else require("../class/Autoloader.php");
-\AN\Autoloader::register();
+Autoloader::register();
 
 //$bdd=new \AN\Bdd('Universite');
 ?>

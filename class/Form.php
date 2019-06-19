@@ -1,5 +1,5 @@
 <?php
-namespace AN;
+
 /**
  * Class Form
  * permet de générer un formulaire 

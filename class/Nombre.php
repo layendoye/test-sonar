@@ -1,5 +1,5 @@
 <?php
-namespace AN;
+
 Class Nombre{
     // private static $devise=" FR";
     // public static function formatDz($nombre){
