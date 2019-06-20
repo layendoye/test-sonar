@@ -3,10 +3,14 @@
     $_SESSION['page']='produits';
     try{
         $service=new EtudiantService();
-
-        //$etudiant=new Boursiers('','Papy','Nd','2019-02-25','eeee@gmail.com','777','Demi-pension');
+        $etudiant=new Boursiers('','QQQ','aaa','2019-02-25','eeee@gmail.com','777','Demi-pension');
+        EtudiantService::add($etudiant);
+        
+        //var_dump(EtudiantService::find('Etudiants'));
+        //var_dump(EtudiantService::findd('1 ETD','Etudiants'));
+        //var_dump(EtudiantService::checkStatut('2 ETD'));
         //$etudiant=new Loges('','Awa','Ciss','2019-02-25','ac@gmail.com','777','Demi-pension',1);
-        //$etudiant=new NonLoges('','tt','dd','2019-02-25','ac@gmail.com','777','pmmm');
+        //$etudiant=new Non_Boursiers('','tt','dd','2019-02-25','ac@gmail.com','777','pmmm');
         //$service->add($etudiant);
 
         // echo'<form action="" method="POST">';

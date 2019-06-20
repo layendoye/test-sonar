@@ -1,3 +1,13 @@
+body {
+    background-image: url('../img/fabian-mardi-119790-unsplash\ \(1\).jpg');
+    background-attachment: fixed;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
 .marg_section {
     margin-top: 45px;
 }
@@ -5,9 +15,33 @@
 .piedPage {
     margin-top: 100vh;
     text-align: center;
-    background-color: blue;
+    background-color: #141517;
 }
 
 .textPied {
     margin-bottom: 0px;
+    color: #ffffffb5 !important;
+}
+
+.MonForm {
+    margin-top: 14%;
+    border: solid 2px #d0c9d6;
+    background-color: #2125298f;
+}
+
+.espace {
+    margin-top: 2%;
+}
+
+.mb {
+    margin-bottom: 2%;
+}
+
+.pourLabel {
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.centrerDroite {
+    text-align: right;
 }

@@ -1,38 +1,30 @@
 <?php
     
     class Bdd{
-        private $nom_bdd;
-        private $serveur;
-        private $Monlogin;
-        private $Monpass;
-        private $connexion;
+        private static $nom_bdd;
+        private static $serveur;
+        private static $Monlogin;
+        private static $Monpass;
+        private static $connexion;
 
-        public function __construct($nom_bdd,$serveur = "localhost",$Monlogin = "root",$Monpass = "101419"){//comme ca les 3 autres elements seront facultatives
-            $this->nom_bdd=$nom_bdd;
-            $this->serveur=$serveur;
-            $this->Monlogin=$Monlogin;
-            $this->Monpass=$Monpass;
+        public static function connexion($nom_bdd,$serveur = "localhost",$Monlogin = "root",$Monpass = "101419"){//comme ca les 3 autres elements seront facultatives
+            self::$nom_bdd=$nom_bdd;
+            self::$serveur=$serveur;
+            self::$Monlogin=$Monlogin;
+            self::$Monpass=$Monpass;
         }
         
-        public function getPDO(){
-            $connexion = new PDO("mysql:host={$this->serveur};dbname={$this->nom_bdd};charset=utf8", $this->Monlogin, $this->Monpass); //se connecte au serveur mysquel
+        public static function getPDO(){
+            $connexion = new PDO("mysql:host=".self::$serveur.";dbname=".self::$nom_bdd.";charset=utf8", self::$Monlogin, self::$Monpass); //se connecte au serveur mysquel
             $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //setAttribute — Configure l'attribut PDO $connexion
             return $connexion;
         }
         
-        public function recuperation($le_codemysql){
-            $requete = $this->getPDO()->prepare($le_codemysql); //Prépare la requête $codemysql à l'exécution
+        public static function recuperation($le_codemysql){
+            $requete = self::getPDO()->prepare($le_codemysql); //Prépare la requête $codemysql à l'exécution
             $requete->execute();
             $donnee=$requete->fetchAll(PDO::FETCH_OBJ);
             return $donnee;
-        }
-
-        public function securisation($donnees){
-            $donnees = trim($donnees); //trim supprime les espaces (ou d'autres caractères) en début et fin de chaîne
-            $donnees = stripslashes($donnees); //Supprime les antislashs d'une chaîne
-            $donnees = strip_tags($donnees); //neutralise le code html et php
-            $donnees = addcslashes($donnees, '%_'); //pour gerer les injections sql qui visent notamment à surcharger notre serveur en alourdissant notre requête. Ce type d'injection utilise les caractères % et _.
-            return $donnees;
         }
     }
     

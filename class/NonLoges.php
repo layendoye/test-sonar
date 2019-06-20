@@ -1,5 +1,5 @@
 <?php
-class NonLoges extends Etudiants{
+class Non_Boursiers extends Etudiants{//Modifier par nonBoursiers
     protected $adresse;
 
     public function __construct($matricule='',$nom='',$prenom='', $naissance='', $email='', $telephone='', $adresse=''){

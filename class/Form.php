@@ -30,8 +30,8 @@ class Form{
      * @param string $html code html
      * @return string le code html encadré
      */
-    protected function surround($html){//pour les balises qui encadre nos input
-        return "<{$this->balise_encadrement}>{$html}</{$this->balise_encadrement}>";
+    public function label($for,$contenu,$class=''){//pour les balises qui encadre nos input
+        echo '<label for="'.$for.'"  class="'.$class.'">'.$contenu.'</label>';
     }
     /**
      * @param string $type type de l'input
@@ -39,11 +39,11 @@ class Form{
      * @param string $class class de l'input
      * @return string l'input du formulaire
      */
-    public function input($type,$name,$class,$recup=false){
+    public function input($type,$name='',$class='',$placeholder='',$value='',$recup=false){
         if($recup==false)
-        echo $this->surround('<input type="'.$type.'" class="'.$class.'" name="'.$name.'">');
+        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" value="'.$value.'">';
         else
-        echo $this->surround('<input type="'.$type.'" class="'.$class.'" name="'.$name.'" value="'.$this->getValue($name).'">');
+        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" value="'.$this->getValue($name).'">';
     }
     /**
      * @param string $name nom de l'input
@@ -51,7 +51,7 @@ class Form{
      * @param string $value le nom de l'input
      * @return string l'input du formulaire
      */
-    public function submit($name,$value,$class){
-        echo $this->surround('<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >');
+    public function submit($name,$value,$class=''){
+        echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
     }
 }

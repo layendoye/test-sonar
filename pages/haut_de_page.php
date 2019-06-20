@@ -2,8 +2,8 @@
 session_start();
 if(!isset($_GET['title'])) require("class/Autoloader.php"); else require("../class/Autoloader.php");
 Autoloader::register();
+Bdd::connexion('Universite');
 
-//$bdd=new \AN\Bdd('Universite');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,15 @@ Autoloader::register();
             border-bottom: 4px solid #ce2e7469;
         }
         .navbar-expand-lg{
-                padding:0px 16px 0px 16px;
+            padding:0px 16px 0px 16px;
         }
+        .navbar-light .navbar-nav .nav-link{
+            color:#ffffffb5 !important;
+        }
+        .navbar-light .navbar-nav .nav-link:hover{
+           background-color: #39614057;
+           border-bottom: 4px solid #39615ad1;
+        }
+        
 
     </style>
