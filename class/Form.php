@@ -39,11 +39,11 @@ class Form{
      * @param string $class class de l'input
      * @return string l'input du formulaire
      */
-    public function input($type,$name='',$class='',$placeholder='',$value='',$recup=false){
+    public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick=''){
         if($recup==false)
-        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" value="'.$value.'">';
+        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'">';
         else
-        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" value="'.$this->getValue($name).'">';
+        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" id="'.$id.'" value="'.$this->getValue($name).'">';
     }
     /**
      * @param string $name nom de l'input
@@ -54,4 +54,5 @@ class Form{
     public function submit($name,$value,$class=''){
         echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
     }
+    
 }

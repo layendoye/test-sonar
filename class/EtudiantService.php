@@ -80,8 +80,8 @@ class EtudiantService {
             self:: addNonLoge($matricule,$etudiant->getAdresse());
         }
     }
-    public static function find($table,$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher
-        $codesql="SELECT * FROM $table WHERE $colonne='$valeur'";
+    public static function find($table,$element='*',$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher
+        $codesql="SELECT $element FROM $table WHERE $colonne='$valeur'";
         $donnees_des_etudiants = Bdd::recuperation($codesql);
         return $donnees_des_etudiants;
     }

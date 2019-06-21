@@ -13,7 +13,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
-                       <?php $form->label('','Prénom','col-md-2 espace pourLabel')?> 
+                        <?php $form->label('','Prénom','col-md-2 espace pourLabel')?> 
                         <?php $form->input('text','prenom','form-control col-md-7 espace','Prénom');?>
                     </div>
                     <div class="row">
@@ -34,26 +34,27 @@
                     <div class="row">
                         <div class=""></div>
                        <?php $form->label('','Non Boursier','col-md-3 espace pourLabel centrerDroite')?> 
-                        <?php $form->input('radio','choix','form-control col-md-1 espace','','Non Boursier');?>
+                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio','','Non Boursier','nonBoursier','','afficherPourNonBoursier()');?>
                         <?php $form->label('','Boursier','col-md-2 espace pourLabel centrerDroite')?>
-                        <?php $form->input('radio','choix','form-control col-md-1 espace','','Boursier');?>
+                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio','','Boursier','Boursier','','afficherPourBoursier()');?>
                         <?php $form->label('','Loger','col-md-2 espace pourLabel centrerDroite')?>
-                        <?php $form->input('radio','choix','form-control col-md-1 espace','','Loger');?>
+                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio','','Loger','Loger','','afficherPourLoge()');?>
                     </div>
-                    <div class="row">
+                    <div class="row" id='typeBourse'>
                         <div class="col-md-1"></div>
-                       <!-- <?php //$form->label('','Bourse','col-md-2 espace pourLabel')?>  -->
-                        <!-- <?php //$form->input('number','type_bour','form-control col-md-7 espace','Liste déroulant pour type de bourse');?> -->
+                       <?php $form->label('','Bourse','col-md-2 espace pourLabel')?>
+                        <?php $tab_option=EtudiantService::find('Categorie_Bourse','Libelle');
+                        Affichage::selectCategBou($tab_option,'type_bour','form-control col-md-7 espace');?>
                     </div>
-                    <div class="row">
+                    <div class="row" id='Chambre'>
                         <div class="col-md-1"></div>
-                       <!-- <?php //$form->label('','Chambre','col-md-2 espace pourLabel')?>  -->
-                        <!-- <?php //$form->input('number','chambre','form-control col-md-7 espace','Liste déroulant pour chambre');?> -->
+                        <?php $form->label('','Chambre','col-md-2 espace pourLabel')?> 
+                       <?php Affichage::selectChambre('chambre','form-control col-md-7 espace');?> 
                     </div>
-                    <div class="row">
+                    <div class="row" id='adresse'>
                         <div class="col-md-1"></div>
-                       <!-- <?php //$form->label('','Adresse','col-md-2 espace pourLabel')?>  -->
-                        <!-- <?php //$form->input('number','adresse','form-control col-md-7 espace','Adresse');?> -->
+                       <?php $form->label('','Adresse','col-md-2 espace pourLabel')?> 
+                        <?php $form->input('number','adresse','form-control col-md-7 espace','Adresse');?>
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        

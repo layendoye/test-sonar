@@ -8,8 +8,6 @@ class Boursiers extends Etudiants{
         $this->Libelle_categ_Bourse=$Libelle_categ_Bourse;
     }
 
-
-
     /**
      * Get the value of Libelle_categ_Bourse
      */ 

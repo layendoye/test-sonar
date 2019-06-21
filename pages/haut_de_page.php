@@ -30,6 +30,8 @@ Bdd::connexion('Universite');
            background-color: #39614057;
            border-bottom: 4px solid #39615ad1;
         }
-        
+        .btRadio {
+            padding:20% 20% 20% 20% !important;
+        }
 
     </style>
