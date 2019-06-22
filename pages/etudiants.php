@@ -1,7 +1,8 @@
 <?php require("haut_de_page.php");?>    
 <body>
     <?php include('nav.php');?>
-    <section class="container-fluid">
+    <section class="container-fluid sect">
+        <!-- Début formulaire -->
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
@@ -44,7 +45,7 @@
                         <div class="col-md-1"></div>
                        <?php $form->label('','Bourse','col-md-2 espace pourLabel')?>
                         <?php $tab_option=EtudiantService::find('Categorie_Bourse','Libelle');
-                        Affichage::selectCategBou($tab_option,'type_bour','form-control col-md-7 espace');?>
+                        $form->select($tab_option,'type_bour','form-control col-md-7 espace');?>
                     </div>
                     <div class="row" id='Chambre'>
                         <div class="col-md-1"></div>
@@ -63,6 +64,11 @@
                 </form>
             </div>
         </div>
+        <!-- Fin formulaire -->
+
+        <!-- Debut tableau -->
+        
+        <!-- Fin tableau -->
     </section>
 </body>
 <?php require("footer.php");?>

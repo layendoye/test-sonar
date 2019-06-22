@@ -1,48 +1,22 @@
 <?php
 class EtudiantService {
     
-    ////////////////------morcelement de l'ajout-----//////////////////
-    private static function addBoursier($matricule,$Libelle_categ_Bourse){
+    private static function addTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
        
-        $matricule=Validation::securisation($matricule);
-        $Libelle_categ_Bourse=Validation::securisation($Libelle_categ_Bourse);
-        $id_categorie=self::findId_Categorie_Bourse($Libelle_categ_Bourse);//retourne l'id de la categorie
-        $codemysql = "INSERT INTO `Boursiers` (Matricule,id_Categ_Bourse)
-                           VALUES(:Matricule,:id_Categ_Bourse)"; //le code mysql
+        $valeur1=Validation::securisation($valeur1);
+        $valeur2=Validation::securisation($valeur2);
+        if($table=='Boursiers') //on recupere l'id
+            $valeur2=self::findId_Categorie_Bourse($valeur2);
+        
+        $codemysql = "INSERT INTO `$table` ($Nomcol_valeur1,$Nomcol_valeur2)
+                           VALUES(:$Nomcol_valeur1,:$Nomcol_valeur2)"; //le code mysql
         
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
-        $requete->bindParam(":Matricule", $matricule);
-        $requete->bindParam(":id_Categ_Bourse", $id_categorie);
+        $requete->bindParam(":$Nomcol_valeur1", $valeur1);
+        $requete->bindParam(":$Nomcol_valeur2", $valeur2);
         $requete->execute(); //excecute la requete qui a été preparé
     }
-    private static function addLoge($matricule,$id_Chambre){
-       
-        $matricule=Validation::securisation($matricule);
-        $id_Chambre=Validation::securisation($id_Chambre);
-       
-        $codemysql = "INSERT INTO `Loges` (Matricule,id_Chambre)
-                           VALUES(:Matricule,:id_Chambre)"; //le code mysql
-        
-        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
-        $requete->bindParam(":Matricule", $matricule);
-        $requete->bindParam(":id_Chambre", $id_Chambre);
-        $requete->execute(); //excecute la requete qui a été preparé
-    }
-    private static function addNonLoge($matricule,$adress){
-       
-        $matricule=Validation::securisation($matricule);
-        $adress=Validation::securisation($adress);
-       
-        $codemysql = "INSERT INTO `Non_Boursiers` (Matricule,Adresse)
-                           VALUES(:Matricule,:Adresse)"; //le code mysql
-        
-        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
-        $requete->bindParam(":Matricule", $matricule);
-        $requete->bindParam(":Adresse", $adress);
-        $requete->execute(); //excecute la requete qui a été preparé
-    }
-    ////////////////------Fin morcelement de l'ajout-----//////////////////
-
+  
     public static function add(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
         if(count($donnee_etudiants)>0){
@@ -70,14 +44,14 @@ class EtudiantService {
         $requete->bindParam(":Email", $email);
         $requete->execute(); //excecute la requete qui a été preparé
         if(get_class($etudiant)=='Boursiers'){
-            self::addBoursier($matricule,$etudiant->getLibelle_categ_Bourse());
+            self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
         }
         elseif(get_class($etudiant)=='Loges'){
-            self::addBoursier($matricule,$etudiant->getLibelle_categ_Bourse());
-            self::addLoge($matricule,$etudiant->getId_Chambre());
+            self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+            self::addTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
         }
         elseif(get_class($etudiant)=='Non_Boursiers'){
-            self:: addNonLoge($matricule,$etudiant->getAdresse());
+            self::addTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
     }
     public static function find($table,$element='*',$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher

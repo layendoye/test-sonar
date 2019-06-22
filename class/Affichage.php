@@ -1,5 +1,10 @@
 <?php
     class Affichage{
+        public static function deboger($element){
+            echo "<pre>";
+            print_r($element);
+            echo " </pres>";
+        }
         public static function selectChambre($name,$class){
             $tab_optgroup=EtudiantService::find('Batiment','Nom_bat');
             echo '<select name="'.$name.'" class="'.$class.'">';
@@ -18,12 +23,5 @@
             }
             echo'</select>';
         }
-        public function selectCategBou($tab_option,$name,$class){          
-            echo '<select name="'.$name.'" class="'.$class.'">';
-            for($a=0;$a<count($tab_option);$a++){
-                $value=$tab_option[$a]->Libelle;
-                echo'<option value="'.$value.'">'.$value.'</option>';
-            }
-            echo'</select>';
-        }
+        
     }

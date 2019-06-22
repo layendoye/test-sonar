@@ -55,5 +55,14 @@ class Form{
     public function submit($name,$value,$class=''){
         echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
     }
+    public function select($tab_option,$name,$class){     
+            echo '<select name="'.$name.'" class="'.$class.'">';
+            for($a=0;$a<count($tab_option);$a++){
+                foreach($tab_option[$a] as $value) {
+                    echo'<option value="'.$value.'">'.$value.'</option>';
+                }
+            }
+            echo'</select>';
+    }
     
 }

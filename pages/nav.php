@@ -9,7 +9,7 @@ echo '<nav class="navbar navbar-expand-lg navbar-light row fixed-top" style="bac
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item  ';if ($_GET['title'] == "accueil") {echo 'active';}echo '">
-        <a class="nav-link" href="">Accueil<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="accueil.php?title=Accueil">Accueil<span class="sr-only">(current)</span></a>
       </li>';
         echo'<li class="nav-item ';if ($_GET['title'] == "Etudiants") {echo 'active';}echo '">
           <a class="nav-link" href="etudiants.php?title=Etudiants">Gestion des étudiants</a>

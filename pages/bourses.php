@@ -1,7 +1,7 @@
 <?php require("haut_de_page.php");?>    
 <body>
     <?php include('nav.php');?>
-    <section class="container-fluid">
+    <section class="container-fluid sect">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">

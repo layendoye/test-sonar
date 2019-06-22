@@ -24,6 +24,7 @@
             $requete = self::getPDO()->prepare($le_codemysql); //Prépare la requête $codemysql à l'exécution
             $requete->execute();
             $donnee=$requete->fetchAll(PDO::FETCH_OBJ);
+            
             return $donnee;
         }
     }

@@ -12,8 +12,11 @@ body {
     margin-top: 45px;
 }
 
+.sect {
+    min-height: 97vh;
+}
+
 .piedPage {
-    margin-top: 100vh;
     text-align: center;
     background-color: #141517;
 }
