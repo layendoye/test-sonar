@@ -68,14 +68,30 @@
 
         <!-- Debut tableau -->
         <?php
-        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Modifier');
-        $class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center');
+        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Info','Supprimer');
+        $class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-1 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center','col-md-1 text-center');
         $etudiants=EtudiantService::find('Etudiants');
-        $tatut=Affichage::bouton_mod_etu($class,$etudiants);
-        
-        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row',$tatut);
+        $info=Affichage::bouton_inf_etu($class,$etudiants);
+        $up=Affichage::bouton_sup_etu($class,$etudiants);
+        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row',$info,$up);
         ?>
         <!-- Fin tableau -->
     </section>
 </body>
-<?php require("footer.php");?>
+<?php 
+    if(isset($_GET["matricule_sup"])){
+        $sonId=$_GET["matricule_sup"];
+        $sup='matricule_sup='.$sonId
+        ?>
+        <script>
+            if(confirm("Confirmer la suppression ?")){
+                document.location.href = "traitement.php?<?php echo "$sup"; ?>"
+            }
+            else{
+                document.location.href = "etudiants.php?title=Etudiants"
+            }
+        </script>
+        <?php
+    }
+    require("footer.php");
+?>

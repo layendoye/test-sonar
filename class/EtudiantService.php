@@ -101,8 +101,9 @@ class EtudiantService {
             
         }
         elseif(get_class($etudiant)=='Non_Boursiers'){
-            if(self::find('Boursiers','*','Matricule',$matricule)!=null) self::delete('Boursiers','Matricule',$matricule);//il etait avant un non boursier donc on le supprime de la table boursier
-            if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);//meme chose
+            if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);
+            if(self::find('Boursiers','*','Matricule',$matricule)!=null) self::delete('Boursiers','Matricule',$matricule);
+            
 
             self::updateTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }

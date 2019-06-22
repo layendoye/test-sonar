@@ -42,4 +42,20 @@
         <!-- Fin tableau -->
     </section>
 </body>
-<?php require("footer.php");?>
+<?php 
+    if(isset($_GET["id_Categ_Bourse_sup"])){
+        $sonId=$_GET["id_Categ_Bourse_sup"];
+        $sup='id_Categ_Bourse_sup='.$sonId
+        ?>
+        <script>
+            if(confirm("Confirmer la suppression ?")){
+                document.location.href = "traitement.php?<?php echo "$sup"; ?>"
+            }
+            else{
+                document.location.href = "etudiants.php?title=Etudiants"
+            }
+        </script>
+        <?php
+    }
+    require("footer.php");
+?>

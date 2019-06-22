@@ -61,4 +61,11 @@ Bdd::connexion('Universite');
             padding-top:1px;
             padding-bottom:1px;
         }
+        .btsupet{
+            width:100%;
+            padding:1px 0px 0px 1px;;
+        }
+        .boutonAll{
+            padding:0px;
+        }
     </style>
