@@ -67,7 +67,17 @@
         <!-- Fin formulaire -->
 
         <!-- Debut tableau -->
-        
+        <?php
+        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut');
+        $class=array('col-md-2 text-center gras','col-md-2 text-center gras','col-md-1 text-center gras','col-md-1 text-center gras','col-md-2 text-center gras','col-md-2 text-center gras','col-md-2 text-center gras');
+        $etudiants=EtudiantService::find('Etudiants');
+        // Affichage::deboger($etudiants);
+        // die();
+        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row');
+        ?>
+                <div class="col-md-12 text-center">
+                        <ul class="pagination pagination-sm pager" id="developer_page"></ul>
+                </div>
         <!-- Fin tableau -->
     </section>
 </body>

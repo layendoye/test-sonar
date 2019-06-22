@@ -33,5 +33,24 @@ Bdd::connexion('Universite');
         .btRadio {
             padding:20% 20% 20% 20% !important;
         }
-
+        .pager>.active>a{
+            border-radius: 50px;
+            background-color: #007bffb9;
+        }
+        .pager{
+            justify-content: center;
+        }
+        .page_link,.prev_link,.next_link{
+            border:1px solid #007bffb9;
+            border-radius: 50px;
+            font-size:30px;
+            background-color: #d0c9d6;
+            padding:2px 10px 3px 10px;
+            text-decoration: none ;
+            color: #212529;
+        }
+        .page_link:hover,.prev_link:hover,.next_link:hover{
+            text-decoration: none;
+            color: #212529;
+        }
     </style>

@@ -64,5 +64,27 @@ class Form{
             }
             echo'</select>';
     }
+    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr=""){
+        echo'<table class="'.$class_table.'">
+                <thead class="">';
+                    echo'<tr class="'.$class_tr.'">';
+                            for($i=0;$i<count($titres);$i++){
+                                echo '<td class="'.$class[$i].'">'.$titres[$i].'</td>';
+                            }
+                    echo'</tr>
+                </thead>
+                <tbody id="developers">';
+                        for($i=0;$i<count($donnees);$i++){
+                            $a=0;
+                            echo'<tr class="'.$class_tr.'">';
+                                foreach($donnees[$i] as $value){
+                                    echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                    $a++;
+                                }
+                            echo'</tr>';
+                        }
+                echo'</tbody>
+            </table>';
+    }
     
 }
