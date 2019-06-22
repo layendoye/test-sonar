@@ -39,9 +39,9 @@ class Form{
      * @param string $class class de l'input
      * @return string l'input du formulaire
      */
-    public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick='',$require=false){
+    public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick='',$require=false,$readOnly=false){
         if($recup==false){
-            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'"'; if($require==true){echo'required="'.$require.''; }echo'">';
+            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'"'; if($require==true){echo'required="'.$require.'" '; } if($readOnly==true){echo' readonly '; }echo'>';
         }else{
             echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" id="'.$id.'" value="'.$this->getValue($name).'"'; if($require==true){echo'require="'.$require.'"'; }echo'>';
         }
@@ -55,18 +55,21 @@ class Form{
     public function submit($name,$value,$class=''){
         echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
     }
-    public function select($tab_option,$name,$class){     
-            echo '<select name="'.$name.'" class="'.$class.'">';
+    public function select($tab_option,$name,$class,$select='',$disabled=false){     
+            echo '<select name="'.$name.'" class="'.$class.'"'; if($disabled==true){echo' disabled '; }echo'>';
             for($a=0;$a<count($tab_option);$a++){
                 foreach($tab_option[$a] as $value) {
-                    echo'<option value="'.$value.'">'.$value.'</option>';
+                    if($select!=$value)
+                        echo'<option value="'.$value.'">'.$value.'</option>';
+                    else
+                        echo'<option value="'.$value.'" selected>'.$value.'</option>';
                 }
             }
             echo'</select>';
     }
-    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr=""){
+    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$dern_colonne=[]){
         echo'<table class="'.$class_table.'">
-                <thead class="">';
+                <thead class="'.$class_thead.'">';
                     echo'<tr class="'.$class_tr.'">';
                             for($i=0;$i<count($titres);$i++){
                                 echo '<td class="'.$class[$i].'">'.$titres[$i].'</td>';
@@ -78,13 +81,21 @@ class Form{
                             $a=0;
                             echo'<tr class="'.$class_tr.'">';
                                 foreach($donnees[$i] as $value){
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
                                     echo'<td class="'.$class[$a].'">'.$value.'</td>';
                                     $a++;
                                 }
+                                echo $dern_colonne[$i];
                             echo'</tr>';
                         }
                 echo'</tbody>
             </table>';
+            if($i>7){
+            echo'<div class="col-md-12 text-center">
+                        <ul class="pagination pagination-sm pager" id="developer_page"></ul>
+            </div>';
+            }
     }
     
 }

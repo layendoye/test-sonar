@@ -16,7 +16,17 @@ class EtudiantService {
         $requete->bindParam(":$Nomcol_valeur2", $valeur2);
         $requete->execute(); //excecute la requete qui a été preparé
     }
-  
+    private static function updateTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
+        $valeur1=Validation::securisation($valeur1);
+        $valeur2=Validation::securisation($valeur2);
+        if($table=='Boursiers') //on recupere l'id
+            $valeur2=self::findId_Categorie_Bourse($valeur2);
+        
+        $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1'"; //le code mysql
+        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
+        $requete->execute(); //excecute la requete qui a été preparé
+    }
+
     public static function add(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
         if(count($donnee_etudiants)>0){
@@ -54,17 +64,39 @@ class EtudiantService {
             self::addTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
     }
+    public static function update(Etudiants $etudiant){
+        $donnee_etudiants=self::find('Etudiants');
+
+        
+        $matricule=Validation::securisation($etudiant->getMatricule());
+        $nom=Validation::securisation($etudiant->getNom());
+        $prenom=Validation::securisation($etudiant->getPrenom());
+        $naissance=Validation::securisation($etudiant->getNaissance());
+        $telephone=Validation::securisation($etudiant->getTelephone());
+        $email=Validation::securisation($etudiant->getEmail());
+        $codemysql = "UPDATE `Etudiants` SET Nom='$nom', Prenom='$prenom', Naissance='$naissance', Email='$email', Telephone='$telephone' WHERE Matricule='$matricule' "; //le code mysql
+        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
+        $requete->execute(); //excecute la requete qui a été preparé
+
+        if(get_class($etudiant)=='Boursiers'){
+            self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+        }
+        elseif(get_class($etudiant)=='Loges'){
+            self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+            self::updateTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
+        }
+        elseif(get_class($etudiant)=='Non_Boursiers'){
+            
+            self::updateTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
+        }
+    }
+    public static function delete($table,$element='*',$colonne='0',$valeur='0'){
+        
+    }
     public static function find($table,$element='*',$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher
         $codesql="SELECT $element FROM $table WHERE $colonne='$valeur'";
         $donnees_des_etudiants = Bdd::recuperation($codesql);
         return $donnees_des_etudiants;
-    }
-    public static function find_indice($i,$table){
-        $donnee_etudiants=self::find($table);
-        if($i>=0 && $i<count($donnee_etudiants)){
-            return $donnee_etudiants[$i];
-        }
-        return null;
     }
     public static function findId_Categorie_Bourse($Libelle){
         $les_categ_Bourse=self::find('Categorie_Bourse');
@@ -78,11 +110,68 @@ class EtudiantService {
     public static function checkStatut($matricule){
         $boursier=false;
         $loge=false;
-        if(self::find('Boursiers','Matricule',$matricule)!=null)
+        if(self::find('Boursiers','*','Matricule',$matricule)!=null)
             $boursier=true;
-        if(self::find('Loges','Matricule',$matricule)!=null)
+        if(self::find('Loges','*','Matricule',$matricule)!=null)
             $loge=true;        
-        
+
         return array('Boursier'=>$boursier,'Loge'=>$loge);
+    }
+    public static function info($matricule){
+        $donnees=array();
+        if($matricule!=null){
+            $etudiants=self::find('Etudiants','*','Matricule',$matricule);
+            if($etudiants!=null){
+                $donnees['Nom']=$etudiants[0]->Nom;
+                $donnees['Prenom']=$etudiants[0]->Prenom;
+                $donnees['Naissance']=$etudiants[0]->Naissance;
+                $donnees['Email']=$etudiants[0]->Email;
+                $donnees['Telephone']=$etudiants[0]->Telephone;
+            }
+        //die(var_dump($etudiants));
+            $etudiants=self::find('Loges','*','Matricule',$matricule);
+            if($etudiants!=null){
+                $donnees['id_Loge']=$etudiants[0]->id_Loge;
+                $donnees['id_Chambre']=$etudiants[0]->id_Chambre;
+            }
+            
+            $etudiants=self::find('Boursiers','*','Matricule',$matricule);
+            if($etudiants!=null){
+                $donnees['id_Boursier']=$etudiants[0]->id_Boursier;
+                $donnees['id_Categ_Bourse']=$etudiants[0]->id_Categ_Bourse;
+            }
+
+            $etudiants=self::find('Non_Boursiers','*','Matricule',$matricule);
+            if($etudiants!=null){
+                $donnees['id_Non_Boursiers']=$etudiants[0]->id_Non_Boursiers;
+                $donnees['Adresse']=$etudiants[0]->Adresse;
+            }
+        }
+
+        if(isset($donnees['id_Chambre'])){
+            $etudiants=self::find('Chambres','*','id_Chambre',$donnees['id_Chambre']);
+            if($etudiants!=null){
+            $donnees['Numero_Ch']=$etudiants[0]->Numero_Ch;
+            $donnees['id_Batiment']=$etudiants[0]->id_Batiment;
+            }
+        }
+
+        if(isset($donnees['id_Batiment'])){
+            $etudiants=self::find('Batiment','Nom_bat','id_Batiment',$donnees['id_Batiment']);
+            if($etudiants!=null){
+                $donnees['Nom_bat']=$etudiants[0]->Nom_bat;
+            }
+        }
+
+            
+
+        if(isset($donnees['id_Categ_Bourse'])){
+        $etudiants=self::find('Categorie_Bourse','*','id_Categ_Bourse',$donnees['id_Categ_Bourse'])[0];
+            if($etudiants!=null){
+                $donnees['Libelle']=$etudiants->Libelle;
+                $donnees['Montant']=$etudiants->Montant;
+            }
+        }
+        return $donnees;
     }
 }

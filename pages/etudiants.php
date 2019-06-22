@@ -59,7 +59,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        
-                        <?php $form->submit('valider_ajout_etudiant','Envoyer','form-control col-md-5 espace mb');?>
+                        <?php $form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-5 espace mb');?>
                     </div>
                 </form>
             </div>
@@ -69,15 +69,18 @@
         <!-- Debut tableau -->
         <?php
         $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut');
-        $class=array('col-md-2 text-center gras','col-md-2 text-center gras','col-md-1 text-center gras','col-md-1 text-center gras','col-md-2 text-center gras','col-md-2 text-center gras','col-md-2 text-center gras');
+        $class=array('col-md-1 text-center',
+        'col-md-2 text-center',
+        'col-md-2 text-center',
+        'col-md-2 text-center',
+        'col-md-3 text-center',
+        'col-md-1 text-center',
+        'col-md-1 text-center');
         $etudiants=EtudiantService::find('Etudiants');
-        // Affichage::deboger($etudiants);
-        // die();
-        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row');
+        $tatut=Affichage::bouton_info($class,$etudiants);
+        
+        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row',$tatut);
         ?>
-                <div class="col-md-12 text-center">
-                        <ul class="pagination pagination-sm pager" id="developer_page"></ul>
-                </div>
         <!-- Fin tableau -->
     </section>
 </body>
