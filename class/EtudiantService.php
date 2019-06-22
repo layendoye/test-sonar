@@ -67,7 +67,6 @@ class EtudiantService {
     public static function update(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
 
-        
         $matricule=Validation::securisation($etudiant->getMatricule());
         $nom=Validation::securisation($etudiant->getNom());
         $prenom=Validation::securisation($etudiant->getPrenom());
@@ -79,19 +78,39 @@ class EtudiantService {
         $requete->execute(); //excecute la requete qui a été preparé
 
         if(get_class($etudiant)=='Boursiers'){
-            self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+            if(self::find('Non_Boursiers','*','Matricule',$matricule)!=null) self::delete('Non_Boursiers','Matricule',$matricule);//il etait avant un non boursier donc on le supprime de la table non boursier
+            if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);//meme chose
+
+            if(self::find('Boursiers','*','Matricule',$matricule)!=null) 
+                self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');//si exister on le modifie
+            else
+                self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');//sinon on le cree
         }
         elseif(get_class($etudiant)=='Loges'){
-            self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
-            self::updateTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
+            if(self::find('Non_Boursiers','*','Matricule',$matricule)!=null) self::delete('Non_Boursiers','Matricule',$matricule);
+
+            if(self::find('Boursiers','*','Matricule',$matricule)!=null) 
+                self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+            else
+                self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+
+            if(self::find('Loges','*','Matricule',$matricule)!=null) 
+                self::updateTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
+            else
+                self::addTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
+            
         }
         elseif(get_class($etudiant)=='Non_Boursiers'){
-            
+            if(self::find('Boursiers','*','Matricule',$matricule)!=null) self::delete('Boursiers','Matricule',$matricule);//il etait avant un non boursier donc on le supprime de la table boursier
+            if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);//meme chose
+
             self::updateTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
     }
-    public static function delete($table,$element='*',$colonne='0',$valeur='0'){
-        
+    public static function delete($table,$colonne='0',$valeur='0'){
+        $codesql="DELETE FROM $table WHERE $colonne='$valeur'";
+        $requete = (Bdd::getPDO())->prepare($codesql);
+        $requete->execute();
     }
     public static function find($table,$element='*',$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher
         $codesql="SELECT $element FROM $table WHERE $colonne='$valeur'";
@@ -120,6 +139,7 @@ class EtudiantService {
     public static function info($matricule){
         $donnees=array();
         if($matricule!=null){
+            $donnees['Statut']=self::checkStatut($matricule);
             $etudiants=self::find('Etudiants','*','Matricule',$matricule);
             if($etudiants!=null){
                 $donnees['Nom']=$etudiants[0]->Nom;

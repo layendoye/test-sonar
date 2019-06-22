@@ -27,7 +27,7 @@ Bdd::connexion('Universite');
                 $etudiant=new Non_Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
             }
             EtudiantService::update($etudiant);
-            header("location: etudiants.php?title=Etudiants");
+            header("location: modifier.php?title=Modification&matricule_info=".$_GET['matricule_modif']);
         }
     }
     catch(PDOException $e){

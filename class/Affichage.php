@@ -49,11 +49,27 @@
             }
             return $tab;
         }
-        public static function bouton_info($class,$donnees){
+        public static function bouton_mod_etu($class,$donnees){
             $tab=[];
             for($i=0;$i<count($donnees);$i++){
                 $matricule=$donnees[$i]->Matricule;
-                $tab[]='<td class="'.$class[count($class)-1].'"><a class="nonSoulign" href="modifier.php?title=Etudiants&matricule_info='.$matricule.'" ><button class="btn btn-outline-primary btinf">Info</button></a></td>';
+                $tab[]='<td class="'.$class[count($class)-1].'"><a class="nonSoulign" href="modifier.php?title=Modification&matricule_info='.$matricule.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
+            }
+            return $tab;
+        }
+        public static function bouton_mod_bourse($class,$donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
+                $tab[]='<td class="'.$class[count($class)-2].'"><a class="nonSoulign" href="bourse.php?title=Modification&id_Categ_Bourse='.$id_Categ_Bourse.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
+            }
+            return $tab;
+        }
+        public static function bouton_sup_bourse($class,$donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
+                $tab[]='<td class="'.$class[count($class)-1].'"><a class="nonSoulign" href="bourse.php?title=Modification&id_Categ_Bourse='.$id_Categ_Bourse.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
             }
             return $tab;
         }

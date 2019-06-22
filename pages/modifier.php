@@ -8,7 +8,7 @@ if(!isset($_GET['matricule_info'])) header("location: etudiants.php?title=Etudia
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
                 <?php $matricule=$_GET['matricule_info'];?>
-                <form <?php if(!isset($_GET['modif'])) echo 'action="modifier.php?title=Etudiants&matricule_info='.$matricule.'&modif=true"'; else{echo 'action="traitement.php?title=traitement&matricule_modif='.$matricule.'"';;}?> method="POST"> <?php $form=new Form($_POST);?>
+                <form <?php if(!isset($_GET['modif'])) echo 'action="modifier.php?title=Modification&matricule_info='.$matricule.'&modif=true"'; else{echo 'action="traitement.php?title=traitement&matricule_modif='.$matricule.'"';;}?> method="POST"> <?php $form=new Form($_POST);?>
                     <?php $info=false;
                     $etu=EtudiantService::info($_GET['matricule_info']);
                     if(!isset($_GET['modif'])) $info=true;
@@ -115,11 +115,12 @@ if(!isset($_GET['matricule_info'])) header("location: etudiants.php?title=Etudia
 
                     <!-- Début -->
                     <div class="row">
-                        <div class="col-md-4"></div>                        
-                        <?php $form->submit('valider_modif_etudiant','Modifier','form-control col-md-5 espace mb');?>
+                        <div class="col-md-4"></div>
+                        <?php if(isset($_GET['modif'])) $nom_sub='Enregistrer'; else $nom_sub='Modifier';?>                        
+                        <?php $form->submit('valider_modif_etudiant',$nom_sub,'form-control col-md-5 espace mb');?>
                     </div>
                 </form>
-                <?php var_dump(EtudiantService::info($_GET['matricule_info']));?>
+                <?php //var_dump(EtudiantService::info($_GET['matricule_info']));?>
             </div>
         </div>
         <!-- Fin formulaire --> 

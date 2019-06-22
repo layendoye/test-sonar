@@ -68,16 +68,10 @@
 
         <!-- Debut tableau -->
         <?php
-        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut');
-        $class=array('col-md-1 text-center',
-        'col-md-2 text-center',
-        'col-md-2 text-center',
-        'col-md-2 text-center',
-        'col-md-3 text-center',
-        'col-md-1 text-center',
-        'col-md-1 text-center');
+        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Modifier');
+        $class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center');
         $etudiants=EtudiantService::find('Etudiants');
-        $tatut=Affichage::bouton_info($class,$etudiants);
+        $tatut=Affichage::bouton_mod_etu($class,$etudiants);
         
         $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row',$tatut);
         ?>

@@ -67,7 +67,7 @@ class Form{
             }
             echo'</select>';
     }
-    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$dern_colonne=[]){
+    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$avantdern_colonne=[],$dern_colonne=[]){
         echo'<table class="'.$class_table.'">
                 <thead class="'.$class_thead.'">';
                     echo'<tr class="'.$class_tr.'">';
@@ -86,7 +86,8 @@ class Form{
                                     echo'<td class="'.$class[$a].'">'.$value.'</td>';
                                     $a++;
                                 }
-                                echo $dern_colonne[$i];
+                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
+                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
                             echo'</tr>';
                         }
                 echo'</tbody>
