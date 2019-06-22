@@ -1,29 +1,21 @@
 <?php
-    require("haut_de_page.php");
-    $_SESSION['page']='produits';
+require("../class/Autoloader.php");
+Autoloader::register();
+Bdd::connexion('Universite');
     try{
-        $service=new EtudiantService();
-        $etudiant=new Boursiers('','QQQ','aaa','2019-02-25','eeee@gmail.com','777','Demi-pension');
-        EtudiantService::add($etudiant);
-        
-        //var_dump(EtudiantService::find('Etudiants'));
-        //var_dump(EtudiantService::findd('1 ETD','Etudiants'));
-        //var_dump(EtudiantService::checkStatut('2 ETD'));
-        //$etudiant=new Loges('','Awa','Ciss','2019-02-25','ac@gmail.com','777','Demi-pension',1);
-        //$etudiant=new Non_Boursiers('','tt','dd','2019-02-25','ac@gmail.com','777','pmmm');
-        //$service->add($etudiant);
-
-        // echo'<form action="" method="POST">';
-        // $form=new Form($_POST);
-        // $form->input('text','username','form-control',true);
-        // $form->input('text','userna','form-control');
-        // $form->submit('valider','Envoyer','form-control');
-        
-        // echo'</form>';
-
-        //var_dump($service->findCategorie_Bourse(1));
-
-        //var_dump($service->checkStatut('ETD 2'));
+        if(isset($_POST['valider_ajout_etudiant'])){
+            if($_POST['type_bour']!='' && $_POST['chambre']=='' && $_POST['adresse']==''){//un simple boursier
+                $etudiant=new Boursier('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
+            }
+            elseif($_POST['type_bour']!='' && $_POST['chambre']!='' && $_POST['adresse']==''){//boursier et logé
+                $etudiant=new Loges('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
+            }
+            else{//non boursier{
+                $etudiant=new Non_Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
+            }
+            EtudiantService::add($etudiant);
+            header("location: etudiants.php?title=Etudiants");
+        }
     }
     catch(PDOException $e){
         echo "ECHEC : " . $e->getMessage();

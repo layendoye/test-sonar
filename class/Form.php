@@ -39,11 +39,12 @@ class Form{
      * @param string $class class de l'input
      * @return string l'input du formulaire
      */
-    public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick=''){
-        if($recup==false)
-        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'">';
-        else
-        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" id="'.$id.'" value="'.$this->getValue($name).'">';
+    public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick='',$require=false){
+        if($recup==false){
+            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'"'; if($require==true){echo'required="'.$require.''; }echo'">';
+        }else{
+            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" id="'.$id.'" value="'.$this->getValue($name).'"'; if($require==true){echo'require="'.$require.'"'; }echo'>';
+        }
     }
     /**
      * @param string $name nom de l'input

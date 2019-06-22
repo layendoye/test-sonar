@@ -5,16 +5,16 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
-                <form action="" method="POST"> <?php $form=new Form($_POST);?>
+                <form action="traitement.php?title=traitement" method="POST"> <?php $form=new Form($_POST);?>
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Nom','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('text','nom','form-control col-md-7 espace','Nom');?>
+                        <?php $form->input('text','nom','form-control col-md-7 espace','Nom','','',false,false);?>
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Prénom','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('text','prenom','form-control col-md-7 espace','Prénom');?>
+                        <?php $form->input('text','prenom','form-control col-md-7 espace','Prénom','','',false,false);?>
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -24,12 +24,12 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                        <?php $form->label('','Email','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('email','email','form-control col-md-7 espace','Email');?>
+                        <?php $form->input('email','email','form-control col-md-7 espace','Email','','',false,false);?>
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
                        <?php $form->label('','Téléphone','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('number','tel','form-control col-md-7 espace','Téléphone');?>
+                        <?php $form->input('number','tel','form-control col-md-7 espace','Téléphone','','',false,false);?>
                     </div>
                     <div class="row">
                         <div class=""></div>
@@ -54,13 +54,12 @@
                     <div class="row" id='adresse'>
                         <div class="col-md-1"></div>
                        <?php $form->label('','Adresse','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('number','adresse','form-control col-md-7 espace','Adresse');?>
+                        <?php $form->input('text','adresse','form-control col-md-7 espace','Adresse');?>
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        
-                        <?php $form->submit('valider','Envoyer','form-control col-md-5 espace mb');?>
+                        <?php $form->submit('valider_ajout_etudiant','Envoyer','form-control col-md-5 espace mb');?>
                     </div>
-                    
                 </form>
             </div>
         </div>

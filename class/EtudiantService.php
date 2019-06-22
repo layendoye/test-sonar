@@ -33,7 +33,7 @@ class EtudiantService {
         $matricule=Validation::securisation($matricule);
         $adress=Validation::securisation($adress);
        
-        $codemysql = "INSERT INTO `Non_Loges` (Matricule,Adresse)
+        $codemysql = "INSERT INTO `Non_Boursiers` (Matricule,Adresse)
                            VALUES(:Matricule,:Adresse)"; //le code mysql
         
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
