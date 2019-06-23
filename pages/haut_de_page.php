@@ -68,4 +68,8 @@ Bdd::connexion('Universite');
         .boutonAll{
             padding:0px;
         }
+        .navindex{
+            background-color: #141517f0 !important;
+            color: #ffffffb5 !important;
+        }
     </style>

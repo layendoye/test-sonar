@@ -122,26 +122,38 @@
                     <tbody id="developers">';
                             for($i=0;$i<count($donnees);$i++){
                                 $a=0;
-                                echo'<tr class="'.$class_tr.'">';
+                                $ligne='';
+                                if(isset($_POST["recherche"])){
                                     foreach($donnees[$i] as $key => $value){
-                                        if($key!='id_Chambre'){
-                                            if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                                $value=Affichage::dateFr($value);
-                                                if($key =='id_Batiment' && EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)!=null)
-                                                    echo'<td class="'.$class[$a].'">'.EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)[0]->Nom_bat.'</td>';
-                                                else
-                                                    echo'<td class="'.$class[$a].'">'.$value.'</td>';
-                                            $a++;
-                                        }
+                                        if(Validation::verifierDate($value, $format = 'Y-m-d')) 
+                                            $value=Affichage::dateFr($value);
+                                        if($key =='id_Batiment' && EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)!=null)
+                                            $value=EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)[0]->Nom_bat;    
+                                        $ligne.=' '.$value;
                                     }
-                                echo '<td class="'.$class[count($class)-3].'">'.self::nmbr_et_ch($donnees[$i]->id_Chambre).'</td>';
-                                if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                                if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
-                                echo'</tr>';
+                                } 
+                                if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
+                                    echo'<tr class="'.$class_tr.'">';
+                                        foreach($donnees[$i] as $key => $value){
+                                            if($key!='id_Chambre'){
+                                                if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                                    $value=Affichage::dateFr($value);
+                                                    if($key =='id_Batiment' && EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)!=null)
+                                                        echo'<td class="'.$class[$a].'">'.EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)[0]->Nom_bat.'</td>';
+                                                    else
+                                                        echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                                $a++;
+                                            }
+                                        }
+                                    echo '<td class="'.$class[count($class)-3].'">'.self::nmbr_et_ch($donnees[$i]->id_Chambre).'</td>';
+                                    if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
+                                    if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                                    echo'</tr>';
+                                }
                             }
                     echo'</tbody>
                 </table>';
-                if($i>7){
+                if($i>10){
                     echo'<div class="col-md-12 text-center">
                                 <ul class="pagination pagination-sm pager" id="developer_page"></ul>
                     </div>';
@@ -159,25 +171,29 @@
                 <tbody id="developers">';
                         for($i=0;$i<count($donnees);$i++){
                             $a=0;
-                            echo'<tr class="'.$class_tr.'">';
-                                foreach($donnees[$i] as $key => $value){
-                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
-                                            if($key!='id_Batiment')
-                                                echo'<td class="'.$class[$a].'">'.$value.'</td>';
-                                            else
-                                                echo'<td class="'.$class[$a].'">'.($i+1).'</td>';
-                                    $a++;
-                                }
-                            echo '<td class="'.$class[count($class)-3].'">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
-                            echo '<td class="'.$class[count($class)-4].'">'.self::nmbr_et_Bat($donnees[$i]->id_Batiment).'</td>';
-                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
-                            echo'</tr>';
+                            $ligne='';
+                            if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
+                            if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
+                                echo'<tr class="'.$class_tr.'">';
+                                    foreach($donnees[$i] as $key => $value){
+                                        if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                            $value=Affichage::dateFr($value);
+                                                if($key!='id_Batiment')
+                                                    echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                                else
+                                                    echo'<td class="'.$class[$a].'">'.($i+1).'</td>';
+                                        $a++;
+                                    }
+                                echo '<td class="'.$class[count($class)-3].'">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
+                                echo '<td class="'.$class[count($class)-4].'">'.self::nmbr_et_Bat($donnees[$i]->id_Batiment).'</td>';
+                                if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
+                                if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                                echo'</tr>';
+                            }
                         }
                 echo'</tbody>
             </table>';
-            if($i>7){
+            if($i>10){
                 echo'<div class="col-md-12 text-center">
                             <ul class="pagination pagination-sm pager" id="developer_page"></ul>
                 </div>';

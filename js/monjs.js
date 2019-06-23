@@ -4,7 +4,7 @@ $(document).ready(function() {
         pagerSelector: '#developer_page',
         showPrevNext: true,
         hidePageNumbers: false,
-        perPage: 7
+        perPage: 10
     });
 });
 ///////////////-----------Fin pagination-------------////

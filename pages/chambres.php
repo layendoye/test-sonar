@@ -36,8 +36,8 @@
         </div>
          <!-- Debut tableau -->
         <?php
-        $titres=array('Numero','Batiment','Nombres étudiants','Modification','Supprimer');
-        $class=array('col-md-1 text-center','col-md-3 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
+        $titres=array('Numero chambre','Batiment','Nombres étudiants','Modification','Supprimer');
+        $class=array('col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
         $chambres=EtudiantService::find('Chambres');
         $mod=Affichage::bouton_mod_chambres($class,$chambres);
         $sup=Affichage::bouton_sup_chambres($class,$chambres);

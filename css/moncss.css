@@ -48,6 +48,10 @@ body {
     background-color: #2125298f;
 }
 
+.FormIndex {
+    margin-top: 18% !important;
+}
+
 .espace {
     margin-top: 2%;
 }
@@ -113,4 +117,13 @@ thead>tr:hover {
 .blcMoins {
     background-color: rgba(0, 0, 0, 0.836) !important;
     color: white;
+}
+
+.rougMoins {
+    background-color: rgba(158, 11, 11, 0.836) !important;
+    color: white;
+}
+
+.red {
+    color: red !important;
 }
