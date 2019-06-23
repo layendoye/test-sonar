@@ -123,6 +123,52 @@ Bdd::connexion('Universite');
                 header("location: chambres.php?title=Chambres&dejaMigrer=true");
             }
         }
+        if(isset($_POST['valider_ajout_batiment'])){
+            $existe=false;
+            if(EtudiantService::find('Batiment','Nom_bat','Nom_bat',$_POST['batiment'])!=null) $existe=true;
+            if($existe==false){
+                $valeur=Validation::securisation($_POST['batiment']);
+                $requete = (Bdd::getPDO())->prepare( "INSERT INTO `Batiment` (Nom_bat) VALUES(:Nom_bat)");
+                $requete->bindParam(":Nom_bat", $valeur);
+                $requete->execute();
+                header("location: batiments.php?title=Batiments");
+            }
+            else{
+                $_SESSION['donnees_bat']=$_POST;
+                header("location: batiments.php?title=Batiments&existe=true");
+            }
+        }
+        if(isset($_GET['id_Batiment_sup'])){
+            $id_Ch=$_GET['id_Batiment_sup'];
+            $dejaMigrer=false;
+            if(EtudiantService::find('Chambres','id_Batiment','id_Batiment',$id_Ch)!=null) $dejaMigrer=true;
+            if($dejaMigrer==false){
+                EtudiantService::delete('Batiment','id_Batiment',$id_Ch);
+                header("location: batiments.php?title=Batiments");
+            }
+            else{
+                header("location: batiments.php?title=Batiments&dejaMigrer=true");
+            }
+        }
+        if(isset($_POST['valider_modif_batiment'])){
+            $existe=false;
+            $id_bat=Validation::securisation($_SESSION['id_Batiment_mod']);
+            if($Nom_bat=EtudiantService::find('Batiment','Nom_bat','Nom_bat',$_POST['batiment'])[0]->Nom_bat){
+                if(EtudiantService::find('Batiment','Nom_bat','id_Batiment',$id_bat)[0]->Nom_bat!=$Nom_bat)
+                $existe=true;
+            }
+            if($existe==false){
+                $valeur=Validation::securisation($_POST['batiment']);
+                $requete = (Bdd::getPDO())->prepare( "UPDATE `Batiment` SET Nom_bat='$valeur' WHERE id_Batiment='$id_bat'");
+                $requete->execute();
+                header("location: batiments.php?title=Batiments");
+            }
+            else{
+                $_SESSION['donnees_bat']=$_POST;
+                header("location: batiments.php?title=Batiments&existe=true");
+            }
+        }
+
     }
     catch(PDOException $e){
         echo "ECHEC : " . $e->getMessage();

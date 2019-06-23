@@ -163,7 +163,10 @@
                                 foreach($donnees[$i] as $key => $value){
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                         $value=Affichage::dateFr($value);
-                                            echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                            if($key!='id_Batiment')
+                                                echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                            else
+                                                echo'<td class="'.$class[$a].'">'.($i+1).'</td>';
                                     $a++;
                                 }
                             echo '<td class="'.$class[count($class)-3].'">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
