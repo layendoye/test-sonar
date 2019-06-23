@@ -9,17 +9,27 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Libellé','col-md-2 espace pourLabel')?> 
-                        <?php if(!isset($_GET['existe'])){ $form->input('text','Libelle','form-control col-md-7 espace','Libellé','','',false);?>
-                        <?php }elseif(!isset($_GET['existe'])){$form->input('text','Libelle','form-control col-md-7 espace blcMoins',$_SESSION['donnees']['Libelle'].' existe déja','','',false);} ?>
+                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Categ_Bourse_mod'])){ $form->input('text','Libelle','form-control col-md-7 espace','Libellé','','',false);?>
+                        <?php }elseif(isset($_GET['existe']) && !isset($_GET['id_Categ_Bourse_mod'])){$form->input('text','Libelle','form-control col-md-7 espace blcMoins',$_SESSION['donnees']['Libelle'].' existe déja','','',false);} 
+                            elseif(isset($_GET['id_Categ_Bourse_mod'])) $form->input('text','Libelle','form-control col-md-7 espace','Libellé',EtudiantService::find('Categorie_Bourse','Libelle','id_Categ_Bourse',$_GET['id_Categ_Bourse_mod'])[0]->Libelle,'',false);?>
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Montant','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('number','Montant','form-control col-md-7 espace','Montant','','',true);?>
+                        <?php if(!isset($_GET['id_Categ_Bourse_mod'])) $form->input('number','Montant','form-control col-md-7 espace','Montant','','',true);
+                        elseif(isset($_GET['id_Categ_Bourse_mod'])) {
+                            $montant=EtudiantService::find('Categorie_Bourse','Montant','id_Categ_Bourse',$_GET['id_Categ_Bourse_mod'])[0]->Montant;
+                            $form->input('number','Montant','form-control col-md-7 espace','Montant',$montant,'',false);}?>
+                    <?php //die(var_dump(EtudiantService::find('Categorie_Bourse','Montant','id_Categ_Bourse',$_GET['id_Categ_Bourse_mod'])[0]->Montant));?>
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        
-                        <?php $form->submit('valider_ajout_bourse','Enregistrer','form-control col-md-5 espace mb');?>
+                        <?php if(!isset($_GET['id_Categ_Bourse_mod'])) $form->submit('valider_ajout_bourse','Enregistrer','form-control col-md-5 espace mb');
+                            else {
+                                $form->submit('valider_mod_bourse','Modifier','form-control col-md-5 espace mb');
+                                $_SESSION['id_Categ_Bourse_mod']=$_GET['id_Categ_Bourse_mod'];
+                            }
+                                ?>
                     </div>
                     
                 </form>

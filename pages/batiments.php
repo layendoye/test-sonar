@@ -26,13 +26,13 @@
         </div>
          <!-- Debut tableau -->
         <?php
-        $titres=array('Numero','Nom','Chambres','Etudiants','Modification','Supprimer');
+        $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
         $class=array('col-md-1 text-center','col-md-3 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center');
-        $bourses=EtudiantService::find('Categorie_Bourse');
-        $mod=Affichage::bouton_mod_bourse($class,$bourses);
-        $sup=Affichage::bouton_sup_bourse($class,$bourses);
+        $batiment=EtudiantService::find('Batiment');
+        $mod=Affichage::bouton_mod_bat($class,$batiment);
+        $sup=Affichage::bouton_sup_bat($class,$batiment);
         //die(var_dump($sup));
-        $form->tableau($titres,$class,$bourses,'col-12 Mes_tableaux table-hover','','row',$mod,$sup);
+        Affichage::tableau_bat($titres,$class,$batiment,'col-12 Mes_tableaux table-hover','','row',$mod,$sup);
         ?>
         <!-- Fin tableau -->
     </section>
@@ -46,7 +46,7 @@
             if(confirm("Confirmer la suppression ?"))
                 document.location.href = "traitement.php?title=traitement&<?php echo "$sup"; ?>"
             else
-                document.location.href = "bourses.php?title=Bourses";
+                document.location.href = "batiment.php?title=batiment";
         </script>
         <?php } elseif(isset($_GET["dejaMigrer"])){?>
          <script>alert('Impossible de supprimer cette catégorie de bourse on l\'a déja octroyé à un ou plusieurs étudiants !')</script>

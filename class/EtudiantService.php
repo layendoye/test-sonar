@@ -16,13 +16,14 @@ class EtudiantService {
         $requete->bindParam(":$Nomcol_valeur2", $valeur2);
         $requete->execute(); //excecute la requete qui a été preparé
     }
-    public static function updateTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2,$colonne='0',$valeur='0'){
+    public static function updateTable($table,$valeur1='',$valeur2='',$Nomcol_valeur1='',$Nomcol_valeur2='',$colonne='0',$valeur='0'){
         $valeur1=Validation::securisation($valeur1);
         $valeur2=Validation::securisation($valeur2);
         if($table=='Boursiers') //on recupere l'id
             $valeur2=self::findId_Categorie_Bourse($valeur2);
         
-        $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1' WHERE UPPER($colonne) = UPPER('$valeur')"; //le code mysql
+        if($valeur1!='') $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1' WHERE UPPER($colonne) = UPPER('$valeur')"; //le code mysql
+        else $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2' WHERE UPPER($colonne) = UPPER('$valeur')";
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
         $requete->execute(); //excecute la requete qui a été preparé
     }
@@ -78,13 +79,12 @@ class EtudiantService {
         $codemysql = "UPDATE `Etudiants` SET Nom='$nom', Prenom='$prenom', Naissance='$naissance', Email='$email', Telephone='$telephone' WHERE Matricule='$matricule' "; //le code mysql
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
         $requete->execute(); //excecute la requete qui a été preparé
-
+        
         if(get_class($etudiant)=='Boursiers'){
             if(self::find('Non_Boursiers','*','Matricule',$matricule)!=null) self::delete('Non_Boursiers','Matricule',$matricule);//il etait avant un non boursier donc on le supprime de la table non boursier
             if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);//meme chose
-
-            if(self::find('Boursiers','*','Matricule',$matricule)!=null) 
-                self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');//si exister on le modifie
+            if(self::find('Boursiers','*','Matricule',$matricule)!=null) //dans updateTable le libelle sera transformer en id
+                self::updateTable('Boursiers','',$etudiant->getLibelle_categ_Bourse(),'','id_Categ_Bourse','Matricule',$matricule);//si exister on le modifie
             else
                 self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');//sinon on le cree
         }
@@ -92,12 +92,12 @@ class EtudiantService {
             if(self::find('Non_Boursiers','*','Matricule',$matricule)!=null) self::delete('Non_Boursiers','Matricule',$matricule);
 
             if(self::find('Boursiers','*','Matricule',$matricule)!=null) 
-                self::updateTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
+                 self::updateTable('Boursiers','',$etudiant->getLibelle_categ_Bourse(),'','id_Categ_Bourse','Matricule',$matricule);
             else
                 self::addTable('Boursiers',$matricule,$etudiant->getLibelle_categ_Bourse(),'Matricule','id_Categ_Bourse');
 
             if(self::find('Loges','*','Matricule',$matricule)!=null) 
-                self::updateTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
+                self::updateTable('Loges','',$etudiant->getId_Chambre(),'','id_Chambre','Matricule',$matricule);
             else
                 self::addTable('Loges',$matricule,$etudiant->getId_Chambre(),'Matricule','id_Chambre');
             
@@ -106,8 +106,10 @@ class EtudiantService {
             if(self::find('Loges','*','Matricule',$matricule)!=null) self::delete('Loges','Matricule',$matricule);
             if(self::find('Boursiers','*','Matricule',$matricule)!=null) self::delete('Boursiers','Matricule',$matricule);
             
-
-            self::updateTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
+            if(self::find('Non_Boursiers','*','Matricule',$matricule)!=null) 
+                self::updateTable('Non_Boursiers','',$etudiant->getAdresse(),'','Adresse','Matricule',$matricule);
+            else 
+                self::addTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
     }
     public static function delete($table,$colonne='0',$valeur='0'){

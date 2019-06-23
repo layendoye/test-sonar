@@ -47,9 +47,9 @@
     </section>
 </body>
 <?php 
-    if(isset($_GET["id_Categ_Bourse_sup"])){
-        $sonId=$_GET["id_Categ_Bourse_sup"];
-        $sup='id_Categ_Bourse_sup='.$sonId
+    if(isset($_GET["id_Chambre_sup"])){
+        $sonId=$_GET["id_Chambre_sup"];
+        $sup='id_Chambre_sup='.$sonId
         ?>
         <script>
             if(confirm("Confirmer la suppression ?"))
@@ -58,7 +58,7 @@
                 document.location.href = "chambres.php?title=chambres";
         </script>
         <?php } elseif(isset($_GET["dejaMigrer"])){?>
-         <script>alert('Impossible de supprimer cette catégorie de bourse on l\'a déja octroyé à un ou plusieurs étudiants !')</script>
+         <script>alert('Impossible de supprimer cette chambre car elle contient un ou plusieurs étudiants !')</script>
     <?php }
     require("footer.php");
 ?>

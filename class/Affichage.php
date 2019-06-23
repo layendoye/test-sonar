@@ -69,7 +69,7 @@
             $tab=[];
             for($i=0;$i<count($donnees);$i++){
                 $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
-                $tab[]='<td class="'.$class[count($class)-2].' boutonAll"><a class="nonSoulign" href="bourses.php?title=Bourses&id_Categ_Bourse='.$id_Categ_Bourse.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
+                $tab[]='<td class="'.$class[count($class)-2].' boutonAll"><a class="nonSoulign" href="bourses.php?title=Bourses&id_Categ_Bourse_mod='.$id_Categ_Bourse.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
             }
             return $tab;
         }
@@ -100,6 +100,15 @@
         public static function nmbr_et_ch($id_ch){
             $tab=EtudiantService::find('Loges','id_Chambre','id_Chambre',$id_ch);
             return count($tab);
+        }
+        public static function nmbr_et_Bat($id_bat){
+            $etu=0;
+            $ch=EtudiantService::find('Chambres','id_Chambre','id_Batiment',$id_bat);
+            for($i=0;$i<count($ch);$i++){
+                $id_ch=$ch[$i]->id_Chambre;
+                $etu+=self::nmbr_et_ch($id_ch);
+            }
+            return $etu;
         }
         public function tableau_chambre($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$avantdern_colonne=[],$dern_colonne=[]){
             echo'<table class="'.$class_table.'">
@@ -136,6 +145,55 @@
                     echo'<div class="col-md-12 text-center">
                                 <ul class="pagination pagination-sm pager" id="developer_page"></ul>
                     </div>';
+                }
+        }
+        public function tableau_bat($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$avantdern_colonne=[],$dern_colonne=[]){
+            echo'<table class="'.$class_table.'">
+                <thead class="'.$class_thead.'">';
+                    echo'<tr class="'.$class_tr.'">';
+                            for($i=0;$i<count($titres);$i++){
+                                echo '<td class="'.$class[$i].'">'.$titres[$i].'</td>';
+                            }
+                    echo'</tr>
+                </thead>
+                <tbody id="developers">';
+                        for($i=0;$i<count($donnees);$i++){
+                            $a=0;
+                            echo'<tr class="'.$class_tr.'">';
+                                foreach($donnees[$i] as $key => $value){
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                            echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                    $a++;
+                                }
+                            echo '<td class="'.$class[count($class)-3].'">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
+                            echo '<td class="'.$class[count($class)-4].'">'.self::nmbr_et_Bat($donnees[$i]->id_Batiment).'</td>';
+                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
+                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                            echo'</tr>';
+                        }
+                echo'</tbody>
+            </table>';
+            if($i>7){
+                echo'<div class="col-md-12 text-center">
+                            <ul class="pagination pagination-sm pager" id="developer_page"></ul>
+                </div>';
             }
+        }
+        public static function bouton_mod_bat($class,$donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $id_Batiment=$donnees[$i]->id_Batiment;
+                $tab[]='<td class="'.$class[count($class)-2].' boutonAll"><a class="nonSoulign" href="batiments.php?title=Batiments&id_Batiment_mod='.$id_Batiment.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
+            }
+            return $tab;
+        }
+        public static function bouton_sup_bat($class,$donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $id_Batiment=$donnees[$i]->id_Batiment;
+                $tab[]='<td class="'.$class[count($class)-1].' boutonAll"><a class="nonSoulign" href="batiments.php?title=Batiments&id_Batiment_sup='.$id_Batiment.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
+            }
+            return $tab;
         }
     }

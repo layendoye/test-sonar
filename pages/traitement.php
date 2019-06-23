@@ -63,6 +63,23 @@ Bdd::connexion('Universite');
                 header("location: bourses.php?title=Bourses&existe=true");
             }
         }
+        if(isset($_POST['valider_mod_bourse'])){
+             $existe=false;
+            if($lib=EtudiantService::find('Categorie_Bourse','Libelle','Libelle',$_POST['Libelle'])[0]->Libelle){
+                if(EtudiantService::find('Categorie_Bourse','Libelle','id_Categ_Bourse',$_SESSION['id_Categ_Bourse_mod'])[0]->Libelle!=$lib)
+                $existe=true;
+            }
+            if($existe==false){
+                $categorie=new Categorie_Bourse('',$_POST['Libelle'],$_POST['Montant']);
+                EtudiantService::updateTable('Categorie_Bourse',$_POST['Libelle'],$_POST['Montant'],'Libelle','Montant','id_Categ_Bourse',$_SESSION['id_Categ_Bourse_mod']);
+                header("location: bourses.php?title=Bourses");
+            }
+            else{
+                $_SESSION['donnees']=$_POST;
+                header("location: bourses.php?title=Bourses&existe=true");
+            }
+            
+        }
         if(isset($_POST['valider_ajout_ch'])){
             $existe=false;
             $id_bat='';
@@ -92,6 +109,18 @@ Bdd::connexion('Universite');
             else{
                 $_SESSION['donnees_ch']=$_POST;
                 header("location: chambres.php?title=Chambres&existe=true&mod=true");
+            }
+        }
+        if(isset($_GET['id_Chambre_sup'])){
+            $id_Ch=$_GET['id_Chambre_sup'];
+            $dejaMigrer=false;
+            if(EtudiantService::find('Loges','id_Chambre','id_Chambre',$id_Ch)!=null) $dejaMigrer=true;
+            if($dejaMigrer==false){
+                EtudiantService::delete('Chambres','id_Chambre',$id_Ch);
+                header("location: chambres.php?title=Chambres");
+            }
+            else{
+                header("location: chambres.php?title=Chambres&dejaMigrer=true");
             }
         }
     }
