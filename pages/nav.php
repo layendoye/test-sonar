@@ -17,11 +17,11 @@ echo '<nav class="navbar navbar-expand-lg navbar-light row fixed-top" style="bac
         <li class="nav-item ';if ($_GET['title'] == "Bourses") {echo 'active';}echo '">
           <a class="nav-link" href="bourses.php?title=Bourses">Gestion des bourses</a>
         </li>
-        <li class="nav-item ';if ($_GET['title'] == "Logements") {echo 'active';}echo '">
-          <a class="nav-link" href="logements.php?title=Logements">Gestions des logements</a>
+        <li class="nav-item ';if ($_GET['title'] == "Chambres") {echo 'active';}echo '">
+          <a class="nav-link" href="chambres.php?title=Chambres">Gestions des chambres</a>
         </li>
-        <li class="nav-item ';if ($_GET['title'] == "Parametres") {echo 'active';}echo '">
-          <a class="nav-link" href="parametres.php?title=Parametres">Paramètres</a>
+        <li class="nav-item ';if ($_GET['title'] == "Batiments") {echo 'active';}echo '">
+          <a class="nav-link" href="batiments.php?title=Batiments">Gestions des batiments</a>
         </li>';
       echo'<li class="nav-item">
         <a class="nav-link" href="deconnexion.php?title=">Déconnexion</a>

@@ -1,7 +1,7 @@
 <?php
 class EtudiantService {
     
-    private static function addTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
+    public static function addTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
        
         $valeur1=Validation::securisation($valeur1);
         $valeur2=Validation::securisation($valeur2);
@@ -16,13 +16,13 @@ class EtudiantService {
         $requete->bindParam(":$Nomcol_valeur2", $valeur2);
         $requete->execute(); //excecute la requete qui a été preparé
     }
-    private static function updateTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
+    public static function updateTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2,$colonne='0',$valeur='0'){
         $valeur1=Validation::securisation($valeur1);
         $valeur2=Validation::securisation($valeur2);
         if($table=='Boursiers') //on recupere l'id
             $valeur2=self::findId_Categorie_Bourse($valeur2);
         
-        $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1'"; //le code mysql
+        $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1' WHERE UPPER($colonne) = UPPER('$valeur')"; //le code mysql
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
         $requete->execute(); //excecute la requete qui a été preparé
     }

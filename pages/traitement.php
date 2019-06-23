@@ -40,8 +40,15 @@ Bdd::connexion('Universite');
         }
         if(isset($_GET['id_Categ_Bourse_sup'])){
             $id_Categ=$_GET['id_Categ_Bourse_sup'];
-            EtudiantService::delete('Categorie_Bourse','id_Categ_Bourse',$id_Categ);
-            header("location: bourses.php?title=Bourses");
+            $dejaMigrer=false;
+            if(EtudiantService::find('Boursiers','id_Categ_Bourse','id_Categ_Bourse',$id_Categ)!=null) $dejaMigrer=true;
+            if($dejaMigrer==false){
+                EtudiantService::delete('Categorie_Bourse','id_Categ_Bourse',$id_Categ);
+                header("location: bourses.php?title=Bourses");
+            }
+            else{
+                header("location: bourses.php?title=Bourses&dejaMigrer=true");
+            }
         }
         if(isset($_POST['valider_ajout_bourse'])){
             $existe=false;
@@ -54,6 +61,37 @@ Bdd::connexion('Universite');
             else{
                 $_SESSION['donnees']=$_POST;
                 header("location: bourses.php?title=Bourses&existe=true");
+            }
+        }
+        if(isset($_POST['valider_ajout_ch'])){
+            $existe=false;
+            $id_bat='';
+            $id_bat=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$_POST['Batiment'])[0]->id_Batiment;
+            if(EtudiantService::find('Chambres','id_Chambre','Numero_Ch',$_POST['chambre']."') AND UPPER(id_Batiment) = UPPER('$id_bat")!=null) $existe=true;//Modification de la fonction find (addaptation)
+            if($existe==false){
+                $id_bat=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$_POST['Batiment'])[0]->id_Batiment;
+                EtudiantService::addTable('Chambres',$_POST['chambre'],$id_bat,'Numero_Ch','id_Batiment');
+                header("location: chambres.php?title=Chambres");
+            }
+            else{
+                $_SESSION['donnees_ch']=$_POST;
+                header("location: chambres.php?title=Chambres&existe=true");
+            }
+        }
+        if(isset($_POST['valider_modif_ch'])){
+            $existe=false;
+            $id_bat='';
+            $id_bat=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$_POST['Batiment'])[0]->id_Batiment;
+            if(EtudiantService::find('Chambres','id_Chambre','Numero_Ch',$_POST['chambre']."') AND UPPER(id_Batiment) = UPPER('$id_bat")!=null) $existe=true;
+            
+            if($existe==false){
+                $id_bat=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$_POST['Batiment'])[0]->id_Batiment;
+                EtudiantService::updateTable('Chambres',$_POST['chambre'],$id_bat,'Numero_Ch','id_Batiment','id_Chambre',$_SESSION['id_Chambre']);
+                header("location: chambres.php?title=Chambres");
+            }
+            else{
+                $_SESSION['donnees_ch']=$_POST;
+                header("location: chambres.php?title=Chambres&existe=true&mod=true");
             }
         }
     }

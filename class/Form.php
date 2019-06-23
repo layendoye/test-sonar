@@ -55,7 +55,7 @@ class Form{
     public function submit($name,$value,$class=''){
         echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
     }
-    public function select($tab_option,$name,$class,$select='',$disabled=false){     
+    public function select($tab_option,$name,$class,$select='',$disabled=false){
             echo '<select name="'.$name.'" class="'.$class.'"'; if($disabled==true){echo' disabled '; }echo'>';
             for($a=0;$a<count($tab_option);$a++){
                 foreach($tab_option[$a] as $value) {
