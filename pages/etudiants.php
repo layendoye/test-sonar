@@ -1,4 +1,5 @@
-<?php require("haut_de_page.php");?>    
+<?php require("haut_de_page.php");?>
+<?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>      
 <body>
     <?php include('nav.php');?>
     <section class="container-fluid sect">

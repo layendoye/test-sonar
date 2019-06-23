@@ -1,5 +1,6 @@
-<?php require("haut_de_page.php");
-if(!isset($_GET['matricule_info'])) header("location: etudiants.php?title=Etudiants");?>    
+ <?php require("haut_de_page.php");
+if(!isset($_GET['matricule_info'])) header("location: etudiants.php?title=Etudiants");?>
+<?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>     
 <body>
     <?php include('nav.php');?>
     <section class="container-fluid sect">
