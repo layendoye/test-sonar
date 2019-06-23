@@ -77,7 +77,7 @@
             $tab=[];
             for($i=0;$i<count($donnees);$i++){
                 $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
-                $tab[]='<td class="'.$class[count($class)-1].' boutonAll"><a class="nonSoulign" href="bourse.php?title=Modification&id_Categ_Bourse_sup='.$id_Categ_Bourse.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
+                $tab[]='<td class="'.$class[count($class)-1].' boutonAll"><a class="nonSoulign" href="bourses.php?title=Bourses&id_Categ_Bourse_sup='.$id_Categ_Bourse.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
             }
             return $tab;
         }

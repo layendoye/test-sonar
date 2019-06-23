@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("../class/Autoloader.php");
 Autoloader::register();
 Bdd::connexion('Universite');
@@ -40,6 +41,20 @@ Bdd::connexion('Universite');
         if(isset($_GET['id_Categ_Bourse_sup'])){
             $id_Categ=$_GET['id_Categ_Bourse_sup'];
             EtudiantService::delete('Categorie_Bourse','id_Categ_Bourse',$id_Categ);
+            header("location: bourses.php?title=Bourses");
+        }
+        if(isset($_POST['valider_ajout_bourse'])){
+            $existe=false;
+            if(EtudiantService::find('Categorie_Bourse','Libelle','Libelle',$_POST['Libelle'])!=null) $existe=true;
+            if($existe==false){
+                $categorie=new Categorie_Bourse('',$_POST['Libelle'],$_POST['Montant']);
+                EtudiantService::addCategorie_Bourse($categorie);
+                header("location: bourses.php?title=Bourses");
+            }
+            else{
+                $_SESSION['donnees']=$_POST;
+                header("location: bourses.php?title=Bourses&existe=true");
+            }
         }
     }
     catch(PDOException $e){

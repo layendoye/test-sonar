@@ -85,7 +85,7 @@
         ?>
         <script>
             if(confirm("Confirmer la suppression ?")){
-                document.location.href = "traitement.php?<?php echo "$sup"; ?>"
+                document.location.href = "traitement.php?title=traitement&<?php echo "$sup"; ?>"
             }
             else{
                 document.location.href = "etudiants.php?title=Etudiants"

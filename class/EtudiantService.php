@@ -26,7 +26,6 @@ class EtudiantService {
         $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
         $requete->execute(); //excecute la requete qui a été preparé
     }
-
     public static function add(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
         if(count($donnee_etudiants)>0){
@@ -63,6 +62,9 @@ class EtudiantService {
         elseif(get_class($etudiant)=='Non_Boursiers'){
             self::addTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
+    }
+    public static function addCategorie_Bourse(Categorie_Bourse $bourse){
+        self::addTable('Categorie_Bourse',$bourse->getLibelle(),$bourse->getMontant(),'Libelle','Montant');
     }
     public static function update(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
@@ -109,12 +111,12 @@ class EtudiantService {
         }
     }
     public static function delete($table,$colonne='0',$valeur='0'){
-        $codesql="DELETE FROM $table WHERE $colonne='$valeur'";
+        $codesql="DELETE FROM $table WHERE UPPER($colonne) = UPPER('$valeur')";
         $requete = (Bdd::getPDO())->prepare($codesql);
         $requete->execute();
     }
     public static function find($table,$element='*',$colonne='0',$valeur='0'){//0=0 renvoi true donc si on ne rempli pas les champ il va tout afficher
-        $codesql="SELECT $element FROM $table WHERE $colonne='$valeur'";
+        $codesql="SELECT $element FROM $table WHERE UPPER($colonne) = UPPER('$valeur')";
         $donnees_des_etudiants = Bdd::recuperation($codesql);
         return $donnees_des_etudiants;
     }

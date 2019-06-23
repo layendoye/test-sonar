@@ -109,3 +109,7 @@ thead>tr:hover {
 
 
 /* -------------------Fin les formulaires---------------- */
+
+.blcMoins {
+    background-color: rgba(0, 0, 0, 0.836) !important;
+}
