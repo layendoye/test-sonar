@@ -96,7 +96,7 @@ if(!isset($_GET['matricule_info'])) header("location: etudiants.php?title=Etudia
                             <div class="col-md-1"></div>
                             <?php 
                             $form->label('','Chambre','col-md-2 espace pourLabel');?> 
-                            <?php Affichage::selectChambre('chambre','form-control col-md-7 espace',$nomBat,$chambre,$info);?> 
+                            <?php Affichage::selectChambre('chambre','form-control col-md-7 espace',$nomBat,$info);?> 
                         </div>
                     <?php }?>
                     <!-- Fin -->

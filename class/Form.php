@@ -77,25 +77,25 @@ class Form{
                     echo'</tr>
                 </thead>
                 <tbody>';
-                        for($i=0;$i<count($donnees);$i++){
-                            $a=0;
-                            $ligne='';
+                    for($i=0;$i<count($donnees);$i++){
+                        $a=0;
+                        $ligne='';
 
-                            if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
-                            if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
-                                echo'<tr class="">';
-                                    foreach($donnees[$i] as $value){
-                                        if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                            $value=Affichage::dateFr($value);
-                                        echo'<td class="">'.$value.'</td>';
-                                        $a++;
-                                    }
-                                if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                                if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
-                                echo'</tr>';
-                            }
+                        if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
+                        if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
+                            echo'<tr class="">';
+                                foreach($donnees[$i] as $value){
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                                    $a++;
+                                }
+                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
+                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                            echo'</tr>';
                         }
-                echo'</tbody>
-            </table>';
-            }
+                    }
+            echo'</tbody>
+        </table>';
+    }
 }

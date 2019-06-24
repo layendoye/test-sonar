@@ -3,7 +3,7 @@ session_start();
 require("../class/Autoloader.php");
 Autoloader::register();
 Bdd::connexion('Universite');
-    try{
+    try{//ajout etttt
         if(isset($_POST['valider_ajout_etudiant'])){
             if($_POST['choix']=='Boursier'){//un simple boursier
                 $etudiant=new Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
@@ -14,7 +14,7 @@ Bdd::connexion('Universite');
             elseif($_POST['choix']=='Non Boursier'){//non boursier{
                 $etudiant=new Non_Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
             }
-            EtudiantService::add($etudiant);
+            //EtudiantService::add($etudiant);
             header("location: etudiants.php?title=Etudiants");
         }
         if(isset($_POST['valider_modif_etudiant'])){
