@@ -11,19 +11,18 @@
             <div class='col-1'></div>
             <div class='col-4'>
                 <?php $non_bour=(count(EtudiantService::find('Non_Boursiers'))*100)/count(EtudiantService::find('Etudiants'));?>
-                <div <?php echo 'class="c100 p'.$non_bour.' dark big orange"'; ?>>
-                    <span><?php echo $non_bour.'%';?></span>
+                <div <?php echo 'class="c100 p'.intval($non_bour).' dark big orange"'; ?>>
+                    <span><?php echo intval($non_bour).'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>
                     </div>
                 </div>
             </div>
-            <?php //die(var_dump($non_bour))?>
             <div class='col-4'>
                 <?php $bour=(count(EtudiantService::find('Boursiers'))*100)/count(EtudiantService::find('Etudiants'));?>
-                <div <?php echo 'class="c100 p'.$bour.' dark big orange"'; ?>>
-                    <span><?php echo $bour.'%';?></span>
+                <div <?php echo 'class="c100 p'.intval($bour).' dark big orange"'; ?>>
+                    <span><?php echo intval($bour).'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>
@@ -32,8 +31,8 @@
             </div>
             <div class='col-3'>
                 <?php $loger=(count(EtudiantService::find('Loges'))*100)/count(EtudiantService::find('Etudiants'));?>
-                <div <?php echo 'class="c100 p'.$loger.' dark big orange"'; ?>>  
-                    <span><?php echo $loger.'%';?></span>
+                <div <?php echo 'class="c100 p'.intval($loger).' dark big orange"'; ?>>  
+                    <span><?php echo intval($loger).'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>

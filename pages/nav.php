@@ -27,14 +27,6 @@ echo '<nav class="navbar navbar-expand-lg navbar-light row fixed-top" style="bac
         <a class="nav-link" href="deconnexion.php?title=">Déconnexion</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" method="POST" action="">
-        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search" name="aRechercher"';
-        if(isset($_POST["recherche"]) && !empty($_POST[ "aRechercher"])){echo'value="'.$_POST["aRechercher"].'"'; } 
-        echo'>
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit" name="recherche">Rechercher</button>';
-        if(isset($_POST[ "recherche"]) && !empty($_POST[ "aRechercher"])){echo'<button class="btn btn-success my-2 my-sm-0" type="submit" name="finRecherche">Fin</button>';}
-      echo'</form>';
-
-  echo'</div>
+  </div>
 </nav>';
 ?>

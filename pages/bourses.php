@@ -37,14 +37,16 @@
             </div>
         </div>
          <!-- Debut tableau -->
-        <?php
-        $titres=array('Numero','Libellé','Montant','Modification','Supprimer');
-        $class=array('col-md-1 text-center','col-md-3 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
-        $bourses=EtudiantService::find('Categorie_Bourse');
-        $mod=Affichage::bouton_mod_bourse($class,$bourses);
-        $sup=Affichage::bouton_sup_bourse($class,$bourses);
-        $form->tableau($titres,$class,$bourses,'col-12 Mes_tableaux table-hover','','row',$mod,$sup);
-        ?>
+         <div class="Mes_tableaux">
+            <?php
+            $titres=array('Numero','Libellé','Montant','Modification','Supprimer');
+            //$class=array('col-md-1 text-center','col-md-3 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
+            $bourses=EtudiantService::find('Categorie_Bourse');
+            $mod=Affichage::bouton_mod_bourse($bourses);
+            $sup=Affichage::bouton_sup_bourse($bourses);
+            $form->tableau($titres,$bourses,'display nowrap',$mod,$sup);
+            ?>
+        </div>
         <!-- Fin tableau -->
     </section>
 </body>

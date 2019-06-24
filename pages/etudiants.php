@@ -66,16 +66,16 @@
             </div>
         </div>
         <!-- Fin formulaire -->
-
-        <!-- Debut tableau -->
-        <?php
-        $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Info','Supprimer');
-        $class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-1 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center','col-md-1 text-center');
-        $etudiants=EtudiantService::find('Etudiants');
-        $info=Affichage::bouton_inf_etu($class,$etudiants);
-        $up=Affichage::bouton_sup_etu($class,$etudiants);
-        $form->tableau($titres,$class,$etudiants,'col-12 Mes_tableaux table-hover','','row',$info,$up);
-        ?>
+        <div class="Mes_tableaux">
+            <?php
+            $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Info','Supprimer');
+            //$class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-1 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center','col-md-1 text-center');
+            $etudiants=EtudiantService::find('Etudiants');
+            $info=Affichage::bouton_inf_etu($etudiants);
+            $up=Affichage::bouton_sup_etu($etudiants);
+            $form->tableau($titres,$etudiants,'display nowrap',$info,$up);
+            ?>
+        </div>
         <!-- Fin tableau -->
     </section>
 </body>

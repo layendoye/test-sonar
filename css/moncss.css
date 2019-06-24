@@ -1,11 +1,12 @@
 body {
-    background-image: url('../img/fabian-mardi-119790-unsplash\ \(1\).jpg');
-    background-attachment: fixed;
+    /* background-image: url('../img/fabian-mardi-119790-unsplash\ \(1\).jpg'); */
+    /* background-attachment: fixed;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
-    color: white;
+    background-size: cover; */
+    /* color: white; */
+    background-color: #e6e6e6;
 }
 
 
@@ -45,7 +46,7 @@ body {
 .MonForm {
     margin-top: 10%;
     border: solid 2px #d0c9d6;
-    background-color: #2125298f;
+    background-color: #21252928;
 }
 
 .FormIndex {
@@ -74,38 +75,10 @@ body {
 
 .Mes_tableaux {
     margin-top: 8%;
-    /* margin-bottom: 9em; */
-}
-
-tr:hover {
-    background-color: #fec23694!important;
-}
-
-tr {
-    background-color: #141517;
-}
-
-td {
-    border: 0.02px solid rgba(255, 255, 255, 0.288);
-}
-
-th {
-    border: 0.02px solid rgba(255, 255, 255, 0.11);
 }
 
 thead>tr {
-    background-color: #eeebf1c9 !important;
-    color: black;
     font-weight: bolder;
-}
-
-thead>td {
-    border: 0.02px solid rgba(14, 13, 13, 0.288)!important;
-}
-
-thead>tr:hover {
-    background-color: black !important;
-    color: #eeebf1c9;
 }
 
 

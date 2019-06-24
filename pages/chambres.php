@@ -36,14 +36,16 @@
             </div>
         </div>
          <!-- Debut tableau -->
-        <?php
-        $titres=array('Numero chambre','Batiment','Nombres étudiants','Modification','Supprimer');
-        $class=array('col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
-        $chambres=EtudiantService::find('Chambres');
-        $mod=Affichage::bouton_mod_chambres($class,$chambres);
-        $sup=Affichage::bouton_sup_chambres($class,$chambres);
-        Affichage::tableau_chambre($titres,$class,$chambres,'col-12 Mes_tableaux table-hover','','row',$mod,$sup);
-        ?>
+        <div class="Mes_tableaux">
+            <?php
+            $titres=array('Numero chambre','Batiment','Nombres étudiants','Modification','Supprimer');
+            $class=array('col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
+            $chambres=EtudiantService::find('Chambres');
+            $mod=Affichage::bouton_mod_chambres($chambres);
+            $sup=Affichage::bouton_sup_chambres($chambres);
+            Affichage::tableau_chambre($titres,$chambres,'display nowrap',$mod,$sup);
+            ?>
+        </div>
         <!-- Fin tableau -->
     </section>
 </body>

@@ -67,27 +67,27 @@ class Form{
             }
             echo'</select>';
     }
-    public function tableau($titres,$class,$donnees,$class_table="",$class_thead="",$class_tr="",$avantdern_colonne=[],$dern_colonne=[]){
-        echo'<table class="'.$class_table.'">
-                <thead class="'.$class_thead.'">';
-                    echo'<tr class="'.$class_tr.'">';
+    public function tableau($titres,$donnees,$class_table="",$avantdern_colonne=[],$dern_colonne=[]){
+        echo'<table class="'.$class_table.'" id="example" style="width:100%">
+                <thead class="">';
+                    echo'<tr class="">';
                             for($i=0;$i<count($titres);$i++){
-                                echo '<td class="'.$class[$i].'">'.$titres[$i].'</td>';
+                                echo '<td class="">'.$titres[$i].'</td>';
                             }
                     echo'</tr>
                 </thead>
-                <tbody id="developers">';
+                <tbody>';
                         for($i=0;$i<count($donnees);$i++){
                             $a=0;
                             $ligne='';
 
                             if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
                             if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
-                                echo'<tr class="'.$class_tr.'">';
+                                echo'<tr class="">';
                                     foreach($donnees[$i] as $value){
                                         if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                             $value=Affichage::dateFr($value);
-                                        echo'<td class="'.$class[$a].'">'.$value.'</td>';
+                                        echo'<td class="">'.$value.'</td>';
                                         $a++;
                                     }
                                 if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
@@ -97,11 +97,5 @@ class Form{
                         }
                 echo'</tbody>
             </table>';
-            if($i>7){
-            echo'<div class="col-md-12 text-center">
-                        <ul class="pagination pagination-sm pager" id="developer_page"></ul>
-            </div>';
             }
-    }
-    
 }

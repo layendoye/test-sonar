@@ -27,15 +27,17 @@
             </div>
         </div>
          <!-- Debut tableau -->
-        <?php
-        $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
-        $class=array('col-md-1 text-center','col-md-3 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center');
-        $batiment=EtudiantService::find('Batiment');
-        $mod=Affichage::bouton_mod_bat($class,$batiment);
-        $sup=Affichage::bouton_sup_bat($class,$batiment);
-        //die(var_dump($sup));
-        Affichage::tableau_bat($titres,$class,$batiment,'col-12 Mes_tableaux table-hover','','row',$mod,$sup);
-        ?>
+        <div class="Mes_tableaux">
+            <?php
+            $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
+            //$class=array('col-md-1 text-center','col-md-3 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center');
+            $batiment=EtudiantService::find('Batiment');
+            $mod=Affichage::bouton_mod_bat($batiment);
+            $sup=Affichage::bouton_sup_bat($batiment);
+            //die(var_dump($sup));
+            Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);
+            ?>
+        </div>
         <!-- Fin tableau -->
     </section>
 </body>
