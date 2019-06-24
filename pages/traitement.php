@@ -168,13 +168,15 @@ Bdd::connexion('Universite');
                 header("location: batiments.php?title=Batiments&existe=true");
             }
         }
-        if(isset($_POST['connexion']) && $_POST['mon_login']=='admin' && $_POST['mdp']=='azerty'){
-            $_SESSION['valider']=true;
-            header('location: accueil.php?title=Accueil');
-        } else {
-            $_SESSION['valider']=false;
-            $_SESSION['log_mdp']=$_POST;
-            header('location: ../index.php');
+        if(isset($_POST['connexion'])){
+            if( $_POST['mon_login']=='root' && $_POST['mdp']=='101419'){
+                $_SESSION['valider']=true;
+                header('location: accueil.php?title=Accueil');
+            }else {
+                $_SESSION['valider']=false;
+                $_SESSION['log_mdp']=$_POST;
+                header('location: ../index.php');
+            }
         }
     }
     catch(PDOException $e){

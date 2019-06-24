@@ -129,5 +129,28 @@ thead>tr:hover {
 }
 
 .diagCircl {
-    margin-top: 18%;
+    margin-top: 4%;
+}
+
+.textAc {
+    margin-top: 10%;
+    background-color: #ffffffa6;
+    border-radius: 15px 50px;
+}
+
+.titreCircle,
+.textAc {
+    font-weight: bolder;
+    font-style: italic;
+    color: #e08833;
+    text-align: center;
+}
+
+.titreCircle {
+    font-size: 235%;
+    margin-left: 22%;
+}
+
+.titreCirLog {
+    margin-left: 60% !important;
 }

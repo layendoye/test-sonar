@@ -2,21 +2,28 @@
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>  
 <body>
     <?php include('nav.php');?>
-    <section class="container-fluid sect">
+    <section class="container sect">
+        <div class="row">
+            <div class="col-3"></div>
+            <h1 class="textAc col-6">Répartition étudiants</h1>
+        </div>
         <div class='row diagCircl'>
             <div class='col-1'></div>
             <div class='col-4'>
-                <div class="c100 p50 dark big orange">
-                    <span>50%</span>
+                <?php $non_bour=(count(EtudiantService::find('Non_Boursiers'))*100)/count(EtudiantService::find('Etudiants'));?>
+                <div <?php echo 'class="c100 p'.$non_bour.' dark big orange"'; ?>>
+                    <span><?php echo $non_bour.'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>
                     </div>
                 </div>
             </div>
+            <?php //die(var_dump($non_bour))?>
             <div class='col-4'>
-                <div class="c100 p50 dark big orange">
-                    <span>50%</span>
+                <?php $bour=(count(EtudiantService::find('Boursiers'))*100)/count(EtudiantService::find('Etudiants'));?>
+                <div <?php echo 'class="c100 p'.$bour.' dark big orange"'; ?>>
+                    <span><?php echo $bour.'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>
@@ -24,8 +31,9 @@
                 </div>
             </div>
             <div class='col-3'>
-                <div class="c100 p50 dark big orange">
-                    <span>50%</span>
+                <?php $loger=(count(EtudiantService::find('Loges'))*100)/count(EtudiantService::find('Etudiants'));?>
+                <div <?php echo 'class="c100 p'.$loger.' dark big orange"'; ?>>  
+                    <span><?php echo $loger.'%';?></span>
                     <div class="slice">
                         <div class="bar"></div>
                         <div class="fill"></div>
@@ -33,6 +41,19 @@
                 </div>
             </div>
         </div>
+        <div class='row '>
+            
+            <div class='col-4'>
+                <p class="titreCircle">Non boursiers</p>
+            </div>
+            <div class='col-4'>
+                <p class="titreCircle">Boursiers</p>
+            </div>
+            <div class='col-3'>
+                <p class="titreCircle titreCirLog">Logers</p>
+            </div>
+        </div>
+
     </section>
 </body>
 <?php require("footer.php");?>

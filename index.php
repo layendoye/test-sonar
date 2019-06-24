@@ -11,10 +11,10 @@
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm FormIndex">
                 <form action="pages/traitement.php" method="POST"> 
-                    <?php $form=new Form($_SESSION['log_mdp']);?>
+                    <?php if(!isset($_SESSION['log_mdp'])) $form=new Form(); else $form=new Form($_SESSION['log_mdp']);?>
                     <div class="row">
                         <div class="col-md-2"></div>
-                        <?php if($_SESSION['log_mdp']!='' && $_SESSION['valider']==false) $validation='rougMoins'?>
+                        <?php if(isset($_SESSION['log_mdp']) && $_SESSION['log_mdp']!='' && $_SESSION['valider']==false) $validation='rougMoins'?>
                         <?php $form->input('text','mon_login','form-control col-md-8 espace '.$validation,'Login','','',true);?>
                     </div>
                     <div class="row">
@@ -25,7 +25,7 @@
                         <div class="col-md-3"></div>                        
                         <?php $form->submit('connexion','Connexion','form-control col-md-6 espace mb');?>
                     </div>
-                     <?php if($_SESSION['log_mdp']!='' && $_SESSION['valider']==false) {?>
+                     <?php if(isset($_SESSION['log_mdp']) && $_SESSION['log_mdp']!='' && $_SESSION['valider']==false) {?>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <?php $form->label('','Erreur sur l\'un des paramètres !!','col-md-8 espace pourLabel red'); ?> 
