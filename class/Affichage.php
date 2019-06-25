@@ -221,10 +221,9 @@
                             echo'<td class="">'.$statut.'</td>';
                             echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_modif='.$donnees[$i]->Matricule.'&Statut_et='.$statut.'" ><button class="btn btn-outline-primary">Modifier</button></a></td>';
                             echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_sup='.$donnees[$i]->Matricule.'" ><button class="btn btn-outline-danger">Supprimer</button></a></td>';    
-                        
                         echo'</tr>';
                     }
                 echo'</tbody>
             </table>';
-    }
+        }
     }

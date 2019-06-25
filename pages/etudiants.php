@@ -4,11 +4,13 @@
 <?php if(!isset($_GET['matricule_modif']) && isset($_SESSION['modif_actuel'])) unset( $_SESSION['modif_actuel'])?>      
 <body>
     <?php include('nav.php');?>
+    <?php include('popUp.php');?>
     <section class="container-fluid sect">
         <!-- Début formulaire -->
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
+                
                 <?php if(isset($_GET['matricule_modif'])) {$etu=EtudiantService::info($_GET['matricule_modif']); $_SESSION['modif_actuel']='matricule_modif='.$_GET['matricule_modif'];}//recupere les élements presents dans le liens?>
                 <form <?php if(!isset($_GET['matricule_modif'])) echo 'action="traitement.php?title=traitement"'; else echo 'action="traitement.php?title=traitement&matricule_modif='.$_GET['matricule_modif'].'"';?> method="POST" id='MonForm'> 
                       <?php if(isset($_SESSION['donnees_etudiants']) && $_GET['ChoiCh']==true) $form=new Form($_SESSION['donnees_etudiants']); else $form=new Form();?>
@@ -49,14 +51,14 @@
                     </div>
                     <?php /////////////////--------------------Fin Email------------------///////////////////////////?>
                     
-                    <?php /////////////////--------------------Début ------------------///////////////////////////?>
+                    <?php /////////////////--------------------Début téléphone------------------///////////////////////////?>
                     <div class="row">
                         <div class="col-md-1"></div>
                        <?php $form->label('','Téléphone','col-md-2 espace pourLabel')?> 
                         <?php if(!isset($_GET['matricule_modif'])) {$form->input('number','tel','form-control col-md-7 espace','Téléphone','','',true);?>
                         <?php }else $form->input('number','tel','form-control col-md-7 espace','Téléphone',$etu['Telephone'],'',false,'',false);?>
                     </div>
-                    <?php /////////////////--------------------Fin ------------------///////////////////////////?>
+                    <?php /////////////////--------------------Fin téléphone------------------///////////////////////////?>
                     
                     <?php /////////////////--------------------Début Choix statut------------------///////////////////////////?>
                     <div class="row" <?php if(isset($_GET['Statut_et'])) echo 'id="Statut '.$_GET['Statut_et'].'"'; //pour afficher les éléments correspondant au statut avec js?>>

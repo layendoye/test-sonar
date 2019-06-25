@@ -139,3 +139,49 @@ div.dataTables_wrapper {
     margin-right: 1%;
     margin-top: 2.5%;
 }
+
+.popUp {
+    position: fixed;
+    top: 70px;
+    left: 22.5%;
+    background-color: #f9f9f9f0;
+    width: 55%;
+    z-index: 1;
+    border-radius: 50px 50px 50px 50px;
+    padding: 2% 0% 1% 7%;
+    border: 5px solid #0e0f0fc4;
+    font-family: Times;
+    box-shadow: 0px 0px 11px 5px rgba(3, 3, 3, 0.692);
+}
+
+.bout {
+    margin-left: 12%;
+}
+
+.bout p {
+    margin: 5%;
+}
+
+.left button {
+    width: 113%;
+}
+
+.ligne {
+    display: flex;
+    font-style: italic;
+    font-size: 130%;
+}
+
+.ligne strong {
+    margin-left: 9%;
+    margin-right: 9%;
+}
+
+.left {
+    width: 25%;
+    font-weight: bolder;
+}
+
+.right {
+    width: 60%;
+}

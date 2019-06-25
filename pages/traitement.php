@@ -21,7 +21,8 @@ Bdd::connexion('Universite');
             }
             unset($_SESSION['donnees_etudiants']);
             EtudiantService::add($etudiant);
-            header("location: etudiants.php?title=Etudiants");
+            $matricule=EtudiantService::find('Etudiants','Matricule');
+            header("location: etudiants.php?title=Etudiants&popUp=".$matricule[count($matricule)-1]->Matricule);
         }
         if(isset($_POST['valider_modif_etudiant'])){
             if($_POST['choix']=='Boursier'){//un simple boursier
@@ -34,7 +35,7 @@ Bdd::connexion('Universite');
                 $etudiant=new Non_Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
             }
             EtudiantService::update($etudiant);
-            header("location: etudiants.php?title=Etudiants");
+            header("location: etudiants.php?title=Etudiants&popUp=".$_GET['matricule_modif']);
         }
         if(isset($_GET['matricule_sup'])){
             $matricule=$_GET['matricule_sup'];
