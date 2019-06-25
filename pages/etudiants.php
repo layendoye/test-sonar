@@ -8,8 +8,8 @@
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
                 
-                <form <?php if(isset($_POST['Batiment']))echo'action="traitement.php?title=traitement"'; else echo'action=""';?> method="POST" id='MonForm'> 
-                <?php $form=new Form($_POST);?>
+                <form action="traitement.php?title=traitement" method="POST" id='MonForm'> 
+                <?php if(isset($_SESSION['donnees_etudiants'])) $form=new Form($_SESSION['donnees_etudiants']); else $form=new Form();?>
                 <?php ?>
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Naissance','col-md-2 espace pourLabel')?> 
-                        <?php $form->input('date','naiss','form-control col-md-7 espace','',true);?>
+                        <?php $form->input('date','naiss','form-control col-md-7 espace','','','',true);?>
                     </div>
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -40,7 +40,7 @@
                         <div class=""></div>
                         <?php
                         $checked='';
-                        if (isset($_POST['choix']) && $_POST['choix']=='Loger') $checked='" checked ';
+                        if (isset($_SESSION['donnees_etudiants']['choix']) && $_SESSION['donnees_etudiants']['choix']=='Loger') $checked='" checked ';
                         ?>
                         <?php $form->label('','Non Boursier','col-md-3 espace pourLabel centrerDroite')?> 
                         <?php $form->input('radio','choix','form-control col-md-1 espace btRadio ','','Non Boursier','nonBoursier','','afficherPourNonBoursier()');?>
@@ -58,14 +58,14 @@
                     <div class="row" id='Batiment'>
                         <div class="col-md-1"></div>
                         <?php $form->label('','Batiment','col-md-2 espace pourLabel')?>
-                        <?php if(isset($_POST['Batiment'])) $cocher=$_POST['Batiment']; else $cocher='';?>
+                        <?php if(isset($_SESSION['donnees_etudiants']['Batiment'])) $cocher=$_SESSION['donnees_etudiants']['Batiment']; else $cocher='';?>
                        <?php Affichage::selectBat('Batiment','form-control col-md-7 espace',$cocher)?> 
                     </div>
-                    <?php if(isset($_POST['Batiment']) && $_POST['choix']=='Loger'){?>
+                    <?php if(isset($_SESSION['donnees_etudiants']['Batiment']) && $_SESSION['donnees_etudiants']['choix']=='Loger'){?>
                     <div class="row" id='Chambre'>
                         <div class="col-md-1"></div>
                         <?php $form->label('','Chambre','col-md-2 espace pourLabel')?> 
-                       <?php Affichage::selectChambre('chambre','form-control col-md-7 espace',$_POST['Batiment']);?> 
+                       <?php Affichage::selectChambre('chambre','form-control col-md-7 espace',$_SESSION['donnees_etudiants']['Batiment']);?> 
                     </div>
                     <?php }?>
                     <div class="row" id='adresse'>
@@ -84,7 +84,6 @@
         <div class="Mes_tableaux">
             <?php
             $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut','Modifier','Supprimer');
-            //$class=array('col-md-1 text-center','col-md-2 text-center','col-md-2 text-center','col-md-1 text-center','col-md-3 text-center','col-md-1 text-center','col-md-1 text-center','col-md-1 text-center');
             $etudiants=EtudiantService::find('Etudiants');
             Affichage::tableau_etu($titres,$etudiants,'display nowrap');
             ?>

@@ -32,7 +32,7 @@ if (nom_page.includes("etudiants.php") || nom_page.includes("modifier.php")) {
     function afficherPourNonBoursier() {
         typeBourse.style.display = 'none';
         batiment.style.display = 'none';
-        chambre.style.display = 'none';
+        if (chambre) chambre.style.display = 'none';
         adresse.style.display = '';
 
     }
@@ -40,7 +40,7 @@ if (nom_page.includes("etudiants.php") || nom_page.includes("modifier.php")) {
     function afficherPourLoge() {
         typeBourse.style.display = '';
         batiment.style.display = '';
-        chambre.style.display = '';
+        if (chambre) chambre.style.display = '';
         adresse.style.display = 'none';
 
     }

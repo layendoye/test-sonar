@@ -47,6 +47,7 @@
         public static function selectBat($name,$class,$selectBat='',$disabled=false){
             $tab_bat=EtudiantService::find('Batiment','*');
             echo '<select name="'.$name.'" class="'.$class.'" onchange="this.form.submit();" '; if($disabled==true){echo' disabled '; }echo'>';
+            echo'<option value=""></option>';
             for($a=0;$a<count($tab_bat);$a++){
                 $bat=$tab_bat[$a]->Nom_bat;
                 $id_bat=$tab_bat[$a]->id_Batiment;
