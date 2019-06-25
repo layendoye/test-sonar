@@ -42,12 +42,15 @@
                         $checked='';
                         if (isset($_SESSION['donnees_etudiants']['choix']) && $_SESSION['donnees_etudiants']['choix']=='Loger') $checked='" checked ';
                         ?>
-                        <?php $form->label('','Non Boursier','col-md-3 espace pourLabel centrerDroite')?> 
-                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio ','','Non Boursier','nonBoursier','','afficherPourNonBoursier()');?>
-                        <?php $form->label('','Boursier','col-md-2 espace pourLabel centrerDroite ')?>
-                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio','','Boursier','Boursier','','afficherPourBoursier()');?>
-                        <?php $form->label('','Loger','col-md-2 espace pourLabel centrerDroite')?>
-                        <?php $form->input('radio','choix','form-control col-md-1 espace btRadio '.$checked,'','Loger','Loger','','afficherPourLoge()');?>
+                        <div class="col-3"></div>
+                        <?php $form->input('radio','choix','espace btRadio ','','Non Boursier','nonBoursier','','afficherPourNonBoursier()');?>
+                        <?php $form->label('','Non Boursier','espace pourLabel centrerDroite')?> 
+                        <div class="col-1"></div>
+                        <?php $form->input('radio','choix','espace btRadio','','Boursier','Boursier','','afficherPourBoursier()');?>
+                        <?php $form->label('','Boursier','espace pourLabel centrerDroite ')?>
+                        <div class="col-1"></div>
+                        <?php $form->input('radio','choix','espace btRadio '.$checked,'','Loger','Loger','','afficherPourLoge()');?>
+                        <?php $form->label('','Loger','espace pourLabel centrerDroite')?>
                     </div>
                     <div class="row" id='typeBourse'>
                         <div class="col-md-1"></div>

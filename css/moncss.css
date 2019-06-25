@@ -133,3 +133,9 @@ div.dataTables_wrapper {
     width: 100%;
     margin: 0 auto;
 }
+
+.btRadio {
+    padding: 20% 20% 20% 20% !important;
+    margin-right: 1%;
+    margin-top: 2.5%;
+}
