@@ -210,9 +210,11 @@
                 <tbody>';
                     for($i=0;$i<count($donnees);$i++){
                         echo'<tr class="">';
-                            foreach($donnees[$i] as $value){
+                            foreach($donnees[$i] as $key => $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                     $value=Affichage::dateFr($value);
+                                if($key=='Matricule')
+                                    $value='SA-'.$value;
                                 echo'<td class="">'.$value.'</td>';
                             }
                             $statut=self::statut_etu($donnees[$i]->Matricule);

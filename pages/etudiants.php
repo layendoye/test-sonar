@@ -1,6 +1,7 @@
 <?php require("haut_de_page.php");?>
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>
-<?php if(isset($_SESSION['donnees_etudiants']) && !isset($_GET['ChoiCh'])) unset($_SESSION['donnees_etudiants']);?>      
+<?php if(isset($_SESSION['donnees_etudiants']) && !isset($_GET['ChoiCh'])) unset($_SESSION['donnees_etudiants']);?>
+<?php if(!isset($_GET['matricule_modif']) && isset($_SESSION['modif_actuel'])) unset( $_SESSION['modif_actuel'])?>      
 <body>
     <?php include('nav.php');?>
     <section class="container-fluid sect">
@@ -8,9 +9,9 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
-                <?php if(isset($_GET['matricule_modif'])) $etu=EtudiantService::info($_GET['matricule_modif']);?>
-                <form action="traitement.php?title=traitement" method="POST" id='MonForm'> 
-                    <?php if(isset($_SESSION['donnees_etudiants']) && $_GET['ChoiCh']==true) $form=new Form($_SESSION['donnees_etudiants']); else $form=new Form();?>
+                <?php if(isset($_GET['matricule_modif'])) {$etu=EtudiantService::info($_GET['matricule_modif']); $_SESSION['modif_actuel']='matricule_modif='.$_GET['matricule_modif'];}//recupere les élements presents dans le liens?>
+                <form <?php if(!isset($_GET['matricule_modif'])) echo 'action="traitement.php?title=traitement"'; else echo 'action="traitement.php?title=traitement&matricule_modif='.$_GET['matricule_modif'].'"';?> method="POST" id='MonForm'> 
+                      <?php if(isset($_SESSION['donnees_etudiants']) && $_GET['ChoiCh']==true) $form=new Form($_SESSION['donnees_etudiants']); else $form=new Form();?>
                     
                     <?php /////////////////--------------------Début Nom------------------///////////////////////////?>
                     <div class="row">
@@ -61,12 +62,12 @@
                     <div class="row" <?php if(isset($_GET['Statut_et'])) echo 'id="Statut '.$_GET['Statut_et'].'"'; //pour afficher les éléments correspondant au statut avec js?>>
                         <?php
                             $checked1=$checked2=$checked3='';
-                            if (isset($_SESSION['donnees_etudiants']['choix']) && $_SESSION['donnees_etudiants']['choix']=='Loger' && !isset($_GET['matricule_modif'])) $checked3='" checked ';
                             if(isset($_GET['matricule_modif'])){
-                                if($etu['Statut']['Boursier']) $checked2='" checked ';
-                                elseif($etu['Statut']['Loge']) $checked3='" checked ';
+                                if($etu['Statut']['Loge']) $checked3='" checked ';
+                                elseif($etu['Statut']['Boursier']) $checked2='" checked ';
                                 else  $checked1='" checked ';
                             }
+                            if (isset($_SESSION['donnees_etudiants']['choix']) && $_SESSION['donnees_etudiants']['choix']=='Loger' && !isset($_GET['matricule_modif']) || isset($_SESSION['modif_actuel']) && isset($_GET['ChoiCh'])) $checked3='" checked ';
                         ?>
                         <div class="col-3"></div>
                         <?php $form->input('radio','choix','espace btRadio '.$checked1,'','Non Boursier','nonBoursier','','afficherPourNonBoursier()');?>
@@ -99,9 +100,10 @@
                         <div class="col-md-1"></div>
                         <?php $form->label('','Batiment','col-md-2 espace pourLabel')?>
                         <?php 
-                            if(isset($_SESSION['donnees_etudiants']['Batiment']) && !isset($_GET['matricule_modif'])) $cocher=$_SESSION['donnees_etudiants']['Batiment']; 
+                            if(isset($_SESSION['donnees_etudiants']['Batiment']) && !isset($_GET['matricule_modif']) || isset($_SESSION['donnees_etudiants']['Batiment']) && isset($_GET['matricule_modif']) && isset($_GET['ChoiCh'])) $cocher=$_SESSION['donnees_etudiants']['Batiment']; 
                             elseif(isset($_GET['matricule_modif']) && isset($etu['id_Batiment'])) $cocher=$etu['id_Batiment'];
                             else $cocher='';
+                            //die(var_dump($_SESSION['donnees_etudiants']));
                         ?>
                         <?php Affichage::selectBat('Batiment','form-control col-md-7 espace',$cocher)?> 
                     </div>
@@ -111,8 +113,8 @@
                     <?php if(isset($_SESSION['donnees_etudiants']['Batiment']) && $_SESSION['donnees_etudiants']['choix']=='Loger' || isset($_GET['matricule_modif']) && isset($etu['id_Batiment'])){?>
                         <div class="row" id='Chambre'>
                             <div class="col-md-1"></div>
-                            <?php if(!isset($_GET['matricule_modif']) || isset($_GET['matricule_modif']) && isset($etu['id_Batiment'])) $form->label('','Chambre','col-md-2 espace pourLabel');?> 
-                            <?php if(!isset($_GET['matricule_modif'])) {Affichage::selectChambre('chambre','form-control col-md-7 espace',$_SESSION['donnees_etudiants']['Batiment']);?>
+                            <?php if(!isset($_GET['matricule_modif']) || isset($_GET['matricule_modif']) && isset($etu['id_Batiment']) || isset($_GET['matricule_modif']) && $_SESSION['donnees_etudiants']['choix']=='Loger' ) $form->label('','Chambre','col-md-2 espace pourLabel');?> 
+                            <?php if(!isset($_GET['matricule_modif']) || isset($_SESSION['donnees_etudiants']) && isset($_GET['matricule_modif']) && $_SESSION['donnees_etudiants']['choix']=='Loger') {Affichage::selectChambre('chambre','form-control col-md-7 espace',$_SESSION['donnees_etudiants']['Batiment']);?>
                             <?php }elseif(isset($etu['id_Batiment'])) Affichage::selectChambre('chambre','form-control col-md-7 espace',$etu['id_Batiment'],$etu['id_Chambre']);?>
                         </div>
                     <?php }?>
@@ -169,6 +171,6 @@
         <?php
     }
     ///////////-----Fin validation suppression---////////
-    
+
     require("footer.php");
 ?>

@@ -4,9 +4,10 @@ require("../class/Autoloader.php");
 Autoloader::register();
 Bdd::connexion('Universite');
     try{
-        if(isset($_POST['choix']) && $_POST['choix']=='Loger' && $_POST['Batiment']!='' && !isset($_POST['valider_ajout_etudiant'])){
+        if(isset($_POST['choix']) && $_POST['choix']=='Loger' && $_POST['Batiment']!='' && !isset($_POST['valider_ajout_etudiant']) && !isset($_POST['valider_modif_etudiant'])){
             $_SESSION['donnees_etudiants']=$_POST;
-            header("location: etudiants.php?title=Etudiants&ChoiCh=true");
+            if(isset($_SESSION['modif_actuel'])) header('location: etudiants.php?title=Etudiants&ChoiCh=true&'.$_SESSION['modif_actuel'].'&Statut_et=Loger');
+            else header("location: etudiants.php?title=Etudiants&ChoiCh=true");
         }
         if(isset($_POST['valider_ajout_etudiant'])){
             if($_POST['choix']=='Boursier'){//un simple boursier
@@ -33,7 +34,7 @@ Bdd::connexion('Universite');
                 $etudiant=new Non_Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
             }
             EtudiantService::update($etudiant);
-            header("location: modifier.php?title=Modification&matricule_info=".$_GET['matricule_modif']);
+            header("location: etudiants.php?title=Etudiants");
         }
         if(isset($_GET['matricule_sup'])){
             $matricule=$_GET['matricule_sup'];
