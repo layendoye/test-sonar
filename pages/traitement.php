@@ -6,7 +6,7 @@ Bdd::connexion('Universite');
     try{
         if(isset($_POST['choix']) && $_POST['choix']=='Loger' && $_POST['Batiment']!='' && !isset($_POST['valider_ajout_etudiant'])){
             $_SESSION['donnees_etudiants']=$_POST;
-            header("location: etudiants.php?title=Etudiants");
+            header("location: etudiants.php?title=Etudiants&ChoiCh=true");
         }
         if(isset($_POST['valider_ajout_etudiant'])){
             if($_POST['choix']=='Boursier'){//un simple boursier

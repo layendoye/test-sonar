@@ -32,12 +32,12 @@
             echo'</select>';
         }
         public static function selectChambre($name,$class,$id_bat='',$selectCh='',$disabled=false){
-            $Ch=$opt=EtudiantService::find('Chambres','*','id_Batiment',$id_bat);
+            $Ch=EtudiantService::find('Chambres','*','id_Batiment',$id_bat);
             echo '<select name="'.$name.'" class="'.$class.'" '; if($disabled==true){echo' disabled '; }echo'>';
                     for($b=0;$b<count($Ch);$b++){
                         $numeroCh=$Ch[$b]->Numero_Ch;
                         $idCh=$Ch[$b]->id_Chambre;
-                        if($selectCh==$opt)
+                        if($selectCh==$idCh)
                             echo'<option value="'.$idCh.'" selected>Chambre '.$numeroCh.'</option>';
                         else
                             echo'<option value="'.$idCh.'">Chambre '.$numeroCh.'</option>';
@@ -209,20 +209,18 @@
                 </thead>
                 <tbody>';
                     for($i=0;$i<count($donnees);$i++){
-                        if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
-                        if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
-                            echo'<tr class="">';
-                                foreach($donnees[$i] as $value){
-                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
-                                    echo'<td class="">'.$value.'</td>';
-                                }
-                                echo'<td class="">'.self::statut_etu($donnees[$i]->Matricule).'</td>';
-                                echo'<td class="boutonAll"><a class="nonSoulign" href="modifier.php?title=Modification&matricule_info='.$donnees[$i]->Matricule.'" ><button class="btn btn-outline-primary">Modifier</button></a></td>';
-                                echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_sup='.$donnees[$i]->Matricule.'" ><button class="btn btn-outline-danger">Supprimer</button></a></td>';    
-                            
-                            echo'</tr>';
-                        }
+                        echo'<tr class="">';
+                            foreach($donnees[$i] as $value){
+                                if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                    $value=Affichage::dateFr($value);
+                                echo'<td class="">'.$value.'</td>';
+                            }
+                            $statut=self::statut_etu($donnees[$i]->Matricule);
+                            echo'<td class="">'.$statut.'</td>';
+                            echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_modif='.$donnees[$i]->Matricule.'&Statut_et='.$statut.'" ><button class="btn btn-outline-primary">Modifier</button></a></td>';
+                            echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_sup='.$donnees[$i]->Matricule.'" ><button class="btn btn-outline-danger">Supprimer</button></a></td>';    
+                        
+                        echo'</tr>';
                     }
                 echo'</tbody>
             </table>';

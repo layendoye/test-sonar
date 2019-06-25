@@ -7,16 +7,19 @@ $(document).ready(function() {
 ///////////////-----------Fin pagination-------------////
 ////////////--------////////
 var nom_page = window.location.pathname;
-if (nom_page.includes("etudiants.php") || nom_page.includes("modifier.php")) {
-    var choix = document.getElementById('Boursier');
+if (nom_page.includes("etudiants.php")) {
+
+
+
+
     var typeBourse = document.getElementById('typeBourse');
     var batiment = document.getElementById('Batiment');
     var chambre;
 
     var adresse = document.getElementById('adresse');
-    if (choix) typeBourse.style.display = 'none';
-    if (choix) batiment.style.display = 'none';
-    if (choix) adresse.style.display = 'none';
+    typeBourse.style.display = 'none';
+    batiment.style.display = 'none';
+    adresse.style.display = 'none';
     if (chambre = document.getElementById('Chambre')) {
         typeBourse.style.display = '';
         batiment.style.display = '';
@@ -26,7 +29,7 @@ if (nom_page.includes("etudiants.php") || nom_page.includes("modifier.php")) {
         typeBourse.style.display = '';
         batiment.style.display = 'none';
         adresse.style.display = 'none';
-        chambre.style.display = 'none';
+        if (chambre) chambre.style.display = 'none';
     }
 
     function afficherPourNonBoursier() {
@@ -42,8 +45,21 @@ if (nom_page.includes("etudiants.php") || nom_page.includes("modifier.php")) {
         batiment.style.display = '';
         if (chambre) chambre.style.display = '';
         adresse.style.display = 'none';
-
     }
+
+
+    var choix;
+
+    if (choix = document.getElementById('Statut Non Boursier')) {
+        afficherPourNonBoursier();
+    } else if (choix = document.getElementById('Statut Boursier')) {
+        afficherPourBoursier();
+    } else if (choix = document.getElementById('Statut Loger')) {
+        afficherPourLoge();
+    }
+
+
+
     var formulaire = document.getElementById('MonForm');
 
     function envoiFormulaire() {
