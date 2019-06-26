@@ -5,7 +5,8 @@ $(document).ready(function() {
     });
 });
 ///////////////-----------Fin pagination-------------////
-////////////--------////////
+
+////////////----Début Page étudidant----////////
 var nom_page = window.location.pathname;
 if (nom_page.includes("etudiants.php")) {
 
@@ -55,13 +56,7 @@ if (nom_page.includes("etudiants.php")) {
         afficherPourLoge();
     }
 
-    function traduction() {
-        document.getElementById('example_filter').innerHTML = '<label>  <input type="search" class="form-control" placeholder="Rechercher" aria-controls="example"></label>';
-        document.getElementById('example_length').innerHTML = '<label class="form-control">Montrer <select name="example_length" aria-controls="example" data-dpmaxz-eid="8"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> </label>';
-        document.getElementById('example_info').innerHTML = '<div class="dataTables_info" id="example_info" role="status" aria-live="polite"></div>';
-        document.getElementById('example_previous').innerHTML = 'Précédant';
-        document.getElementById('example_next').innerHTML = 'Suivant';
-    }
+
     //okk();
 
     function okk() {
@@ -81,5 +76,20 @@ if (nom_page.includes("etudiants.php")) {
         //}
     }
     if (document.getElementById('popUp')) window.onload = okk();
+
+}
+////////////----Fin Page étudidant----////////
+
+////////////----Début ----////////
+var nom_page = window.location.pathname;
+if (nom_page.includes("accueil.php") == false) {
+    function traduction() {
+        document.getElementById('example_filter').innerHTML = '<label>  <input type="search" class="form-control" placeholder="Rechercher" aria-controls="example"></label>';
+        document.getElementById('example_length').innerHTML = '<label class="form-control">Montrer <select name="example_length" aria-controls="example" data-dpmaxz-eid="8"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> </label>';
+        document.getElementById('example_info').innerHTML = '<div class="dataTables_info" id="example_info" role="status" aria-live="polite"></div>';
+        document.getElementById('example_previous').innerHTML = 'Précédant';
+        document.getElementById('example_next').innerHTML = 'Suivant';
+    }
     window.onload = traduction;
 }
+////////////----Fin ----////////

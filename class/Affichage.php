@@ -5,11 +5,6 @@
             print_r($element);
             echo " </pres>";
         }
-        public static function dateFr($date_En){
-            $datN = new DateTime($date_En);
-            $date_Fr = $datN->format('d-m-Y');
-            return $date_Fr ;
-        }
         public static function selectChambre2($name,$class,$selectBat='',$selectCh='',$disabled=false){
             $tab_optgroup=EtudiantService::find('Batiment','Nom_bat');
             echo '<select name="'.$name.'" class="'.$class.'" '; if($disabled==true){echo' disabled '; }echo'>';
@@ -100,7 +95,7 @@
                                     foreach($donnees[$i] as $key => $value){
                                         if($key!='id_Chambre'){
                                             if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                                $value=Affichage::dateFr($value);
+                                                $value=Validation::dateFr($value);
                                                 if($key =='id_Batiment' && EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)!=null)
                                                     echo'<td class="">'.EtudiantService::find('Batiment','Nom_bat','id_Batiment',$value)[0]->Nom_bat.'</td>';
                                                 else
@@ -134,7 +129,7 @@
                             echo'<tr class="">';
                                 foreach($donnees[$i] as $key => $value){
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                             if($key!='id_Batiment')
                                                 echo'<td class="">'.$value.'</td>';
                                             else
@@ -150,7 +145,6 @@
                 echo'</tbody>
             </table>';
         }
-
         public function tableau_etu($titres,$donnees,$class_table=""){
             echo'<table class="'.$class_table.'" id="example" style="width:100%">
                 <thead class="">';
@@ -165,7 +159,7 @@
                         echo'<tr class="">';
                             foreach($donnees[$i] as $key => $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                    $value=Affichage::dateFr($value);
+                                    $value=Validation::dateFr($value);
                                 if($key=='Matricule')
                                     $value='SA-'.$value;
                                 echo'<td class="">'.$value.'</td>';
@@ -179,7 +173,6 @@
                 echo'</tbody>
             </table>';
         }
-
         public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But){
             $tab=[];
             for($i=0;$i<count($donnees);$i++){

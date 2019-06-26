@@ -18,7 +18,7 @@
 
         <div class="ligne">
             <p class="left">Naissance </p><strong>:</strong>
-            <p class='right'><?php echo Affichage::dateFr($etu['Naissance']);?></p>
+            <p class='right'><?php echo Validation::dateFr($etu['Naissance']);?></p>
         </div>
 
         <div class="ligne">

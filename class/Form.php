@@ -82,67 +82,67 @@ class Form{
                         echo'<tr class="">';
                             foreach($donnees[$i] as $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                    $value=Affichage::dateFr($value);
+                                    $value=Validation::dateFr($value);
                                 echo'<td class="">'.$value.'</td>';
                             }
                             if($autres1!=[] && $autres1!=''){
                                 $value=$autres1[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres2!=[] && $autres2!=''){
                                 $value=$autres2[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres3!=[] && $autres3!=''){
                                 $value=$autres3[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres4!=[] && $autres4!=''){
                                 $value=$autres4[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres5!=[] && $autres5!=''){
                                 $value=$autres5[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres6!=[] && $autres6!=''){
                                 $value=$autres6[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres7!=[] && $autres7!=''){
                                 $value=$autres7[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres8!=[] && $autres8!=''){
                                 $value=$autres8[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres9!=[] && $autres9!=''){
                                 $value=$autres9[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres10!=[] && $autres10!=''){
                                 $value=$autres10[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Affichage::dateFr($value);
+                                        $value=Validation::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
                             }
                         echo'</tr>';
