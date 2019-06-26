@@ -1,30 +1,12 @@
 <?php
     class Affichage{
-        public static function deboger($element){
-            echo "<pre>";
-            print_r($element);
-            echo " </pres>";
-        }
-        public static function selectChambre2($name,$class,$selectBat='',$selectCh='',$disabled=false){
-            $tab_optgroup=EtudiantService::find('Batiment','Nom_bat');
-            echo '<select name="'.$name.'" class="'.$class.'" '; if($disabled==true){echo' disabled '; }echo'>';
-            for($a=0;$a<count($tab_optgroup);$a++){
-                $optgroup=$tab_optgroup[$a]->Nom_bat;
-                echo'<optgroup label="'.$optgroup.'">';
-                $idBqt=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$optgroup)[0]->id_Batiment;
-                $nbCh=$opt=EtudiantService::find('Chambres','Numero_Ch','id_Batiment',$idBqt);
-                    for($b=0;$b<count($nbCh);$b++){
-                        $tb=EtudiantService::find('Chambres','*','id_Batiment',$idBqt);
-                        $opt=$tb[$b]->Numero_Ch;
-                        $idCh=$tb[$b]->id_Chambre;
-                        if($selectBat==$optgroup && $selectCh==$opt)
-                            echo'<option value="'.$idCh.'" selected>Chambre '.$opt.' (' .$optgroup.')</option>';
-                        else
-                            echo'<option value="'.$idCh.'">Chambre '.$opt.' (' .$optgroup.')</option>';
-                    }
-                echo'</optgroup>';
+        public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                foreach($donnees[$i] as $value)
+                    $tab[]='<a class="nonSoulign" href="'.$pages.'?title='.$title.'&'.$trite_Get.'='.$value.'" ><button class="'.$class_but.'">'.$nom_But.'</button></a>';
             }
-            echo'</select>';
+            return $tab;
         }
         public static function selectChambre($name,$class,$id_bat='',$selectCh='',$disabled=false){
             $Ch=EtudiantService::find('Chambres','*','id_Batiment',$id_bat);
@@ -66,10 +48,6 @@
                 }
             return $value;
         }       
-        public static function nmbr_et_ch2($id_ch){
-            $tab=EtudiantService::find('Loges','id_Chambre','id_Chambre',$id_ch);
-            return count($tab);
-        }
         public static function nmbr_et_ch($donnees){
             $tab=[];
             for($i=0;$i<count($donnees);$i++){
@@ -77,15 +55,6 @@
                 $tab[]=count(EtudiantService::find('Loges','id_Chambre','id_Chambre',$id_ch));
             }
             return $tab;
-        }
-        public static function nmbr_et_Bat($id_bat){
-            $etu=0;
-            $ch=EtudiantService::find('Chambres','id_Chambre','id_Batiment',$id_bat);
-            for($i=0;$i<count($ch);$i++){
-                $id_ch=$ch[$i]->id_Chambre;
-                $etu+=self::nmbr_et_ch2($id_ch);
-            }
-            return $etu;
         }
         public static function nmbr_et_Bourse($donnees){
             $tab=[];
@@ -111,40 +80,42 @@
             }
             return $tab;
         }
-
-        public function tableau_bat($titres,$donnees,$class_table="",$avantdern_colonne=[],$dern_colonne=[]){
-            echo'<table class="'.$class_table.'" id="example" style="width:100%">
-                <thead class="">';
-                    echo'<tr class="">';
-                            for($i=0;$i<count($titres);$i++){
-                                echo '<td class="">'.$titres[$i].'</td>';
-                            }
-                    echo'</tr>
-                </thead>
-                <tbody id="developers">';
-                        for($i=0;$i<count($donnees);$i++){
-                            $a=0;
-                            $ligne='';
-                            
-                            echo'<tr class="">';
-                                foreach($donnees[$i] as $key => $value){
-                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Validation::dateFr($value);
-                                            if($key!='id_Batiment')
-                                                echo'<td class="">'.$value.'</td>';
-                                            else
-                                                echo'<td class="">'.($i+1).'</td>';
-                                    $a++;
-                                }
-                            echo '<td class="">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
-                            echo '<td class="">'.self::nmbr_et_Bat($donnees[$i]->id_Batiment).'</td>';
-                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo '<td>'.$avantdern_colonne[$i].'</td>';
-                            if($dern_colonne!='' && $dern_colonne!=[])echo '<td>'.$dern_colonne[$i].'</td>';
-                            echo'</tr>';
-                        }
-                echo'</tbody>
-            </table>';
+        public static function Numerotation($donnees){//pour batiment
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $tab[$i][]=$i+1;//pour la boucle foreach de Form tableau
+            }
+            return $tab;
         }
+        public static function nom_bat($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $tab[]=$donnees[$i]->Nom_bat;
+            }
+            return $tab;
+        }
+        public static function chambre_bat($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $tab[]=count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment));
+            }
+            return $tab;
+        }
+        public static function nmbr_etudiant_Bat($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $id_bat=$donnees[$i]->id_Batiment;
+                $ch=EtudiantService::find('Chambres','id_Chambre','id_Batiment',$id_bat);
+                $etu=0;
+                for($j=0;$j<count($ch);$j++){
+                    $etu+=count(EtudiantService::find('Loges','id_Chambre','id_Chambre',$ch[$j]->id_Chambre));
+                }
+                $tab[]=$etu;
+            }
+            return $tab;
+        }
+
+
         public function tableau_etu($titres,$donnees,$class_table=""){
             echo'<table class="'.$class_table.'" id="example" style="width:100%">
                 <thead class="">';
@@ -173,12 +144,12 @@
                 echo'</tbody>
             </table>';
         }
-        public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                foreach($donnees[$i] as $value)
-                    $tab[]='<a class="nonSoulign" href="'.$pages.'?title='.$title.'&'.$trite_Get.'='.$value.'" ><button class="'.$class_but.'">'.$nom_But.'</button></a>';
-            }
-            return $tab;
-        }
+        
+
+
+
+
+
+
+        
     }

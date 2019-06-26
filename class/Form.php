@@ -78,17 +78,18 @@ class Form{
                 </thead>
                 <tbody>';
                     for($i=0;$i<count($donnees);$i++){
-                        //die(var_dump($donnees));
+                        
                         echo'<tr class="">';
                             foreach($donnees[$i] as $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                     $value=Validation::dateFr($value);
                                 echo'<td class="">'.$value.'</td>';
                             }
+                            
                             if($autres1!=[] && $autres1!=''){
                                 $value=$autres1[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                        $value=Validation::dateFr($value);
+                                        $value=Validation::dateFr($value);  
                                     echo'<td class="">'.$value.'</td>';
                             }
                             if($autres2!=[] && $autres2!=''){

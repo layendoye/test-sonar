@@ -30,13 +30,20 @@
         <div class="Mes_tableaux">
             <?php
             $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
-            
             $batiment=EtudiantService::find('Batiment');
             $id_bat=EtudiantService::find('Batiment','id_Batiment');
             $mod=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_mod',$class_but='btn btn-outline-primary btinf',$nom_But='Modifier');
             $sup=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
             
-            Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);
+            
+            $numero=Affichage::Numerotation($batiment);
+            $Nom_batiment=Affichage::nom_bat($batiment);
+            $nomb_Ch=Affichage::chambre_bat($batiment);
+            $nomb_et=Affichage::nmbr_etudiant_Bat($batiment);
+            $form->tableau($titres,$numero,'display nowrap',$Nom_batiment,$nomb_Ch,$nomb_et,$mod,$sup);
+
+            
+            //Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);
             ?>
         </div>
         <!-- Fin tableau -->
