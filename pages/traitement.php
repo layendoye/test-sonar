@@ -10,11 +10,20 @@ Bdd::connexion('Universite');
             else header("location: etudiants.php?title=Etudiants&ChoiCh=true");
         }
         if(isset($_POST['valider_ajout_etudiant'])){
+            
             if($_POST['choix']=='Boursier'){//un simple boursier
                 $etudiant=new Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
             }
             elseif($_POST['choix']=='Loger'){//boursier et logé
-                $etudiant=new Loges('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
+                $nombreEtuCh=count(EtudiantService::find('Loges','id_Chambre','id_Chambre',$_POST['chambre']));
+                
+                if($nombreEtuCh<4)
+                    $etudiant=new Loges('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
+                else{
+                    $numero=EtudiantService::find('Chambres','Numero_Ch','id_Chambre',$_POST['chambre'])[0]->Numero_Ch;
+                    header("location: etudiants.php?title=Etudiants&ChoiCh=true&Chpleine=".$numero);
+                    die();//pour ne pas supprimer la variable $_SESSION
+                }
             }
             elseif($_POST['choix']=='Non Boursier'){//non boursier{
                 $etudiant=new Non_Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);
@@ -29,7 +38,14 @@ Bdd::connexion('Universite');
                 $etudiant=new Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
             }
             elseif($_POST['choix']=='Loger'){//boursier et logé
-                $etudiant=new Loges($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
+                $nombreEtuCh=count(EtudiantService::find('Loges','id_Chambre','id_Chambre',$_POST['chambre']));
+                if($nombreEtuCh<4)
+                    $etudiant=new Loges($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
+                else{
+                    $numero=EtudiantService::find('Chambres','Numero_Ch','id_Chambre',$_POST['chambre'])[0]->Numero_Ch;
+                    header('location: etudiants.php?title=Etudiants&ChoiCh=true&'.$_SESSION['modif_actuel'].'&Statut_et=Loger&Chpleine='.$numero);
+                    die();//pour ne pas supprimer la variable $_SESSION
+                }
             }
             elseif($_POST['choix']=='Non Boursier'){//non boursier{
                 $etudiant=new Non_Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['adresse']);

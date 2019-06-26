@@ -145,7 +145,7 @@
         <?php /////////////////--------------------Début Pop-Up------------------///////////////////////////?>
             <?php if(isset($_GET['popUp'])){?>
                 <?php $etu=EtudiantService::info($_GET['popUp'])?>
-                <div class="popUp" >
+                <div class="popUp" id="popUp">
                     <div class="ligne">
                         <p class="left">Matricule </p><strong>:</strong>
                         <p class='right'><?php echo "SA-".$_GET['popUp']?></p>
@@ -241,6 +241,17 @@
         <?php
     }
     ///////////-----Fin validation suppression---////////
+
+    ///////////-----Fin validation suppression---////////
+    if(isset($_GET["Chpleine"])){
+         ?>
+        <script>
+            alert('La chambre '+ <?php echo $_GET["Chpleine"]?> +' est pleine elle contient déja 4 étudiants !')
+        </script>
+        <?php
+    }
+    ///////////-----Fin validation suppression---////////
+
 
     require("footer.php");
 ?>

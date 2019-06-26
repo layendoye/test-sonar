@@ -62,5 +62,23 @@ if (nom_page.includes("etudiants.php")) {
         document.getElementById('example_previous').innerHTML = 'Précédant';
         document.getElementById('example_next').innerHTML = 'Suivant';
     }
+    //okk();
+
+    function okk() {
+        for (var i = 0; i < 11; i++) {
+            setTimeout(popUp(), 5000);
+            clearTimeout(500);
+        }
+    }
+
+    function popUp() {
+        var monPopUp = document.getElementById('popUp');
+        var valeur = window.getComputedStyle(monPopUp).top;
+        valeur = valeur.replace('px', '');
+        var valeur2 = parseInt(valeur) + 70;
+        monPopUp.style.top = valeur2 + 'px';
+
+    }
+    window.onload = okk();
     window.onload = traduction;
 }

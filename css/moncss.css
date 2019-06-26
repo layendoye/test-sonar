@@ -142,7 +142,8 @@ div.dataTables_wrapper {
 
 .popUp {
     position: fixed;
-    top: 70px;
+    /* top: 70px; */
+    top: -700px;
     left: 22.5%;
     background-color: #f9f9f9f0;
     width: 55%;
