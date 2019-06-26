@@ -73,12 +73,13 @@ if (nom_page.includes("etudiants.php")) {
 
     function popUp() {
         var monPopUp = document.getElementById('popUp');
+        //if (document.getElementById('popUp')) {
         var valeur = window.getComputedStyle(monPopUp).top;
         valeur = valeur.replace('px', '');
         var valeur2 = parseInt(valeur) + 70;
         monPopUp.style.top = valeur2 + 'px';
-
+        //}
     }
-    window.onload = okk();
+    if (document.getElementById('popUp')) window.onload = okk();
     window.onload = traduction;
 }

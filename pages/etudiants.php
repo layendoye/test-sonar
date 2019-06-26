@@ -224,25 +224,26 @@
 
     </section>
 </body>
-<?php
+<?php //suppression et nombres étudiants/chambres 
+
     ///////////-----Début validation suppression---////////
     if(isset($_GET["matricule_sup"])){
         $sonId=$_GET["matricule_sup"];
-        $sup='matricule_sup='.$sonId
+        $sup='matricule_sup='.$sonId;
         ?>
         <script>
             if(confirm("Confirmer la suppression ?")){
-                document.location.href = "traitement.php?title=traitement&<?php echo "$sup"; ?>"
+                document.location.href = "traitement.php?title=traitement&<?php echo "$sup"; ?>";
             }
             else{
-                document.location.href = "etudiants.php?title=Etudiants"
+                document.location.href = "etudiants.php?title=Etudiants";
             }
         </script>
         <?php
     }
     ///////////-----Fin validation suppression---////////
 
-    ///////////-----Fin validation suppression---////////
+    ///////////-----Début validation nombre étudiant par chambre---////////
     if(isset($_GET["Chpleine"])){
          ?>
         <script>
@@ -250,8 +251,7 @@
         </script>
         <?php
     }
-    ///////////-----Fin validation suppression---////////
-
-
-    require("footer.php");
+    ///////////-----Finvalidation nombre étudiant par chambre---////////
+    
 ?>
+<?php require("footer.php");?>

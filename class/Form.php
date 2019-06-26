@@ -67,7 +67,7 @@ class Form{
             }
             echo'</select>';
     }
-    public function tableau($titres,$donnees,$class_table="",$avantdern_colonne=[],$dern_colonne=[]){
+    public function tableau($titres,$donnees,$class_table="",$autres1=[],$autres2=[],$autres3=[],$autres4=[],$autres5=[],$autres6=[],$autres7=[],$autres8=[],$autres9=[],$autres10=[]){
         echo'<table class="'.$class_table.'" id="example" style="width:100%">
                 <thead class="">';
                     echo'<tr class="">';
@@ -78,22 +78,74 @@ class Form{
                 </thead>
                 <tbody>';
                     for($i=0;$i<count($donnees);$i++){
-                        $a=0;
-                        $ligne='';
-
-                        if(isset($_POST["recherche"])) foreach($donnees[$i] as $value){$ligne.=' '.$value;}
-                        if(isset($_POST["recherche"]) && $_POST["aRechercher"]!='' && strstr(strtolower($ligne), strtolower($_POST["aRechercher"])) || !isset($_POST["recherche"]) || isset($_POST["recherche"]) && $_POST["aRechercher"]==''){
-                            echo'<tr class="">';
-                                foreach($donnees[$i] as $value){
+                        
+                        echo'<tr class="">';
+                            foreach($donnees[$i] as $value){
+                                if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                    $value=Affichage::dateFr($value);
+                                echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres1!=[] && $autres1!=''){
+                                $value=$autres1[$i];
                                     if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                         $value=Affichage::dateFr($value);
                                     echo'<td class="">'.$value.'</td>';
-                                    $a++;
-                                }
-                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
-                            echo'</tr>';
-                        }
+                            }
+                            if($autres2!=[] && $autres2!=''){
+                                $value=$autres2[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres3!=[] && $autres3!=''){
+                                $value=$autres3[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres4!=[] && $autres4!=''){
+                                $value=$autres4[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres5!=[] && $autres5!=''){
+                                $value=$autres5[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres6!=[] && $autres6!=''){
+                                $value=$autres6[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres7!=[] && $autres7!=''){
+                                $value=$autres7[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres8!=[] && $autres8!=''){
+                                $value=$autres8[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres9!=[] && $autres9!=''){
+                                $value=$autres9[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                            if($autres10!=[] && $autres10!=''){
+                                $value=$autres10[$i];
+                                    if(Validation::verifierDate($value, $format = 'Y-m-d'))
+                                        $value=Affichage::dateFr($value);
+                                    echo'<td class="">'.$value.'</td>';
+                            }
+                        echo'</tr>';
                     }
             echo'</tbody>
         </table>';

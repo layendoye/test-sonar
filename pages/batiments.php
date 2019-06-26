@@ -30,11 +30,12 @@
         <div class="Mes_tableaux">
             <?php
             $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
-            //$class=array('col-md-1 text-center','col-md-3 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center','col-md-2 text-center');
+            
             $batiment=EtudiantService::find('Batiment');
-            $mod=Affichage::bouton_mod_bat($batiment);
-            $sup=Affichage::bouton_sup_bat($batiment);
-            //die(var_dump($sup));
+            $id_bat=EtudiantService::find('Batiment','id_Batiment');
+            $mod=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_mod',$class_but='btn btn-outline-primary btinf',$nom_But='Modifier');
+            $sup=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
+            
             Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);
             ?>
         </div>

@@ -15,4 +15,9 @@ class Validation{
     { //permet d afficher le separateur de millier
         return strrev(wordwrap(strrev($n), 3, ' ', true));
     }
+    public static function dateFr($date_En){
+        $datN = new DateTime($date_En);
+        $date_Fr = $datN->format('d-m-Y');
+        return $date_Fr ;
+    }
 }

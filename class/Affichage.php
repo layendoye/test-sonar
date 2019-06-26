@@ -70,39 +70,7 @@
                     $value='Non Boursier';
                 }
             return $value;
-        }
-        public static function bouton_mod_bourse($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
-                $tab[]='<td class=" boutonAll"><a class="nonSoulign" href="bourses.php?title=Bourses&id_Categ_Bourse_mod='.$id_Categ_Bourse.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
-            }
-            return $tab;
-        }
-        public static function bouton_sup_bourse($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Categ_Bourse=$donnees[$i]->id_Categ_Bourse;
-                $tab[]='<td class="boutonAll"><a class="nonSoulign" href="bourses.php?title=Bourses&id_Categ_Bourse_sup='.$id_Categ_Bourse.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
-            }
-            return $tab;
-        }
-        public static function bouton_mod_chambres($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Chambre=$donnees[$i]->id_Chambre;
-                $tab[]='<td class="boutonAll"><a class="nonSoulign" href="chambres.php?title=Chambres&id_Chambre_mod='.$id_Chambre.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
-            }
-            return $tab;
-        }
-        public static function bouton_sup_chambres($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Chambre=$donnees[$i]->id_Chambre;
-                $tab[]='<td class=" boutonAll"><a class="nonSoulign" href="chambres.php?title=Chambres&id_Chambre_sup='.$id_Chambre.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
-            }
-            return $tab;
-        }
+        }       
         public static function nmbr_et_ch($id_ch){
             $tab=EtudiantService::find('Loges','id_Chambre','id_Chambre',$id_ch);
             return count($tab);
@@ -141,8 +109,8 @@
                                         }
                                     }
                                 echo '<td class="">'.self::nmbr_et_ch($donnees[$i]->id_Chambre).'</td>';
-                                if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                                if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                                if($avantdern_colonne!='' && $avantdern_colonne!=[])echo '<td>'.$avantdern_colonne[$i].'</td>';
+                                if($dern_colonne!='' && $dern_colonne!=[])echo '<td>'.$dern_colonne[$i].'</td>';
                                 echo'</tr>';
                             
                             }
@@ -175,29 +143,14 @@
                                 }
                             echo '<td class="">'.count(EtudiantService::find('Chambres','id_Chambre','id_Batiment',$donnees[$i]->id_Batiment)).'</td>';
                             echo '<td class="">'.self::nmbr_et_Bat($donnees[$i]->id_Batiment).'</td>';
-                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo $avantdern_colonne[$i];
-                            if($dern_colonne!='' && $dern_colonne!=[])echo $dern_colonne[$i];
+                            if($avantdern_colonne!='' && $avantdern_colonne!=[])echo '<td>'.$avantdern_colonne[$i].'</td>';
+                            if($dern_colonne!='' && $dern_colonne!=[])echo '<td>'.$dern_colonne[$i].'</td>';
                             echo'</tr>';
                         }
                 echo'</tbody>
             </table>';
         }
-        public static function bouton_mod_bat($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Batiment=$donnees[$i]->id_Batiment;
-                $tab[]='<td class="boutonAll"><a class="nonSoulign" href="batiments.php?title=Batiments&id_Batiment_mod='.$id_Batiment.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a></td>';
-            }
-            return $tab;
-        }
-        public static function bouton_sup_bat($donnees){
-            $tab=[];
-            for($i=0;$i<count($donnees);$i++){
-                $id_Batiment=$donnees[$i]->id_Batiment;
-                $tab[]='<td class="boutonAll"><a class="nonSoulign" href="batiments.php?title=Batiments&id_Batiment_sup='.$id_Batiment.'" ><button class="btn btn-outline-danger btinf">Supprimer</button></a></td>';
-            }
-            return $tab;
-        }
+
         public function tableau_etu($titres,$donnees,$class_table=""){
             echo'<table class="'.$class_table.'" id="example" style="width:100%">
                 <thead class="">';
@@ -225,5 +178,14 @@
                     }
                 echo'</tbody>
             </table>';
+        }
+
+        public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                foreach($donnees[$i] as $value)
+                    $tab[]='<a class="nonSoulign" href="'.$pages.'?title='.$title.'&'.$trite_Get.'='.$value.'" ><button class="'.$class_but.'">'.$nom_But.'</button></a>';
+            }
+            return $tab;
         }
     }
