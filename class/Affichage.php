@@ -79,6 +79,16 @@
             }
             return $etu;
         }
+        public static function nmbr_et_Bourse($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                //die(var_dump($donnees));
+                $id_categ_bourse=$donnees[$i]->id_Categ_Bourse;
+                $tab[]=count(EtudiantService::find('Boursiers','id_Categ_Bourse','id_Categ_Bourse',$id_categ_bourse));
+            }
+            return $tab;
+        }
+
         public function tableau_chambre($titres,$donnees,$class_table="",$avantdern_colonne=[],$dern_colonne=[]){
             echo'<table class="'.$class_table.'" id="example" style="width:100%">
                     <thead class="">';
