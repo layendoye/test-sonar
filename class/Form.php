@@ -78,7 +78,7 @@ class Form{
                 </thead>
                 <tbody>';
                     for($i=0;$i<count($donnees);$i++){
-                        
+                        //die(var_dump($donnees));
                         echo'<tr class="">';
                             foreach($donnees[$i] as $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))

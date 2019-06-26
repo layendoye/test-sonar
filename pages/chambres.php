@@ -44,8 +44,10 @@
             $id_ch=EtudiantService::find('Chambres','id_Chambre');
             $mod=Affichage::bouton($id_ch,$pages='chambres.php',$title='Chambres',$trite_Get='id_Chambre_mod',$class_but='btn btn-outline-primary btinf',$nom_But='Modifier');
             $sup=Affichage::bouton($id_ch,$pages='chambres.php',$title='Chambres',$trite_Get='id_Chambre_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
-            
-            Affichage::tableau_chambre($titres,$chambres,'display nowrap',$mod,$sup);
+            $numeroCh=Affichage::chambres($chambres);
+            $nom_Bat=Affichage::Bat_chambres($chambres);
+            $nmbrEt=Affichage::nmbr_et_ch($chambres);
+            $form->tableau($titres,$numeroCh,'display nowrap',$nom_Bat,$nmbrEt,$mod,$sup);
             ?>
         </div>
         <!-- Fin tableau -->
