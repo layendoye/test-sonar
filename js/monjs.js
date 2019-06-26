@@ -9,9 +9,6 @@ $(document).ready(function() {
 var nom_page = window.location.pathname;
 if (nom_page.includes("etudiants.php")) {
 
-
-
-
     var typeBourse = document.getElementById('typeBourse');
     var batiment = document.getElementById('Batiment');
     var chambre;
@@ -58,12 +55,12 @@ if (nom_page.includes("etudiants.php")) {
         afficherPourLoge();
     }
 
-
-
-    var formulaire = document.getElementById('MonForm');
-
-    function envoiFormulaire() {
-        formulaire.onsubmit();
+    function traduction() {
+        document.getElementById('example_filter').innerHTML = '<label>  <input type="search" class="form-control" placeholder="Rechercher" aria-controls="example"></label>';
+        document.getElementById('example_length').innerHTML = '<label class="form-control">Montrer <select name="example_length" aria-controls="example" data-dpmaxz-eid="8"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> </label>';
+        document.getElementById('example_info').innerHTML = '<div class="dataTables_info" id="example_info" role="status" aria-live="polite"></div>';
+        document.getElementById('example_previous').innerHTML = 'Précédant';
+        document.getElementById('example_next').innerHTML = 'Suivant';
     }
-
+    window.onload = traduction;
 }
