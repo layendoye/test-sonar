@@ -2,7 +2,7 @@
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>      
 <body>
     <?php include('nav.php');?>
-    <section class="container sect">
+    <section class="container-fluid sect">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
@@ -30,7 +30,7 @@
                                 $form->submit('valider_mod_bourse','Modifier','form-control col-md-5 espace mb');
                                 $_SESSION['id_Categ_Bourse_mod']=$_GET['id_Categ_Bourse_mod'];
                             }
-                                ?>
+                        ?>
                     </div>
                     
                 </form>
@@ -39,13 +39,14 @@
          <!-- Debut tableau -->
          <div class="Mes_tableaux">
             <?php
-            $titres=array('Numero','Libellé','Montant','Octroyer','Modification','Supprimer');
+            $titres=array('Numero','Libellé','Montant','Octroyer','Lister','Modification','Supprimer');
             $bourses=EtudiantService::find('Categorie_Bourse');
             $id_bou=EtudiantService::find('Categorie_Bourse','id_Categ_Bourse');
             $mod=Affichage::bouton($id_bou,$pages='bourses.php',$title='Bourses',$trite_Get='id_Categ_Bourse_mod',$class_but='btn btn-outline-primary btinf',$nom_But='Modifier');
             $sup=Affichage::bouton($id_bou,$pages='bourses.php',$title='Bourses',$trite_Get='id_Categ_Bourse_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
             $nmbrEt=Affichage::nmbr_et_Bourse($id_bou);
-            $form->tableau($titres,$bourses,'display nowrap',$nmbrEt,$mod,$sup);
+            $lister=Affichage::bouton($id_bou,$pages='lister.php',$title='Afficher',$trite_Get='id_Categ_Bourse',$class_but='btn btn-outline-info btinf',$nom_But='Lister',$blank=true);
+            $form->tableau($titres,$bourses,'display nowrap',$nmbrEt,$lister,$mod,$sup);
             ?>
         </div>
         <!-- Fin tableau -->

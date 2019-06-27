@@ -1,10 +1,12 @@
 <?php
     class Affichage{
-        public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But){
+        public static function bouton($donnees,$pages,$title='',$trite_Get,$class_but='',$nom_But,$blank=false){
             $tab=[];
+            $target='';
+            if($blank) $target=' target="_blank" ';
             for($i=0;$i<count($donnees);$i++){
                 foreach($donnees[$i] as $value)
-                    $tab[]='<a class="nonSoulign" href="'.$pages.'?title='.$title.'&'.$trite_Get.'='.$value.'" ><button class="'.$class_but.'">'.$nom_But.'</button></a>';
+                    $tab[]='<a class="nonSoulign"'.$target.'href="'.$pages.'?title='.$title.'&'.$trite_Get.'='.$value.'" ><button class="'.$class_but.'">'.$nom_But.'</button></a>';
             }
             return $tab;
         }

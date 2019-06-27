@@ -2,7 +2,7 @@
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>      
 <body>
     <?php include('nav.php');?>
-    <section class="container sect">
+    <section class="container-fluid sect">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
@@ -38,7 +38,7 @@
          <!-- Debut tableau -->
         <div class="Mes_tableaux">
             <?php
-            $titres=array('Numero chambre','Batiment','Nombres étudiants','Modification','Supprimer');
+            $titres=array('Numero chambre','Batiment','Nombres étudiants','Lister','Modification','Supprimer');
             $class=array('col-md-2 text-center','col-md-2 text-center','col-md-3 text-center','col-md-3 text-center','col-md-2 text-center');
             $chambres=EtudiantService::find('Chambres');
             $id_ch=EtudiantService::find('Chambres','id_Chambre');
@@ -47,7 +47,8 @@
             $numeroCh=Affichage::chambres($chambres);
             $nom_Bat=Affichage::Bat_chambres($chambres);
             $nmbrEt=Affichage::nmbr_et_ch($chambres);
-            $form->tableau($titres,$numeroCh,'display nowrap',$nom_Bat,$nmbrEt,$mod,$sup);
+            $lister=Affichage::bouton($id_ch,$pages='lister.php',$title='Afficher',$trite_Get='id_Chambre',$class_but='btn btn-outline-info btinf',$nom_But='Lister',$blank=true);
+            $form->tableau($titres,$numeroCh,'display nowrap',$nom_Bat,$nmbrEt,$lister,$mod,$sup);
             ?>
         </div>
         <!-- Fin tableau -->

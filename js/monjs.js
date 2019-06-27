@@ -1,10 +1,10 @@
-///////////////-----------pagination-------------////
+///////////////-----------Début DataTable-------------////
 $(document).ready(function() {
     $('#example').DataTable({
         "scrollX": true
     });
 });
-///////////////-----------Fin pagination-------------////
+///////////////-----------Fin DataTable-------------////
 
 ////////////----Début Page étudidant----////////
 var nom_page = window.location.pathname;
@@ -14,11 +14,11 @@ if (nom_page.includes("etudiants.php")) {
     var naissance = document.getElementById('naiss');
     var email = document.getElementById('email');
     var tel = document.getElementById('tel');
-    var choix = document.getElementsByName('choix');
-    var typeBourse = document.getElementById('typeBourse');
-    var batiment = document.getElementById('Batiment');
+    var choix = document.getElementsByName('choix'); //la div qui recupere le statut
+    var typeBourse = document.getElementById('typeBourse'); //la div
+    var batiment = document.getElementById('Batiment'); //la div
     var chambre;
-    var adresse = document.getElementById('adresse');
+    var adresse = document.getElementById('adresse'); //la div
     var sendForm = document.getElementById('subm');
     var nonBoursier = document.getElementById('nonBoursier');
     var loger = document.getElementById('Loger');
@@ -61,13 +61,12 @@ if (nom_page.includes("etudiants.php")) {
             tel.setAttribute("placeholder", "Remplir le téléphone !");
             e.preventDefault();
         }
-
         if (!loger.checked && !nonBoursier.checked && !boursier.checked) {
             alert('Choisir une catégorie (boursier, loger ou non boursier)!');
             e.preventDefault();
         }
 
-        if (ladresse.value == '') {
+        if (nonBoursier.checked && ladresse.value == '') {
             ladresse.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
             ladresse.setAttribute("placeholder", "Remplir l'adresse !");
             e.preventDefault();
@@ -118,7 +117,7 @@ if (nom_page.includes("etudiants.php")) {
     } else if (choix = document.getElementById('Statut Loger')) {
         afficherPourLoge();
     }
-
+    ////////////----Début popUp----////////
     var i = 0;
     var monPopUp = document.getElementById('popUp');
 
@@ -128,7 +127,13 @@ if (nom_page.includes("etudiants.php")) {
         if (window.getComputedStyle(monPopUp).top != '70px') requestAnimationFrame(popUp);
     }
     if (monPopUp) requestAnimationFrame(popUp);
-
+    ////////////----Fin popUp----////////
 
 }
 ////////////----Fin Page étudidant----////////
+
+////////////----Début Page étudidant----////////
+var nom_page = window.location.pathname;
+if (nom_page.includes("bourses.php")) {
+
+}

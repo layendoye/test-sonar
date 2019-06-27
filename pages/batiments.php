@@ -2,7 +2,7 @@
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>      
 <body>
     <?php include('nav.php');?>
-    <section class="container sect">
+    <section class="container-fluid sect">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
@@ -29,18 +29,19 @@
          <!-- Debut tableau -->
         <div class="Mes_tableaux">
             <?php
-            $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Modification','Supprimer');
+            $titres=array('Numero','Nom','Nombres chambres','Nombres étudiants','Lister','Modification','Supprimer');
             $batiment=EtudiantService::find('Batiment');
             $id_bat=EtudiantService::find('Batiment','id_Batiment');
             $mod=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_mod',$class_but='btn btn-outline-primary btinf',$nom_But='Modifier');
             $sup=Affichage::bouton($id_bat,$pages='batiments.php',$title='Batiments',$trite_Get='id_Batiment_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
-            
+            $lister=Affichage::bouton($id_bat,$pages='lister.php',$title='Afficher',$trite_Get='id_Batiment',$class_but='btn btn-outline-info btinf',$nom_But='Lister',$blank=true);
             
             $numero=Affichage::Numerotation($batiment);
             $Nom_batiment=Affichage::nom_bat($batiment);
             $nomb_Ch=Affichage::chambre_bat($batiment);
             $nomb_et=Affichage::nmbr_etudiant_Bat($batiment);
-            $form->tableau($titres,$numero,'display nowrap',$Nom_batiment,$nomb_Ch,$nomb_et,$mod,$sup);
+            
+            $form->tableau($titres,$numero,'display nowrap',$Nom_batiment,$nomb_Ch,$nomb_et,$lister,$mod,$sup);
 
             
             //Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);

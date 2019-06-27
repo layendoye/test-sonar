@@ -7,7 +7,7 @@ echo '<nav class="navbar navbar-expand-lg navbar-light row fixed-top" style="bac
   </button>
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav col-12 mr-auto">
       <li class="nav-item  ';if ($_GET['title'] == "Accueil") {echo 'active';}echo '">
         <a class="nav-link" href="accueil.php?title=Accueil">Accueil<span class="sr-only">(current)</span></a>
       </li>';
@@ -23,7 +23,7 @@ echo '<nav class="navbar navbar-expand-lg navbar-light row fixed-top" style="bac
         <li class="nav-item ';if ($_GET['title'] == "Batiments") {echo 'active';}echo '">
           <a class="nav-link" href="batiments.php?title=Batiments">Gestions des batiments</a>
         </li>';
-      echo'<li class="nav-item">
+      echo'<li class="nav-item deco">
         <a class="nav-link" href="deconnexion.php?title=">Déconnexion</a>
       </li>
     </ul>

@@ -9,7 +9,8 @@ Bdd::connexion('Universite');
             if(isset($_SESSION['modif_actuel'])) header('location: etudiants.php?title=Etudiants&ChoiCh=true&'.$_SESSION['modif_actuel'].'&Statut_et=Loger');
             else header("location: etudiants.php?title=Etudiants&ChoiCh=true");
         }
-        if(isset($_POST['valider_ajout_etudiant'])){
+        if(isset($_POST['valider_ajout_etudiant']) || isset($_POST['AnnulerEtu'])){
+            if(isset($_POST['AnnulerEtu'])) {header("location: etudiants.php?title=Etudiants&annuler=true"); die();}
             if($_POST['choix']=='Boursier'){//un simple boursier
                 $etudiant=new Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
             }
@@ -32,13 +33,15 @@ Bdd::connexion('Universite');
             $matricule=EtudiantService::find('Etudiants','Matricule');
             header("location: etudiants.php?title=Etudiants&popUp=".$matricule[count($matricule)-1]->Matricule);
         }
-        if(isset($_POST['valider_modif_etudiant'])){
+        if(isset($_POST['valider_modif_etudiant']) || isset($_POST['AnnulerEtu'])){
+            if(isset($_POST['AnnulerEtu'])) {header("location: etudiants.php?title=Etudiants&annuler=true"); die();}
             if($_POST['choix']=='Boursier'){//un simple boursier
                 $etudiant=new Boursiers($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
             }
             elseif($_POST['choix']=='Loger'){//boursier et logé
                 $nombreEtuCh=count(EtudiantService::find('Loges','id_Chambre','id_Chambre',$_POST['chambre']));
-                if($nombreEtuCh<4)
+                //die(var_dump(EtudiantService::find('Loges','id_Chambre','Matricule',$_GET['matricule_modif'])[0]->id_Chambre));
+                if($nombreEtuCh<4 || $nombreEtuCh==4 && EtudiantService::find('Loges','id_Chambre','Matricule',$_GET['matricule_modif'])[0]->id_Chambre==$_POST['chambre'])
                     $etudiant=new Loges($_GET['matricule_modif'],$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour'],$_POST['chambre']);
                 else{
                     $numero=EtudiantService::find('Chambres','Numero_Ch','id_Chambre',$_POST['chambre'])[0]->Numero_Ch;

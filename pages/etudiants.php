@@ -1,7 +1,7 @@
 <?php require("haut_de_page.php");?>
 <?php if ($_SESSION['valider']==false) {header('Location: ../index.php'); exit();}?>
-<?php if(isset($_SESSION['donnees_etudiants']) && !isset($_GET['ChoiCh'])) unset($_SESSION['donnees_etudiants']);?>
-<?php if(!isset($_GET['matricule_modif']) && isset($_SESSION['modif_actuel'])) unset( $_SESSION['modif_actuel'])?>      
+<?php if(isset($_SESSION['donnees_etudiants']) && !isset($_GET['ChoiCh']) || isset($_GET['annuler'])) unset($_SESSION['donnees_etudiants']);?>
+<?php if(!isset($_GET['matricule_modif']) && isset($_SESSION['modif_actuel'])|| isset($_GET['annuler'])) unset( $_SESSION['modif_actuel'])?>      
 <body>
     <?php include('nav.php');?>
     <section class="container-fluid sect">
@@ -131,9 +131,10 @@
                         
                         <?php /////////////////--------------------Début submit------------------///////////////////////////?>
                             <div class="row">
-                                <div class="col-md-4"></div>                        
-                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-5 espace mb','subm');?>
-                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-5 espace mb','subm');?>
+                                <div class="col-md-3"></div>                        
+                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-3 espace mb bvalider','subm');?>
+                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-3 espace mb bvalider','subm');?>
+                                <?php $form->submit('AnnulerEtu','Annuler','form-control col-md-3 espace mb annuler','');?>
                             </div>
                         <?php /////////////////--------------------Fin submit------------------///////////////////////////?>
 
@@ -215,15 +216,15 @@
         <!-- Début tableau -->
             <div class="Mes_tableaux">
                 <?php
-                $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut','Modifier','Supprimer');
+                $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut','Infos','Modifier','Supprimer');
                 $etudiants=EtudiantService::find('Etudiants');
                 
                 $statut=Affichage::statut_etudiant($etudiants);
                 $matricules=EtudiantService::find('Etudiants','Matricule');
                 $mod=Affichage::bouton_modif_etudiant($etudiants);
                 $sup=Affichage::bouton($matricules,$pages='etudiants.php',$title='Etudiants',$trite_Get='matricule_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
-                
-                $form->tableau($titres,$etudiants,'display nowrap',$statut,$mod,$sup);
+                $info=Affichage::bouton($matricules,$pages='etudiants.php',$title='Etudiants',$trite_Get='popUp',$class_but='btn btn-outline-info btinf',$nom_But='Infos');
+                $form->tableau($titres,$etudiants,'display nowrap',$statut,$info,$mod,$sup);
                 ?>
             </div>
         <!-- Fin tableau -->
