@@ -119,6 +119,13 @@ thead>tr {
     margin-left: 22%;
 }
 
+.t1:hover,
+.t2:hover,
+.t3:hover {
+    font-size: 250% !important;
+    color: #307bbb;
+}
+
 .titreCirLog {
     margin-left: 60% !important;
 }

@@ -23,7 +23,7 @@
         }
         public static function selectBat($name,$class,$selectBat='',$disabled=false){
             $tab_bat=EtudiantService::find('Batiment','*');
-            echo '<select name="'.$name.'" class="'.$class.'" onchange="this.form.submit();" '; if($disabled==true){echo' disabled '; }echo'>';
+            echo '<select name="'.$name.'" id="leBatiment" class="'.$class.'" onchange="this.form.submit();" '; if($disabled==true){echo' disabled '; }echo'>';
             echo'<option value=""></option>';
             for($a=0;$a<count($tab_bat);$a++){
                 $bat=$tab_bat[$a]->Nom_bat;
@@ -114,35 +114,20 @@
             }
             return $tab;
         }
-
-
-        public function tableau_etu($titres,$donnees,$class_table=""){
-            echo'<table class="'.$class_table.'" id="example" style="width:100%">
-                <thead class="">';
-                    echo'<tr class="">';
-                            for($i=0;$i<count($titres);$i++){
-                                echo '<td class="">'.$titres[$i].'</td>';
-                            }
-                    echo'</tr>
-                </thead>
-                <tbody>';
-                    for($i=0;$i<count($donnees);$i++){
-                        echo'<tr class="">';
-                            foreach($donnees[$i] as $key => $value){
-                                if(Validation::verifierDate($value, $format = 'Y-m-d'))
-                                    $value=Validation::dateFr($value);
-                                if($key=='Matricule')
-                                    $value='SA-'.$value;
-                                echo'<td class="">'.$value.'</td>';
-                            }
-                            $statut=self::statut_etu($donnees[$i]->Matricule);
-                            echo'<td class="">'.$statut.'</td>';
-                            echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_modif='.$donnees[$i]->Matricule.'&Statut_et='.$statut.'" ><button class="btn btn-outline-primary">Modifier</button></a></td>';
-                            echo'<td class="boutonAll"><a class="nonSoulign" href="etudiants.php?title=Etudiants&matricule_sup='.$donnees[$i]->Matricule.'" ><button class="btn btn-outline-danger">Supprimer</button></a></td>';    
-                        echo'</tr>';
-                    }
-                echo'</tbody>
-            </table>';
+        public static function bouton_modif_etudiant($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $statut=self::statut_etu($donnees[$i]->Matricule);
+                $tab[]='<a class="" href="etudiants.php?title=Etudiants&matricule_modif='.$donnees[$i]->Matricule.'&Statut_et='.$statut.'" ><button class="btn btn-outline-primary btinf">Modifier</button></a>';
+            }
+            return $tab;
+        }
+        public static function statut_etudiant($donnees){
+            $tab=[];
+            for($i=0;$i<count($donnees);$i++){
+                $tab[]=self::statut_etu($donnees[$i]->Matricule);
+            }
+            return $tab;
         }
         
 

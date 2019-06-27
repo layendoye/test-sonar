@@ -17,8 +17,8 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <?php $form->label('','Nom','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('text','nom','form-control col-md-7 espace','Nom','','',true);?>
-                                <?php }else $form->input('text','nom','form-control col-md-7 espace','Nom',$etu['Nom'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('text','nom','form-control col-md-7 espace','Nom','','Nom',true);?>
+                                <?php }else $form->input('text','nom','form-control col-md-7 espace','Nom',$etu['Nom'],'Nom',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin Nom------------------///////////////////////////?>
                         
@@ -26,8 +26,8 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <?php $form->label('','Prénom','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('text','prenom','form-control col-md-7 espace','Prénom','','',true);?>
-                                <?php }else $form->input('text','prenom','form-control col-md-7 espace','Prénom',$etu['Prenom'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('text','prenom','form-control col-md-7 espace','Prénom','','prenom',true);?>
+                                <?php }else $form->input('text','prenom','form-control col-md-7 espace','Prénom',$etu['Prenom'],'prenom',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin Prenom------------------///////////////////////////?>
                         
@@ -35,8 +35,8 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <?php $form->label('','Naissance','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('date','naiss','form-control col-md-7 espace','','','',true);?>
-                                <?php }else $form->input('date','naiss','form-control col-md-7 espace','',$etu['Naissance'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('date','naiss','form-control col-md-7 espace','','','naiss',true);?>
+                                <?php }else $form->input('date','naiss','form-control col-md-7 espace','',$etu['Naissance'],'naiss',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin Naissance------------------///////////////////////////?>
                         
@@ -44,8 +44,8 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                             <?php $form->label('','Email','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('email','email','form-control col-md-7 espace','Email','','',true);?>
-                                <?php }else $form->input('email','email','form-control col-md-7 espace','Email',$etu['Email'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('email','email','form-control col-md-7 espace','Email','','email',true);?>
+                                <?php }else $form->input('email','email','form-control col-md-7 espace','Email',$etu['Email'],'email',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin Email------------------///////////////////////////?>
                         
@@ -53,8 +53,8 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                             <?php $form->label('','Téléphone','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('number','tel','form-control col-md-7 espace','Téléphone','','',true);?>
-                                <?php }else $form->input('number','tel','form-control col-md-7 espace','Téléphone',$etu['Telephone'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif'])) {$form->input('number','tel','form-control col-md-7 espace','Téléphone','','tel',true);?>
+                                <?php }else $form->input('number','tel','form-control col-md-7 espace','Téléphone',$etu['Telephone'],'tel',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin téléphone------------------///////////////////////////?>
                         
@@ -124,16 +124,16 @@
                             <div class="row" id='adresse'>
                                 <div class="col-md-1"></div>
                             <?php $form->label('','Adresse','col-md-2 espace pourLabel')?> 
-                                <?php if(!isset($_GET['matricule_modif']) || isset($_GET['matricule_modif'])&& !isset($etu['Adresse'])) {$form->input('text','adresse','form-control col-md-7 espace','Adresse');?>
-                                <?php }elseif(isset($etu['Adresse'])) $form->input('text','adresse','form-control col-md-7 espace','Adresse',$etu['Adresse'],'',false,'',false);?>
+                                <?php if(!isset($_GET['matricule_modif']) || isset($_GET['matricule_modif'])&& !isset($etu['Adresse'])) {$form->input('text','adresse','form-control col-md-7 espace','Adresse','','ladresse');?>
+                                <?php }elseif(isset($etu['Adresse'])) $form->input('text','adresse','form-control col-md-7 espace','Adresse',$etu['Adresse'],'ladresse',false,'',false);?>
                             </div>
                         <?php /////////////////--------------------Fin Adresse------------------///////////////////////////?>
                         
                         <?php /////////////////--------------------Début submit------------------///////////////////////////?>
                             <div class="row">
                                 <div class="col-md-4"></div>                        
-                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-5 espace mb');?>
-                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-5 espace mb');?>
+                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-5 espace mb','subm');?>
+                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-5 espace mb','subm');?>
                             </div>
                         <?php /////////////////--------------------Fin submit------------------///////////////////////////?>
 
@@ -217,7 +217,13 @@
                 <?php
                 $titres=array('Matricule','Nom','Prenom','Naissance','Email','Telephone','Statut','Modifier','Supprimer');
                 $etudiants=EtudiantService::find('Etudiants');
-                Affichage::tableau_etu($titres,$etudiants,'display nowrap');
+                
+                $statut=Affichage::statut_etudiant($etudiants);
+                $matricules=EtudiantService::find('Etudiants','Matricule');
+                $mod=Affichage::bouton_modif_etudiant($etudiants);
+                $sup=Affichage::bouton($matricules,$pages='etudiants.php',$title='Etudiants',$trite_Get='matricule_sup',$class_but='btn btn-outline-danger btinf',$nom_But='Supprimer');
+                
+                $form->tableau($titres,$etudiants,'display nowrap',$statut,$mod,$sup);
                 ?>
             </div>
         <!-- Fin tableau -->

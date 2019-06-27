@@ -10,7 +10,6 @@ Bdd::connexion('Universite');
             else header("location: etudiants.php?title=Etudiants&ChoiCh=true");
         }
         if(isset($_POST['valider_ajout_etudiant'])){
-            
             if($_POST['choix']=='Boursier'){//un simple boursier
                 $etudiant=new Boursiers('',$_POST['nom'],$_POST['prenom'], $_POST['naiss'], $_POST['email'], $_POST['tel'], $_POST['type_bour']);
             }

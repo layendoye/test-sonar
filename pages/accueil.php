@@ -43,13 +43,13 @@
         <div class='row '>
             
             <div class='col-4'>
-                <p class="titreCircle">Non boursiers</p>
+                <p class="titreCircle t1">Non boursiers</p>
             </div>
             <div class='col-4'>
-                <p class="titreCircle">Boursiers</p>
+                <p class="titreCircle t2">Boursiers</p>
             </div>
             <div class='col-3'>
-                <p class="titreCircle titreCirLog">Logers</p>
+                <p class="titreCircle titreCirLog t3">Logers</p>
             </div>
         </div>
 

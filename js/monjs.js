@@ -9,12 +9,76 @@ $(document).ready(function() {
 ////////////----Début Page étudidant----////////
 var nom_page = window.location.pathname;
 if (nom_page.includes("etudiants.php")) {
-
+    var nom = document.getElementById('Nom');
+    var prenom = document.getElementById('prenom');
+    var naissance = document.getElementById('naiss');
+    var email = document.getElementById('email');
+    var tel = document.getElementById('tel');
+    var choix = document.getElementsByName('choix');
     var typeBourse = document.getElementById('typeBourse');
     var batiment = document.getElementById('Batiment');
     var chambre;
-
     var adresse = document.getElementById('adresse');
+    var sendForm = document.getElementById('subm');
+    var nonBoursier = document.getElementById('nonBoursier');
+    var loger = document.getElementById('Loger');
+    var boursier = document.getElementById('Boursier');
+    var ladresse = document.getElementById('ladresse');
+    var lebatiment = document.getElementById('leBatiment');
+    sendForm.addEventListener('click', validation);
+
+    function validation(e) {
+        nom.style.backgroundColor = '#fff';
+        prenom.style.backgroundColor = '#fff';
+        naissance.style.backgroundColor = '#fff';
+        email.style.backgroundColor = '#fff';
+        if (ladresse) ladresse.style.backgroundColor = '#fff';
+        lebatiment.style.backgroundColor = '#fff';
+        tel.style.backgroundColor = '#fff';
+
+        if (nom.value == '') {
+            nom.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            nom.setAttribute("placeholder", "Remplir le nom !");
+            e.preventDefault();
+        }
+        if (prenom.value == '') {
+            prenom.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            prenom.setAttribute("placeholder", "Remplir le prénom !");
+            e.preventDefault();
+        }
+        if (naissance.value == '') {
+            naissance.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            alert('Remplir la date de naissance !');
+            e.preventDefault();
+        }
+        if (email.value == '') {
+            email.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            email.setAttribute("placeholder", "Remplir l'email !");
+            e.preventDefault();
+        }
+        if (tel.value == '') {
+            tel.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            tel.setAttribute("placeholder", "Remplir le téléphone !");
+            e.preventDefault();
+        }
+
+        if (!loger.checked && !nonBoursier.checked && !boursier.checked) {
+            alert('Choisir une catégorie (boursier, loger ou non boursier)!');
+            e.preventDefault();
+        }
+
+        if (ladresse.value == '') {
+            ladresse.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            ladresse.setAttribute("placeholder", "Remplir l'adresse !");
+            e.preventDefault();
+        }
+
+        if (lebatiment && lebatiment.selectedIndex == 0) {
+            lebatiment.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            e.preventDefault();
+        }
+
+    }
     typeBourse.style.display = 'none';
     batiment.style.display = 'none';
     adresse.style.display = 'none';
@@ -45,7 +109,6 @@ if (nom_page.includes("etudiants.php")) {
         adresse.style.display = 'none';
     }
 
-
     var choix;
 
     if (choix = document.getElementById('Statut Non Boursier')) {
@@ -56,40 +119,16 @@ if (nom_page.includes("etudiants.php")) {
         afficherPourLoge();
     }
 
-
-    //okk();
-
-    function okk() {
-        for (var i = 0; i < 11; i++) {
-            setTimeout(popUp(), 5000);
-            clearTimeout(500);
-        }
-    }
+    var i = 0;
+    var monPopUp = document.getElementById('popUp');
 
     function popUp() {
-        var monPopUp = document.getElementById('popUp');
-        //if (document.getElementById('popUp')) {
-        var valeur = window.getComputedStyle(monPopUp).top;
-        valeur = valeur.replace('px', '');
-        var valeur2 = parseInt(valeur) + 70;
-        monPopUp.style.top = valeur2 + 'px';
-        //}
+        i += 0.7;
+        monPopUp.style.top = `${i}px`;
+        if (window.getComputedStyle(monPopUp).top != '70px') requestAnimationFrame(popUp);
     }
-    if (document.getElementById('popUp')) window.onload = okk();
+    if (monPopUp) requestAnimationFrame(popUp);
+
 
 }
 ////////////----Fin Page étudidant----////////
-
-////////////----Début ----////////
-var nom_page = window.location.pathname;
-if (nom_page.includes("accueil.php") == false) {
-    function traduction() {
-        document.getElementById('example_filter').innerHTML = '<label>  <input type="search" class="form-control" placeholder="Rechercher" aria-controls="example"></label>';
-        document.getElementById('example_length').innerHTML = '<label class="form-control">Montrer <select name="example_length" aria-controls="example" data-dpmaxz-eid="8"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> </label>';
-        document.getElementById('example_info').innerHTML = '<div class="dataTables_info" id="example_info" role="status" aria-live="polite"></div>';
-        document.getElementById('example_previous').innerHTML = 'Précédant';
-        document.getElementById('example_next').innerHTML = 'Suivant';
-    }
-    window.onload = traduction;
-}
-////////////----Fin ----////////

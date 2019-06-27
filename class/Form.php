@@ -25,7 +25,6 @@ class Form{
     /**
      * @var string utiliser pour encader les input 
      */
-    protected $balise_encadrement='p';//la variable pour le nom de la balise d'encadrement
     /**
      * @param string $html code html
      * @return string le code html encadré
@@ -40,11 +39,7 @@ class Form{
      * @return string l'input du formulaire
      */
     public function input($type,$name='',$class='',$placeholder='',$value='',$id='',$recup=false,$onclick='',$require=false,$readOnly=false){
-        if($recup==false){
-            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'" value="'.$value.'" placeholder="'.$placeholder.'" onclick="'.$onclick.'"'; if($require==true){echo'required="'.$require.'" '; } if($readOnly==true){echo' readonly '; }echo'>';
-        }else{
-            echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'" placeholder="'.$placeholder.'" id="'.$id.'" value="'.$this->getValue($name).'"'; if($require==true){echo'require="'.$require.'"'; }echo'>';
-        }
+        echo '<input type="'.$type.'" class="'.$class.'" name="'.$name.'"  id="'.$id.'"'; if($recup==false){echo'value="'.$value.'"';} else{echo'value="'.$this->getValue($name).'"';} echo'placeholder="'.$placeholder.'" onclick="'.$onclick.'"'; if($require==true){echo'required="'.$require.'" '; } if($readOnly==true){echo' readonly '; }echo'>';
     }
     /**
      * @param string $name nom de l'input
@@ -52,8 +47,8 @@ class Form{
      * @param string $value le nom de l'input
      * @return string l'input du formulaire
      */
-    public function submit($name,$value,$class=''){
-        echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" >';
+    public function submit($name,$value,$class='',$id=''){
+        echo '<input type="submit" class="'.$class.'" name="'.$name.'" value="'.$value.'" id='.$id.'>';
     }
     public function select($tab_option,$name,$class,$select='',$disabled=false){
             echo '<select name="'.$name.'" class="'.$class.'"'; if($disabled==true){echo' disabled '; }echo'>';
@@ -80,10 +75,13 @@ class Form{
                     for($i=0;$i<count($donnees);$i++){
                         
                         echo'<tr class="">';
-                            foreach($donnees[$i] as $value){
+                            foreach($donnees[$i] as $key=> $value){
                                 if(Validation::verifierDate($value, $format = 'Y-m-d'))
                                     $value=Validation::dateFr($value);
-                                echo'<td class="">'.$value.'</td>';
+                                if($titres[0]=='Matricule' && $key=='Matricule')
+                                    echo'<td class="">SA-'.$value.'</td>';
+                                else
+                                    echo'<td class="">'.$value.'</td>';
                             }
                             
                             if($autres1!=[] && $autres1!=''){
