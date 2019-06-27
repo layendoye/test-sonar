@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Chambre','col-md-2 espace pourLabel')?> 
-                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Chambre_mod'])){ $form->input('number','chambre','form-control col-md-7 espace','Numéro chambre','','',false);?>
-                        <?php }elseif(isset($_GET['existe'])  && !isset($_GET['id_Chambre_mod'])){$form->input('number','chambre','form-control col-md-7 espace blcMoins',$_SESSION['donnees_ch']['chambre'].' existe déja dans ce batiment','','',false);?>
+                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Chambre_mod'])){ $form->input('number','chambre','form-control col-md-7 espace','Numéro chambre','','chambre',false);?>
+                        <?php }elseif(isset($_GET['existe'])  && !isset($_GET['id_Chambre_mod'])){$form->input('number','chambre','form-control col-md-7 espace blcMoins',$_SESSION['donnees_ch']['chambre'].' existe déja dans ce batiment','','chambre',false);?>
                         <?php }elseif(isset($_GET['id_Chambre_mod'])){
                             $_SESSION['id_Chambre']=$_GET['id_Chambre_mod'];
                             $form->input('number','chambre','form-control col-md-7 espace','Numéro chambre',EtudiantService::find('Chambres','Numero_Ch','id_Chambre',$_GET['id_Chambre_mod'])[0]->Numero_Ch,'',false);}?>
@@ -28,8 +28,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        
-                        <?php if(isset($_GET['id_Chambre_mod']) || isset($_GET['mod'])) $form->submit('valider_modif_ch','Modifier','form-control col-md-5 espace mb');
-                        else $form->submit('valider_ajout_ch','Ajouter','form-control col-md-5 espace mb');?>
+                        <?php if(isset($_GET['id_Chambre_mod']) || isset($_GET['mod'])) $form->submit('valider_modif_ch','Modifier','form-control col-md-5 espace mb','subm');
+                        else $form->submit('valider_ajout_ch','Ajouter','form-control col-md-5 espace mb','subm');?>
                     </div>
                     
                 </form>

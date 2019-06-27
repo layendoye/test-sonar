@@ -131,10 +131,10 @@
                         
                         <?php /////////////////--------------------Début submit------------------///////////////////////////?>
                             <div class="row">
-                                <div class="col-md-3"></div>                        
-                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Enregistrer','form-control col-md-3 espace mb bvalider','subm');?>
-                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-3 espace mb bvalider','subm');?>
-                                <?php $form->submit('AnnulerEtu','Annuler','form-control col-md-3 espace mb annuler','');?>
+                                <div class="col-md-4"></div>                        
+                                <?php if(!isset($_GET['matricule_modif']) ) {$form->submit('valider_ajout_etudiant','Ajouter','form-control col-md-5 espace mb','subm');?>
+                                <?php }else $form->submit('valider_modif_etudiant','Modifier','form-control col-md-5 espace mb bvalider','subm');?>
+                                <?php //$form->submit('AnnulerEtu','Annuler','form-control col-md-3 espace mb annuler','');?>
                             </div>
                         <?php /////////////////--------------------Fin submit------------------///////////////////////////?>
 
@@ -206,8 +206,8 @@
                     <?php }?>
                     
                     <div class="ligne bout">
-                        <p class="left"><a href="etudiants.php?title=Etudiants"><button class="form-control btn btn-outline-primary">Valider</button></a></p>
-                        <p class='left'><a <?php echo 'href="etudiants.php?title=Etudiants&matricule_modif='.$_GET['popUp'].'&Statut_et='.Affichage::statut_etu($_GET['popUp']).'"';?>><button class="form-control btn btn-outline-primary">Modifier</button></a></p>
+                        <p class="left"><a href="etudiants.php?title=Etudiants"class="nonSoulign"><button class="form-control">Valider</button></a></p>
+                        <p class='left'><a class="nonSoulign"<?php echo 'href="etudiants.php?title=Etudiants&matricule_modif='.$_GET['popUp'].'&Statut_et='.Affichage::statut_etu($_GET['popUp']).'"';?>><button class="form-control">Modifier</button></a></p>
                     </div>
                 </div>
             <?php }?>

@@ -10,18 +10,19 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <?php $form->label('','Nom','col-md-2 espace pourLabel')?> 
-                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Batiment_mod'])){ $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment','','',false);?>
-                        <?php }elseif(!isset($_GET['id_Batiment_mod'])){$form->input('text','batiment','form-control col-md-7 espace blcMoins',$_SESSION['donnees_bat']['batiment'].' existe déja','','',false);
+                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Batiment_mod'])){ $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment','','batiment',false);?>
+                        <?php }elseif(!isset($_GET['id_Batiment_mod'])){$form->input('text','batiment','form-control col-md-7 espace blcMoins',$_SESSION['donnees_bat']['batiment'].' existe déja','','batiment',false);
                         }elseif(isset($_GET['id_Batiment_mod'])){
                             $_SESSION['id_Batiment_mod']=$_GET['id_Batiment_mod'];
-                            $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment',EtudiantService::find('Batiment','Nom_bat','id_Batiment',$_GET['id_Batiment_mod'])[0]->Nom_bat,'',false);;}?>
+                            $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment',EtudiantService::find('Batiment','Nom_bat','id_Batiment',$_GET['id_Batiment_mod'])[0]->Nom_bat,'batiment',false);;}?>
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        
-                        <?php if(!isset($_GET['id_Batiment_mod'])) $form->submit('valider_ajout_batiment','Ajouter','form-control col-md-5 espace mb');
+                        <?php if(!isset($_GET['id_Batiment_mod'])) $form->submit('valider_ajout_batiment','Ajouter','form-control col-md-5 espace mb','subm');
                                 else {
-                                    $form->submit('valider_modif_batiment','Modifier','form-control col-md-5 espace mb');
-                                    $_SESSION['id_Batiment_mod']=$_GET['id_Batiment_mod'];}?>
+                                    $form->submit('valider_modif_batiment','Modifier','form-control col-md-5 espace mb','subm');
+                                    $_SESSION['id_Batiment_mod']=$_GET['id_Batiment_mod'];
+                                }?>
                     </div>
                 </form>
             </div>
@@ -42,9 +43,6 @@
             $nomb_et=Affichage::nmbr_etudiant_Bat($batiment);
             
             $form->tableau($titres,$numero,'display nowrap',$Nom_batiment,$nomb_Ch,$nomb_et,$lister,$mod,$sup);
-
-            
-            //Affichage::tableau_bat($titres,$batiment,'display nowrap',$mod,$sup);
             ?>
         </div>
         <!-- Fin tableau -->

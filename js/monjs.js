@@ -1,9 +1,30 @@
 ///////////////-----------Début DataTable-------------////
 $(document).ready(function() {
-    $('#example').DataTable({
-        "scrollX": true
+    var table = $('#example').DataTable();
+    $('#example tbody').on('mouseenter', 'td', function() {
+        var colIdx = table.cell(this).index().column;
+        $(table.cells().nodes()).removeClass('highlight');
+        $(table.column(colIdx).nodes()).addClass('highlight');
     });
 });
+$('#example').DataTable({
+    language: {
+        processing: "Traitement en cours...",
+        search: "Rechercher&nbsp;:",
+        lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+        info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+        infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+        infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+        infoPostFix: "",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+        emptyTable: "Aucune donnée disponible dans le tableau",
+        paginate: { first: "Premier", previous: "Pr&eacute;c&eacute;dent", next: "Suivant", last: "Dernier" },
+        aria: { sortAscending: ": activer pour trier la colonne par ordre croissant", sortDescending: ": activer pour trier la colonne par ordre décroissant" }
+    }
+});
+
+
 ///////////////-----------Fin DataTable-------------////
 
 ////////////----Début Page étudidant----////////
@@ -132,8 +153,65 @@ if (nom_page.includes("etudiants.php")) {
 }
 ////////////----Fin Page étudidant----////////
 
-////////////----Début Page étudidant----////////
+////////////----Début Page bourses----////////
 var nom_page = window.location.pathname;
 if (nom_page.includes("bourses.php")) {
+    var libelle = document.getElementById('Libelle');
+    var montant = document.getElementById('Montant');
+    var sendForm = document.getElementById('subm');
+    sendForm.addEventListener('click', validation);
 
+    function validation(e) {
+        libelle.style.backgroundColor = '#fff';
+        montant.style.backgroundColor = '#fff';
+
+        if (libelle.value == '') {
+            libelle.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            libelle.setAttribute("placeholder", "Remplir le libellé !");
+            e.preventDefault();
+        }
+        if (montant.value == '') {
+            montant.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            montant.setAttribute("placeholder", "Remplir le montant !");
+            e.preventDefault();
+        }
+
+    }
 }
+////////////----Fin Page bourses----////////
+////////////----Début Page chambres----////////
+var nom_page = window.location.pathname;
+if (nom_page.includes("chambres.php")) {
+    var chambre = document.getElementById('chambre');
+    var sendForm = document.getElementById('subm');
+    sendForm.addEventListener('click', validation);
+
+    function validation(e) {
+        chambre.style.backgroundColor = '#fff';
+
+        if (chambre.value == '') {
+            chambre.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            chambre.setAttribute("placeholder", "Remplir le nom de la chambre !");
+            e.preventDefault();
+        }
+    }
+}
+////////////----Fin Page chambres----////////
+////////////----Début Page chambres----////////
+var nom_page = window.location.pathname;
+if (nom_page.includes("batiments.php")) {
+    var batiment = document.getElementById('batiment');
+    var sendForm = document.getElementById('subm');
+    sendForm.addEventListener('click', validation);
+
+    function validation(e) {
+        batiment.style.backgroundColor = '#fff';
+
+        if (batiment.value == '') {
+            batiment.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            batiment.setAttribute("placeholder", "Remplir le nom de la chambre !");
+            e.preventDefault();
+        }
+    }
+}
+////////////----Fin Page chambres----////////

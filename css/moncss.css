@@ -233,14 +233,6 @@ div.dataTables_wrapper {
     color: #ffffffb5 !important;
 }
 
-.bvalider {
-    margin-left: 3%;
-}
-
-.annuler {
-    margin-left: 2%;
-}
-
 .nonSoulign {
     text-decoration: none !important;
 }
@@ -255,4 +247,8 @@ div.dataTables_wrapper {
 
 .deco {
     margin-left: 33% !important;
+}
+
+td.highlight {
+    background-color: whitesmoke !important;
 }
