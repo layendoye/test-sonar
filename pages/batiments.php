@@ -6,15 +6,23 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 MonForm">
-                <form action="traitement.php" method="POST"> <?php if(isset($_GET['existe'])) $form=new Form($_SESSION['donnees_bat']); else $form=new Form();?>
+                <form action="traitement.php" method="POST"> 
+                    <?php if(isset($_GET['existe'])) $form=new Form($_SESSION['donnees_bat']); else $form=new Form();?>
                     <div class="row">
                         <div class="col-md-1"></div>
-                        <?php $form->label('','Nom','col-md-2 espace pourLabel')?> 
-                        <?php if(!isset($_GET['existe']) && !isset($_GET['id_Batiment_mod'])){ $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment','','batiment',false);?>
-                        <?php }elseif(!isset($_GET['id_Batiment_mod'])){$form->input('text','batiment','form-control col-md-7 espace blcMoins',$_SESSION['donnees_bat']['batiment'].' existe déja','','batiment',false);
-                        }elseif(isset($_GET['id_Batiment_mod'])){
-                            $_SESSION['id_Batiment_mod']=$_GET['id_Batiment_mod'];
-                            $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment',EtudiantService::find('Batiment','Nom_bat','id_Batiment',$_GET['id_Batiment_mod'])[0]->Nom_bat,'batiment',false);;}?>
+                        <?php 
+                            $form->label('','Nom','col-md-2 espace pourLabel');
+                            if(!isset($_GET['existe']) && !isset($_GET['id_Batiment_mod'])){
+                                $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment','','batiment',false);
+                            }
+                            elseif(!isset($_GET['id_Batiment_mod'])){
+                                $form->input('text','batiment','form-control col-md-7 espace blcMoins',$_SESSION['donnees_bat']['batiment'].' existe déja','','batiment',false);
+                            }
+                            elseif(isset($_GET['id_Batiment_mod'])){
+                                $_SESSION['id_Batiment_mod']=$_GET['id_Batiment_mod'];
+                                $form->input('text','batiment','form-control col-md-7 espace','Nom du batiment',EtudiantService::find('Batiment','Nom_bat','id_Batiment',$_GET['id_Batiment_mod'])[0]->Nom_bat,'batiment',false);
+                            }
+                        ?>
                     </div>
                     <div class="row">
                         <div class="col-md-4"></div>                        

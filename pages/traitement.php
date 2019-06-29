@@ -4,10 +4,12 @@ require("../class/Autoloader.php");
 Autoloader::register();
 Bdd::connexion('Universite');
     try{
+        
         if(isset($_POST['choix']) && $_POST['choix']=='Loger' && $_POST['Batiment']!='' && !isset($_POST['valider_ajout_etudiant']) && !isset($_POST['valider_modif_etudiant'])){
             $_SESSION['donnees_etudiants']=$_POST;
             if(isset($_SESSION['modif_actuel'])) header('location: etudiants.php?title=Etudiants&ChoiCh=true&'.$_SESSION['modif_actuel'].'&Statut_et=Loger');
             else header("location: etudiants.php?title=Etudiants&ChoiCh=true");
+            
         }
         if(isset($_POST['valider_ajout_etudiant']) || isset($_POST['AnnulerEtu'])){
             if(isset($_POST['AnnulerEtu'])) {header("location: etudiants.php?title=Etudiants&annuler=true"); die();}

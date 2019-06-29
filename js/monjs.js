@@ -72,6 +72,13 @@ if (nom_page.includes("etudiants.php")) {
             alert('Remplir la date de naissance !');
             e.preventDefault();
         }
+        var auj = new Date();
+        var date_naiss = new Date(naissance.value);
+        if (date_naiss > auj) {
+            naissance.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+            alert('Revoir la date de naissance !');
+            e.preventDefault();
+        }
         if (email.value == '') {
             email.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
             email.setAttribute("placeholder", "Remplir l'email !");
