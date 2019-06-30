@@ -74,6 +74,7 @@ if (nom_page.includes("etudiants.php")) {
         }
         var auj = new Date();
         var date_naiss = new Date(naissance.value);
+        var c = (auj - date_naiss) / (60 * 60 * 24 * 1000);
         if (date_naiss > auj) {
             naissance.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
             alert('Revoir la date de naissance !');

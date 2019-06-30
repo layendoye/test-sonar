@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_GET['title'])) require("class/Autoloader.php"); else require("../class/Autoloader.php");
 Autoloader::register();
-Bdd::connexion('Universite');
+Bdd::connexion('Universite','localhost','root','101419');
 
 ?>
 <!DOCTYPE html>
