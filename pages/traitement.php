@@ -114,7 +114,9 @@ Bdd::connexion('Universite');
             if(EtudiantService::find('Chambres','id_Chambre','Numero_Ch',$_POST['chambre']."') AND UPPER(id_Batiment) = UPPER('$id_bat")!=null) $existe=true;//Modification de la fonction find (addaptation)
             if($existe==false){
                 $id_bat=EtudiantService::find('Batiment','id_Batiment','Nom_bat',$_POST['Batiment'])[0]->id_Batiment;
-                EtudiantService::addTable('Chambres',$_POST['chambre'],$id_bat,'Numero_Ch','id_Batiment');
+                $batiment=new Batiment($id_bat,'');
+                $chambre=new Chambres($_POST['chambre'],$batiment);
+                EtudiantService::addCh($chambre);
                 header("location: chambres.php?title=Chambres");
             }
             else{
@@ -154,10 +156,8 @@ Bdd::connexion('Universite');
             $existe=false;
             if(EtudiantService::find('Batiment','Nom_bat','Nom_bat',$_POST['batiment'])!=null) $existe=true;
             if($existe==false){
-                $valeur=Validation::securisation($_POST['batiment']);
-                $requete = (Bdd::getPDO())->prepare( "INSERT INTO `Batiment` (Nom_bat) VALUES(:Nom_bat)");
-                $requete->bindParam(":Nom_bat", $valeur);
-                $requete->execute();
+                $batiment=new Batiment('',$_POST['batiment']);
+                EtudiantService::addBat($batiment);
                 header("location: batiments.php?title=Batiments");
             }
             else{

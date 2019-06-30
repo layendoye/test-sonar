@@ -1,32 +1,5 @@
 <?php
 class EtudiantService {
-    
-    public static function addTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
-       
-        $valeur1=Validation::securisation($valeur1);
-        $valeur2=Validation::securisation($valeur2);
-        if($table=='Boursiers') //on recupere l'id
-            $valeur2=self::findId_Categorie_Bourse($valeur2);
-        
-        $codemysql = "INSERT INTO `$table` ($Nomcol_valeur1,$Nomcol_valeur2)
-                           VALUES(:$Nomcol_valeur1,:$Nomcol_valeur2)"; //le code mysql
-        
-        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
-        $requete->bindParam(":$Nomcol_valeur1", $valeur1);
-        $requete->bindParam(":$Nomcol_valeur2", $valeur2);
-        $requete->execute(); //excecute la requete qui a été preparé
-    }
-    public static function updateTable($table,$valeur1='',$valeur2='',$Nomcol_valeur1='',$Nomcol_valeur2='',$colonne='0',$valeur='0'){
-        $valeur1=Validation::securisation($valeur1);
-        $valeur2=Validation::securisation($valeur2);
-        if($table=='Boursiers') //on recupere l'id
-            $valeur2=self::findId_Categorie_Bourse($valeur2);
-        
-        if($valeur1!='') $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1' WHERE UPPER($colonne) = UPPER('$valeur')"; //le code mysql
-        else $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2' WHERE UPPER($colonne) = UPPER('$valeur')";
-        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
-        $requete->execute(); //excecute la requete qui a été preparé
-    }
     public static function add(Etudiants $etudiant){
         $donnee_etudiants=self::find('Etudiants');
         if(count($donnee_etudiants)>0){
@@ -68,8 +41,6 @@ class EtudiantService {
         self::addTable('Categorie_Bourse',$bourse->getLibelle(),$bourse->getMontant(),'Libelle','Montant');
     }
     public static function update(Etudiants $etudiant){
-        $donnee_etudiants=self::find('Etudiants');
-
         $matricule=Validation::securisation($etudiant->getMatricule());
         $nom=Validation::securisation($etudiant->getNom());
         $prenom=Validation::securisation($etudiant->getPrenom());
@@ -111,6 +82,45 @@ class EtudiantService {
             else 
                 self::addTable('Non_Boursiers',$matricule,$etudiant->getAdresse(),'Matricule','Adresse');
         }
+    }
+    public static function addCh(Chambres $chambre){
+        $id_bat=$chambre->getId_bat();
+        $numero=$chambre-> getNumero();
+        self::addTable('Chambres',$numero,$id_bat,'Numero_Ch','id_Batiment');
+    }
+    public static function addBat(Batiment $batiment){
+        $valeur=Validation::securisation($batiment->getNomBatiment());
+        $requete = (Bdd::getPDO())->prepare( "INSERT INTO `Batiment` (Nom_bat) VALUES(:Nom_bat)");
+        $requete->bindParam(":Nom_bat", $valeur);
+        $requete->execute();
+    }
+
+
+    public static function addTable($table,$valeur1,$valeur2,$Nomcol_valeur1,$Nomcol_valeur2){
+       
+        $valeur1=Validation::securisation($valeur1);
+        $valeur2=Validation::securisation($valeur2);
+        if($table=='Boursiers') //on recupere l'id
+            $valeur2=self::findId_Categorie_Bourse($valeur2);
+        
+        $codemysql = "INSERT INTO `$table` ($Nomcol_valeur1,$Nomcol_valeur2)
+                           VALUES(:$Nomcol_valeur1,:$Nomcol_valeur2)"; //le code mysql
+        
+        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
+        $requete->bindParam(":$Nomcol_valeur1", $valeur1);
+        $requete->bindParam(":$Nomcol_valeur2", $valeur2);
+        $requete->execute(); //excecute la requete qui a été preparé
+    }
+    public static function updateTable($table,$valeur1='',$valeur2='',$Nomcol_valeur1='',$Nomcol_valeur2='',$colonne='0',$valeur='0'){
+        $valeur1=Validation::securisation($valeur1);
+        $valeur2=Validation::securisation($valeur2);
+        if($table=='Boursiers') //on recupere l'id
+            $valeur2=self::findId_Categorie_Bourse($valeur2);
+        
+        if($valeur1!='') $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2', $Nomcol_valeur1='$valeur1' WHERE UPPER($colonne) = UPPER('$valeur')"; //le code mysql
+        else $codemysql = "UPDATE `$table`  SET $Nomcol_valeur2='$valeur2' WHERE UPPER($colonne) = UPPER('$valeur')";
+        $requete = (Bdd::getPDO())->prepare($codemysql);//on recupere le PDO 
+        $requete->execute(); //excecute la requete qui a été preparé
     }
     public static function delete($table,$colonne='0',$valeur='0'){
         $codesql="DELETE FROM $table WHERE UPPER($colonne) = UPPER('$valeur')";
@@ -199,4 +209,5 @@ class EtudiantService {
         }
         return $donnees;
     }
+    
 }
