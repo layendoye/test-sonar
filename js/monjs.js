@@ -101,7 +101,7 @@ if (nom_page.includes("etudiants.php")) {
             e.preventDefault();
         }
 
-        if (lebatiment && lebatiment.selectedIndex == 0) {
+        if (loger.checked && lebatiment && lebatiment.selectedIndex == 0) {
             lebatiment.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
             e.preventDefault();
         }

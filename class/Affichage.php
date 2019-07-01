@@ -130,13 +130,5 @@
                 $tab[]=self::statut_etu($donnees[$i]->Matricule);
             }
             return $tab;
-        }
-        
-
-
-
-
-
-
-        
+        }        
     }
