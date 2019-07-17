@@ -5,7 +5,6 @@
         private static $serveur;
         private static $Monlogin;
         private static $Monpass;
-        private static $connexion;
 
         public static function connexion($nom_bdd,$serveur = "localhost",$Monlogin = "root",$Monpass = "101419"){//comme ca les 3 autres elements seront facultatives
             self::$nom_bdd=$nom_bdd;

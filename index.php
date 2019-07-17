@@ -1,7 +1,8 @@
 <?php require("pages/haut_de_page.php")?>
 <?php $_SESSION['valider']=false?>
 <?php $validation=''?>
-<? if(!isset($_SESSION['log_mdp'])) $_SESSION['log_mdp']=[];?>   
+<? if(!isset($_SESSION['log_mdp'])) $_SESSION['log_mdp']=[]; 
+die($_SESSION['log_mdp']);?>   
 <body>
     <nav class="container nav nav-pills nav-fill fixed-top">
         <a class="nav-link active nav-item navindex" href="#">Authentification</a>

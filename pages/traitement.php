@@ -2,7 +2,7 @@
 session_start();
 require("../class/Autoloader.php");
 Autoloader::register();
-Bdd::connexion('Universite');
+Bdd::connexion('Universite','localhost','root','101419');
     try{
         if(isset($_POST['choix']) && $_POST['choix']=='Loger' && $_POST['Batiment']!='' && !isset($_POST['valider_ajout_etudiant']) && !isset($_POST['valider_modif_etudiant'])){
             $_SESSION['donnees_etudiants']=$_POST;
